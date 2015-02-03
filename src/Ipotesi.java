@@ -6,7 +6,7 @@ public class Ipotesi {
     Messaggio messaggio;
     
     public Ipotesi(Messaggio m){
-        //id++;
+        id++;
         messaggio = m;
     }
     
