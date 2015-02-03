@@ -1,3 +1,5 @@
+package MainSystem;
+
 
 import Elements.*;
 import java.util.Enumeration;
@@ -13,6 +15,7 @@ public class AlberoIpotesi {
         alberoIpotesi = new JTree(tmp);
     }
     
+    /* Classe interna */
     private class NodoIpotesi implements TreeNode{
         
         private final Ipotesi ip;

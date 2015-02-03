@@ -1,3 +1,5 @@
+package MainSystem;
+
 import Studente;
 
 public class Mappatura {

@@ -1,5 +1,6 @@
 package calcolatori;
 
+import MainSystem.Mappatura;
 import Mappatura;
 
 public interface CalcolatoreMappe {
