@@ -8,7 +8,8 @@ public class AlberoIpotesi {
     private final JTree alberoIpotesi;
     
     public AlberoIpotesi(Messaggio cifrato){
-        TreeNode root = new Ipotesi(cifrato);
+        Ipotesi tmp = new Ipotesi(cifrato);
+        
         alberoIpotesi = new JTree(tmp);
     }
 }
