@@ -9,7 +9,7 @@ public class Studente {
   public String login;
   public String pwd;
 
-  public Studente(login, pwd){
+  public Studente(String login, String pwd){
     this.login = login;
     this.pwd = pwd;
     // id++;

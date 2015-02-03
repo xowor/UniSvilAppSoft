@@ -1,4 +1,5 @@
-import Studente;
+
+import javax.management.Query;
 
 public class DBManager {
 
@@ -7,7 +8,7 @@ public class DBManager {
 
   }
 
-  public QueryResult execute(Query q){
-
+  public Query execute(Query q){
+      return null;
   }
 }
