@@ -25,19 +25,18 @@ public class Messaggio {
   public String getTesto(){
     return this.testo;
   }
+  
   public String getTestoCifrato(){
     return this.testoCifrato;
   }
 
-
   public void setTesto(String testo){
     this.testo = testo;
   }
+  
   public void setTestoCifrato(String testoCifrato){
-    this.testoCifrato =testoCifrato ;
+    this.testoCifrato = testoCifrato ;
   }
-
-
 
   public Messaggio load(String id){
 
