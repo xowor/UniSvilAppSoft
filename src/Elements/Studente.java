@@ -47,4 +47,8 @@ public class Studente {
   public void setPwd(String pwd){
     this.pwd = pwd;
   }
+  
+  public String toString(){
+      return this.nome;
+  }
 }
