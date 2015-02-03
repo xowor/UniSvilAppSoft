@@ -1,7 +1,7 @@
 package Elements;
 
-import Elements.Studente;
-import Studente;
+import java.util.List;
+import javax.management.Query;
 
 public class Messaggio {
   public String id;
@@ -17,7 +17,7 @@ public class Messaggio {
   public String descdest;
 
 
-  public Messaggio(QueryResult info){
+  public Messaggio(Query info){
 
   }
 
@@ -39,28 +39,32 @@ public class Messaggio {
   }
 
   public Messaggio load(String id){
-
+      return null;
   }
 
   public List<Messaggio> caricaBozze(Studente stud){
-
+      
+      return null;
   }
 
   public List<Messaggio> caricaInviati(Studente stud){
-
+      
+      return null;
   }
 
   public List<Messaggio> caricaRicevuti(Studente stud){
-
+      
+      return null;
   }
 
   public boolean elimina(){
-
+      
+      return false;
   }
 
 
   public boolean salva(){
-
+      return false;
   }
 
 
