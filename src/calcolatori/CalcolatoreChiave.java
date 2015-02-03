@@ -1,3 +1,4 @@
+import calcolatori.CalcolatoreMappe;
 import Mappatura;
 
 public class CalcolatoreChiave implements CalcolatoreMappe {
