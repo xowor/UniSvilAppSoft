@@ -1,3 +1,6 @@
+package Elements;
+
+import Elements.Studente;
 import Studente;
 
 public class Messaggio {

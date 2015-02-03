@@ -1,3 +1,5 @@
+package calcolatori;
+
 import Mappatura;
 
 public interface CalcolatoreMappe {
