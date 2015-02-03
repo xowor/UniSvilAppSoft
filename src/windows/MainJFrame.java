@@ -1,4 +1,5 @@
 package windows;
+import Elements.*;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -32,7 +33,7 @@ public class MainJFrame extends javax.swing.JFrame {
         mainJPanel = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox();
+        studentiJComboBox = new javax.swing.JComboBox();
         jSplitPane1 = new javax.swing.JSplitPane();
         IpotesiJPanel = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
@@ -70,10 +71,10 @@ public class MainJFrame extends javax.swing.JFrame {
 
         jLabel1.setText("Studente");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Utente 1", "Utente 2" }));
-        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+        studentiJComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Utente 1", "Utente 2" }));
+        studentiJComboBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBox1ActionPerformed(evt);
+                studentiJComboBoxActionPerformed(evt);
             }
         });
 
@@ -85,14 +86,14 @@ public class MainJFrame extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(studentiJComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(0, 0, 0))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                 .addComponent(jLabel1)
-                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(studentiJComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         IpotesiJPanel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -135,10 +136,7 @@ public class MainJFrame extends javax.swing.JFrame {
                 .addComponent(aggiungiIpotesiJButton, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(IpotesiJPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1)
-                .addContainerGap())
+            .addComponent(jScrollPane1)
         );
         IpotesiJPanelLayout.setVerticalGroup(
             IpotesiJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -147,9 +145,8 @@ public class MainJFrame extends javax.swing.JFrame {
                     .addComponent(jLabel2)
                     .addComponent(aggiungiIpotesiJButton)
                     .addComponent(jButton2))
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 365, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 428, Short.MAX_VALUE))
         );
 
         jSplitPane1.setLeftComponent(IpotesiJPanel);
@@ -269,7 +266,7 @@ public class MainJFrame extends javax.swing.JFrame {
             .addGroup(mainJPanelLayout.createSequentialGroup()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jSplitPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 465, Short.MAX_VALUE))
+                .addComponent(jSplitPane1))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -294,9 +291,9 @@ public class MainJFrame extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+    private void studentiJComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_studentiJComboBoxActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jComboBox1ActionPerformed
+    }//GEN-LAST:event_studentiJComboBoxActionPerformed
 
     private void aggiungiIpotesiJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aggiungiIpotesiJButtonActionPerformed
         windows.AggiungiIpotesiJFrame frame = new windows.AggiungiIpotesiJFrame();
@@ -344,6 +341,10 @@ public class MainJFrame extends javax.swing.JFrame {
             public void run() {
                 MainJFrame frame = new MainJFrame();
                 frame.setVisible(true);
+                
+                // TEMP
+                Studente studente = new Studente("mario", "rossi");
+                frame.studentiJComboBox.addItem(studente);
             }
         });
     }
@@ -354,7 +355,6 @@ public class MainJFrame extends javax.swing.JFrame {
     private javax.swing.JButton aggiungiIpotesiJButton;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
-    private javax.swing.JComboBox jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -373,5 +373,6 @@ public class MainJFrame extends javax.swing.JFrame {
     private javax.swing.JTextPane jTextPane3;
     private javax.swing.JTree jTree1;
     private javax.swing.JPanel mainJPanel;
+    private javax.swing.JComboBox studentiJComboBox;
     // End of variables declaration//GEN-END:variables
 }
