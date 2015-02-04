@@ -11,11 +11,11 @@ public class Proposta {
     public String testoCifrato;
 
     public Proposta(SistemaDiCifratura sisC){
-        sistema= sisC;
+        sistema = sisC;
     }
 
     public void setId(int idp){
-        id=idp;
+        id = idp;
     }
     public void accetta(){
         accettata = "approvata";
