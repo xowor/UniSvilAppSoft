@@ -306,7 +306,7 @@ public class MainJFrame extends javax.swing.JFrame {
     }
     
     private void aggiungiIpotesiJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aggiungiIpotesiJButtonActionPerformed
-        Ipotesi ipotesi = new Ipotesi(new Messaggio("Lorem ipsum"));
+        Ipotesi ipotesi = new Ipotesi(new Messaggio("Lorem ipsum"), 0);
         windows.AggiungiIpotesiJFrame frame = new windows.AggiungiIpotesiJFrame(ipotesi);
         frame.addWindowListener(new WindowAdapter() {
             @Override

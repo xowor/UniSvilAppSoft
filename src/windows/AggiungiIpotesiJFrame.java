@@ -45,6 +45,8 @@ public class AggiungiIpotesiJFrame extends javax.swing.JDialog {
         sostituisciConJTextField = new javax.swing.JTextField();
         annullaJButton = new javax.swing.JButton();
         confermaJButton = new javax.swing.JButton();
+        mostraAnalisiFrequenzeJButton = new javax.swing.JButton();
+        mostraDizionarioJButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -87,6 +89,20 @@ public class AggiungiIpotesiJFrame extends javax.swing.JDialog {
             }
         });
 
+        mostraAnalisiFrequenzeJButton.setText("Analisi delle frequenze");
+        mostraAnalisiFrequenzeJButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mostraAnalisiFrequenzeJButtonActionPerformed(evt);
+            }
+        });
+
+        mostraDizionarioJButton1.setText("Dizionario");
+        mostraDizionarioJButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mostraDizionarioJButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -105,7 +121,11 @@ public class AggiungiIpotesiJFrame extends javax.swing.JDialog {
                         .addComponent(sostituisciConJTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(0, 256, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(11, 11, 11)
+                .addComponent(mostraDizionarioJButton1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(mostraAnalisiFrequenzeJButton)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(confermaJButton)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(annullaJButton)
@@ -126,7 +146,9 @@ public class AggiungiIpotesiJFrame extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(annullaJButton)
-                    .addComponent(confermaJButton))
+                    .addComponent(confermaJButton)
+                    .addComponent(mostraAnalisiFrequenzeJButton)
+                    .addComponent(mostraDizionarioJButton1))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -165,6 +187,18 @@ public class AggiungiIpotesiJFrame extends javax.swing.JDialog {
         this.ipotesi.setSostituisciCon(sostituisciConJTextField.getText());
         this.dispose();
     }//GEN-LAST:event_confermaJButtonActionPerformed
+
+    private void mostraAnalisiFrequenzeJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mostraAnalisiFrequenzeJButtonActionPerformed
+        // TODO add your handling code here:
+        AnalisiFrequenzeJFrame frame = new AnalisiFrequenzeJFrame();
+        frame.setVisible(true);
+    }//GEN-LAST:event_mostraAnalisiFrequenzeJButtonActionPerformed
+
+    private void mostraDizionarioJButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mostraDizionarioJButton1ActionPerformed
+        // TODO add your handling code here:
+        DizionarioJFrame frame = new DizionarioJFrame();
+        frame.setVisible(true);
+    }//GEN-LAST:event_mostraDizionarioJButton1ActionPerformed
 
     public Ipotesi getIpotesi(){
         return this.ipotesi;
@@ -213,6 +247,8 @@ public class AggiungiIpotesiJFrame extends javax.swing.JDialog {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTextArea messaggioJTextArea;
+    private javax.swing.JButton mostraAnalisiFrequenzeJButton;
+    private javax.swing.JButton mostraDizionarioJButton1;
     private javax.swing.JTextField sostituisciConJTextField;
     private javax.swing.JTextField sostituisciJTextField;
     // End of variables declaration//GEN-END:variables

@@ -58,6 +58,10 @@
                   <EmptySpace min="0" pref="256" max="32767" attributes="0"/>
               </Group>
               <Group type="102" alignment="1" attributes="0">
+                  <EmptySpace min="-2" pref="11" max="-2" attributes="0"/>
+                  <Component id="mostraDizionarioJButton1" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="mostraAnalisiFrequenzeJButton" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="32767" attributes="0"/>
                   <Component id="confermaJButton" min="-2" max="-2" attributes="0"/>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
@@ -83,6 +87,8 @@
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="annullaJButton" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="confermaJButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="mostraAnalisiFrequenzeJButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="mostraDizionarioJButton1" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="32767" attributes="0"/>
               </Group>
@@ -151,6 +157,22 @@
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="confermaJButtonActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JButton" name="mostraAnalisiFrequenzeJButton">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Analisi delle frequenze"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mostraAnalisiFrequenzeJButtonActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JButton" name="mostraDizionarioJButton1">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Dizionario"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mostraDizionarioJButton1ActionPerformed"/>
           </Events>
         </Component>
       </SubComponents>
