@@ -2,14 +2,18 @@ package Elements;
 
 public class Alfabeto {
     private final String locale;
-    private String[] elements;
+    private String[] lettere;
     
     public Alfabeto(String alphabet, String[] letters){
         this.locale = alphabet;
-        this.elements = letters;        
+        this.lettere = letters;        
     }
     
-    public String[] getCodice(){
-        return this.elements;
+    public String getCodice(){
+        return this.locale;
+    }
+    
+    public String[] getLettere(){
+        return this.lettere;
     }
 }
