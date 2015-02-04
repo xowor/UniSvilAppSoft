@@ -1,4 +1,4 @@
-package calcolatori;
+package SistemaCifratura;
 import MainSystem.*;
 
 public class CalcolatoreCesare implements CalcolatoreMappe {
@@ -22,19 +22,19 @@ public class CalcolatoreCesare implements CalcolatoreMappe {
         return out;
     }
 
-public static Mappatura cifraCesare( String chiave){
+public static Mappatura cifraCesare(String chiave){
         int key = Integer.parseInt(chiave);
         String out = "abcdefghijklmnopqrstuvwxyz";
-        if(key>27){
-            key=key%27;
+        if(key > 27){
+            key = key%27;
         }
         if(key>0){
-            for(int i =0;i<out.length();i++){
+            for(int i =0; i < out.length(); i++){
                 char tmp = out.charAt(i);
                 char sos = ' ';
-                for(int j = 0; j< 26;j++){
-                    if(tmp==alphabet[j]){
-                        if(j-key<0){
+                for(int j = 0; j < 26; j++){
+                    if(tmp == alphabet[j]){
+                        if(j-key < 0){
                             sos = alphabet[j-key+26];
                         }
                         else{
@@ -51,16 +51,16 @@ public static Mappatura cifraCesare( String chiave){
 
     public static String decifraCesare(int key, String message){
         String out = message;
-        if(key>27){
-            key=key%27;
+        if(key > 27){
+            key = key%27;
         }
-        if(key>0){
-            for(int i =0;i<out.length();i++){
+        if(key > 0){
+            for(int i=0; i < out.length(); i++){
                 char tmp = out.charAt(i);
                 char sos = ' ';
-                for(int j = 0; j< 26;j++){
-                    if(tmp==alphabet[j]){
-                        if(j-key<0){
+                for(int j = 0; j < 26; j++){
+                    if(tmp == alphabet[j]){
+                        if(j-key < 0){
                             sos = alphabet[j-key+26];
                         }
                         else{

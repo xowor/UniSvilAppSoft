@@ -1,4 +1,4 @@
-package calcolatori;
+package SistemaCifratura;
 import MainSystem.*;
 
 public class CalcolatorePseudo implements CalcolatoreMappe {
