@@ -1,4 +1,5 @@
 package windows;
+import MainSystem.DBManager;
 import Elements.*;
 import MainSystem.Ipotesi;
 import MainSystem.Sostituzione;
@@ -364,6 +365,9 @@ public class MainJFrame extends javax.swing.JFrame {
             public void run() {
                 MainJFrame frame = new MainJFrame();
                 frame.setVisible(true);
+                
+                DBManager manager = new DBManager();
+                manager.inizializza();
                 
                 // TEMP
                 Studente studente = new Studente("mario", "rossi");
