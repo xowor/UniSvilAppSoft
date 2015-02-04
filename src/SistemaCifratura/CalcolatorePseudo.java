@@ -11,7 +11,8 @@ public class CalcolatorePseudo implements CalcolatoreMappe {
     
     @Override
     public Mappatura calcola(String chiave) {
-        return new Mappatura(chiave);
+        char[] c = chiave.toCharArray();
+        return new Mappatura(c);
     }
 
     

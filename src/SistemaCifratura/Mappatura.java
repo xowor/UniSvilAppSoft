@@ -1,13 +1,21 @@
-//package MainSystem;
-//
-//import Studente;
-//
-//public class Mappatura {
-//  public char[] mappa;
-//  public char[] mappainversa;
-//
-//  public Mappatura(){
-//
-//  }
-//
-//}
+package SistemaCifratura;
+public class Mappatura {
+    char[] mappa;
+    char[] mappaInversa;
+    
+    public Mappatura(char[] mapp){
+       mappa = mapp;
+       mappaInversa = creaMappaInv(mapp);
+    }
+    
+      public static char[] creaMappaInv(char[] mapp){
+       char[] mappaIP = new char[26];
+       char[] alphabet = {'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','y','x','z'};
+       char c;
+       for(int i=0; i<26; i++){
+           c = mapp[i];
+               mappaIP[c-97]=alphabet[i];
+       }
+       return mappaIP;
+   }
+}

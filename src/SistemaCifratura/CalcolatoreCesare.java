@@ -1,5 +1,4 @@
 package SistemaCifratura;
-import MainSystem.*;
 
 public class CalcolatoreCesare implements CalcolatoreMappe {
     
@@ -18,12 +17,13 @@ public class CalcolatoreCesare implements CalcolatoreMappe {
             m[i]= (char) ('a'+(i+key)%26);
         }
         System.out.println(String.valueOf(m));
-        Mappatura out = new Mappatura(String.valueOf(m)); 
+        Mappatura out = new Mappatura(m); 
         return out;
     }
 
 public static Mappatura cifraCesare(String chiave){
         int key = Integer.parseInt(chiave);
+        
         String out = "abcdefghijklmnopqrstuvwxyz";
         if(key > 27){
             key = key%27;
@@ -46,7 +46,7 @@ public static Mappatura cifraCesare(String chiave){
             }
         }
 
-        return new Mappatura(out);
+        return new Mappatura(out.toCharArray());
     }       
 
     public static String decifraCesare(int key, String message){

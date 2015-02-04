@@ -1,6 +1,5 @@
 package SistemaCifratura;
 
-import MainSystem.*;
 
 public interface CalcolatoreMappe {
     public CalcolatoreMappe create(String met);
