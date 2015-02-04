@@ -22,7 +22,7 @@ public class AlberoIpotesi {
         private final int id;
         private final NodoIpotesi parent;
         private final Ipotesi ip;
-        private ArrayList<NodoIpotesi> listaFigli = new ArrayList<NodoIpotesi>();
+        private ArrayList<NodoIpotesi> listaFigli = new ArrayList<>();
         
         private NodoIpotesi(Messaggio tmp){
             this.id = 0;
