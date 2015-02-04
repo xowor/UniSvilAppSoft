@@ -7,16 +7,15 @@ import java.util.Enumeration;
 import javax.swing.JTree;
 import javax.swing.tree.TreeNode;
 
-public class AlberoIpotesi {
+public class AlberoIpotesi extends JTree{
     
-    private final JTree alberoIpotesi;
+    private final NodoIpotesi root;
     private int idAlbero;
     public int idCounter;
     
     public AlberoIpotesi(Messaggio cifrato, int id){
-        NodoIpotesi tmp = new NodoIpotesi(cifrato);
         this.idAlbero = id;
-        alberoIpotesi = new JTree(tmp);
+        this.root = new NodoIpotesi(cifrato);
         this.idCounter = 0;
     }
     
