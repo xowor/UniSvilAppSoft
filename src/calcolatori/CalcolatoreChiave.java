@@ -1,3 +1,4 @@
+import MainSystem.Mappatura;
 import calcolatori.CalcolatoreMappe;
 import Mappatura;
 

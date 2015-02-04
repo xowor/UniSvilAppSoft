@@ -1,5 +1,8 @@
+package MainSystem;
+
 
 import Elements.*;
+import java.util.ArrayList;
 import java.util.Enumeration;
 import javax.swing.JTree;
 import javax.swing.tree.TreeNode;
@@ -13,12 +16,24 @@ public class AlberoIpotesi {
         alberoIpotesi = new JTree(tmp);
     }
     
+    /* Classe interna */
     private class NodoIpotesi implements TreeNode{
         
+        private final int id;
+        private final NodoIpotesi parent;
         private final Ipotesi ip;
+        private ArrayList<NodoIpotesi> listaFigli = new ArrayList<NodoIpotesi>();
         
         private NodoIpotesi(Messaggio tmp){
-            this.ip = new Ipotesi(tmp);
+            this.id = 0;
+            this.parent = null;
+            this.ip = new Ipotesi(tmp, this.id);
+        }
+        
+        private NodoIpotesi(Messaggio tmp, NodoIpotesi padre, int id){
+            this.id = id;
+            this.parent = padre;
+            this.ip = new Ipotesi(tmp, this.id);
         }
         
         
@@ -29,6 +44,7 @@ public class AlberoIpotesi {
 
         @Override
         public int getChildCount() {
+            
             throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
         }
 
