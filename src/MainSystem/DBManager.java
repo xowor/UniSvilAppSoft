@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 public class DBManager {
     public DBManager(){}
     
@@ -240,7 +241,7 @@ public class DBManager {
             ResultSet rs = st.executeQuery("SELECT lettera, frequenza FROM frequenzaLingua WHERE lingua = '"+lingua+"';");
             map = new HashMap();
             while(rs.next()){
-                map.put(rs.getString(1), rs.getInt(2));
+                map.put(rs.getString("lettera"), rs.getInt("frequenza"));
             }
         } catch (SQLException ex) {
             Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
@@ -256,10 +257,24 @@ public class DBManager {
         Studente studente = null;
         try {
             ResultSet rs = st.executeQuery("SELECT id, nome, cognome FROM studente WHERE login = '"+login+"' AND password = '"+password+"';");
-            studente = new Studente(rs.getInt(1), login, password, rs.getString(2), rs.getString(3));
+            studente = new Studente(rs.getInt("id"), login, password, rs.getString("nome"), rs.getString("cognome"));
         } catch (SQLException ex) {
             Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
         }
         return studente;
+    }
+    
+    public static ArrayList<Studente> getStudenti(Statement st){
+        ArrayList<Studente> al = new ArrayList();
+        try {           
+            ResultSet rs = st.executeQuery("SELECT id, login, nome, cognome  FROM studente;");
+            while(rs.next()){
+                Studente stud = new Studente(rs.getInt("id"), rs.getString("login"), "", rs.getString("nome"), rs.getString("cognome"));
+                al.add(stud);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return al;
     }
 }
