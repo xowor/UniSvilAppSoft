@@ -1,5 +1,8 @@
 package windows;
 import Elements.*;
+import MainSystem.Ipotesi;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.util.Set;
 
 /*
@@ -44,7 +47,7 @@ public class MainJFrame extends javax.swing.JFrame {
         jTree1 = new javax.swing.JTree();
         RightJPanel = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
-        jButton3 = new javax.swing.JButton();
+        mostraAlfabetoJButton = new javax.swing.JButton();
         jSplitPane2 = new javax.swing.JSplitPane();
         jPanel4 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -155,10 +158,10 @@ public class MainJFrame extends javax.swing.JFrame {
 
         jPanel3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-        jButton3.setText("Alfabeto");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        mostraAlfabetoJButton.setText("Alfabeto");
+        mostraAlfabetoJButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                mostraAlfabetoJButtonActionPerformed(evt);
             }
         });
 
@@ -167,15 +170,14 @@ public class MainJFrame extends javax.swing.JFrame {
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jButton3)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(mostraAlfabetoJButton)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jButton3))
+                .addComponent(mostraAlfabetoJButton))
         );
 
         jSplitPane2.setOrientation(javax.swing.JSplitPane.VERTICAL_SPLIT);
@@ -295,8 +297,23 @@ public class MainJFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_studentiJComboBoxActionPerformed
 
+    private void aggiungiIpotesi(Ipotesi i){
+        if (i != null){
+            System.out.println(i.getMessaggio().getTesto()); 
+            System.out.println(i.getSostituisci()); 
+            System.out.println(i.getSostituisciCon()); 
+        }
+    }
+    
     private void aggiungiIpotesiJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aggiungiIpotesiJButtonActionPerformed
-        windows.AggiungiIpotesiJFrame frame = new windows.AggiungiIpotesiJFrame();
+        Ipotesi ipotesi = new Ipotesi(new Messaggio("Lorem ipsum"));
+        windows.AggiungiIpotesiJFrame frame = new windows.AggiungiIpotesiJFrame(ipotesi);
+        frame.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosed(WindowEvent e) {
+                aggiungiIpotesi(frame.getIpotesi());
+            }
+        });
         frame.setVisible(true);
     }//GEN-LAST:event_aggiungiIpotesiJButtonActionPerformed
 
@@ -304,12 +321,15 @@ public class MainJFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton2ActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void mostraAlfabetoJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mostraAlfabetoJButtonActionPerformed
+        // TEMP
         String[] chars = new String[]{"a", "b","c","d","e","f","g","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"};
         Alfabeto alfabeto = new Alfabeto("EN_us", chars);
+        //\TEMP
+        
         windows.AlfabetoJFrame frame = new windows.AlfabetoJFrame(alfabeto);
         frame.setVisible(true);
-    }//GEN-LAST:event_jButton3ActionPerformed
+    }//GEN-LAST:event_mostraAlfabetoJButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -359,7 +379,6 @@ public class MainJFrame extends javax.swing.JFrame {
     private javax.swing.JPanel RightJPanel;
     private javax.swing.JButton aggiungiIpotesiJButton;
     private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -378,6 +397,7 @@ public class MainJFrame extends javax.swing.JFrame {
     private javax.swing.JTextPane jTextPane3;
     private javax.swing.JTree jTree1;
     private javax.swing.JPanel mainJPanel;
+    private javax.swing.JButton mostraAlfabetoJButton;
     private javax.swing.JComboBox studentiJComboBox;
     // End of variables declaration//GEN-END:variables
 }

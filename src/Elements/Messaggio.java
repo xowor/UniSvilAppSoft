@@ -17,6 +17,10 @@ public class Messaggio {
   public String descdest;
 
 
+  public Messaggio(String testo){
+      this.testo = testo;
+  }
+  
   public Messaggio(Query info){
 
   }
