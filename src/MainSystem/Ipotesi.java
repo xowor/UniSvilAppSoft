@@ -10,8 +10,8 @@ public class Ipotesi {
     private String sostituisci;
     private String sostituisciCon;
     
-    public Ipotesi(Messaggio m){
-        id++;
+    public Ipotesi(Messaggio m, int id){
+        this.id = id;
         this.messaggio = m;
     }
     

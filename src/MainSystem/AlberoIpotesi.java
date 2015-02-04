@@ -7,35 +7,68 @@ import java.util.Enumeration;
 import javax.swing.JTree;
 import javax.swing.tree.TreeNode;
 
-public class AlberoIpotesi {
+public class AlberoIpotesi extends JTree{
     
-    private final JTree alberoIpotesi;
+    private final NodoIpotesi root;
+    private int idAlbero;
+    public int idCounter;
     
-    public AlberoIpotesi(Messaggio cifrato){
-        NodoIpotesi tmp = new NodoIpotesi(cifrato);
-        alberoIpotesi = new JTree(tmp);
+    public AlberoIpotesi(Messaggio cifrato, int id){
+        this.idAlbero = id;
+        this.root = new NodoIpotesi(cifrato);
+        this.idCounter = 0;
     }
     
     /* Classe interna */
     private class NodoIpotesi implements TreeNode{
         
         private final int id;
-        private final NodoIpotesi parent;
-        private final Ipotesi ip;
-        private ArrayList<NodoIpotesi> listaFigli = new ArrayList<NodoIpotesi>();
+        private final int parent;
+        private ArrayList<Integer> listaFigli;
         
-        private NodoIpotesi(Messaggio tmp){
+        /* ****************************************************************** */
+        /* Costruttori */
+        
+        private NodoIpotesi(Messaggio mex){
             this.id = 0;
-            this.parent = null;
-            this.ip = new Ipotesi(tmp, this.id);
+            this.parent = 0;
+            Ipotesi tmp = new Ipotesi(mex, this.id);
+            this.listaFigli = new ArrayList<>();
         }
         
-        private NodoIpotesi(Messaggio tmp, NodoIpotesi padre, int id){
+        private NodoIpotesi(Messaggio mex, int padre, int id){
             this.id = id;
             this.parent = padre;
-            this.ip = new Ipotesi(tmp, this.id);
+            Ipotesi tmp = new Ipotesi(mex, this.id);
+            this.listaFigli = new ArrayList<>();
         }
         
+        /* ****************************************************************** */
+        /* Metodi interni */
+        
+        /* Aggiunge un nuovo figlio */
+        
+        public void addChild(Messaggio mex){
+            idCounter++;
+            Ipotesi tmp = new Ipotesi(mex, idCounter);
+            this.listaFigli.add(idCounter);        
+        }
+        
+        /* Ritorna l'id del padre */
+        
+        public int getIdParent() {
+            return this.parent;
+        }
+        
+        /* Ritorna l'id del nodo */
+        
+        public int getId() {
+            return this.id;
+        }
+        
+        /* ****************************************************************** */
+        
+        /* Metodi in Override */
         
         @Override
         public TreeNode getChildAt(int childIndex) {
@@ -44,8 +77,7 @@ public class AlberoIpotesi {
 
         @Override
         public int getChildCount() {
-            
-            throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+            return this.listaFigli.size();
         }
 
         @Override
@@ -55,7 +87,7 @@ public class AlberoIpotesi {
 
         @Override
         public int getIndex(TreeNode node) {
-            throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+            return this.id;
         }
 
         @Override
@@ -65,7 +97,7 @@ public class AlberoIpotesi {
 
         @Override
         public boolean isLeaf() {
-            throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+            return this.listaFigli.isEmpty();
         }
 
         @Override
@@ -73,5 +105,7 @@ public class AlberoIpotesi {
             throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
         }
         
+        
+        /* ****************************************************************** */
     }
 }
