@@ -22,7 +22,7 @@ public class CalcolatoreCesare implements CalcolatoreMappe {
         return out;
     }
 
-public static Mappatura cryptCaesar( String chiave){
+public static Mappatura cifraCesare( String chiave){
         int key = Integer.parseInt(chiave);
         String out = "abcdefghijklmnopqrstuvwxyz";
         if(key>27){
@@ -49,7 +49,7 @@ public static Mappatura cryptCaesar( String chiave){
         return new Mappatura(out);
     }       
 
-    public static String decryptCaesar(int key, String message){
+    public static String decifraCesare(int key, String message){
         String out = message;
         if(key>27){
             key=key%27;
