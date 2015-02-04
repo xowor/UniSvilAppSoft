@@ -7,9 +7,9 @@ public class Ipotesi {
     int id;
     Messaggio messaggio;
     
-    public Ipotesi(Messaggio m){
-        id++;
-        messaggio = m;
+    public Ipotesi(Messaggio m, int id){
+        this.id = id;
+        this.messaggio = m;
     }
     
     public Messaggio getTesto(){
