@@ -27,13 +27,13 @@ public class AlberoIpotesi {
         private NodoIpotesi(Messaggio tmp){
             this.id = 0;
             this.parent = null;
-            this.ip = new Ipotesi(tmp);
+            this.ip = new Ipotesi(tmp, this.id);
         }
         
         private NodoIpotesi(Messaggio tmp, NodoIpotesi padre, int id){
-            this. id = id;
+            this.id = id;
             this.parent = padre;
-            this.ip = new Ipotesi(tmp);
+            this.ip = new Ipotesi(tmp, this.id);
         }
         
         
