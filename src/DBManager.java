@@ -1,6 +1,3 @@
-
-
-
 import javax.management.Query;
 
 public class DBManager {
