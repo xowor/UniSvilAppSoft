@@ -1,6 +1,7 @@
 package windows;
 import Elements.*;
 import MainSystem.Ipotesi;
+import MainSystem.Sostituzione;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.Set;
@@ -297,7 +298,7 @@ public class MainJFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_studentiJComboBoxActionPerformed
 
-    private void aggiungiIpotesi(Ipotesi i){
+    private void aggiungiIpotesi(Sostituzione i){
         if (i != null){
             System.out.println(i.getMessaggio().getTesto()); 
             System.out.println(i.getSostituisci()); 
@@ -306,12 +307,12 @@ public class MainJFrame extends javax.swing.JFrame {
     }
     
     private void aggiungiIpotesiJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aggiungiIpotesiJButtonActionPerformed
-        Ipotesi ipotesi = new Ipotesi(new Messaggio("Lorem ipsum"), 0);
+        Sostituzione ipotesi = new Sostituzione(new Messaggio("Lorem ipsum"));
         windows.AggiungiIpotesiJFrame frame = new windows.AggiungiIpotesiJFrame(ipotesi);
         frame.addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosed(WindowEvent e) {
-                aggiungiIpotesi(frame.getIpotesi());
+                aggiungiIpotesi(frame.getSostituzione());
             }
         });
         frame.setVisible(true);
