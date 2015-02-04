@@ -13,6 +13,8 @@ hs_err_pid*
 
 CryptoHelperDB
 CryptoHelperDB/*
+CryptoHelperDB/db.lck
+CryptoHelperDB/dbex.lck
 nbproject/private
 nbproject/private/*
 build
