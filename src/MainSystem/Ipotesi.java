@@ -7,16 +7,35 @@ public class Ipotesi {
     int id;
     Messaggio messaggio;
     
+    private String sostituisci;
+    private String sostituisciCon;
+    
     public Ipotesi(Messaggio m){
         id++;
-        messaggio = m;
+        this.messaggio = m;
     }
     
-    public Messaggio getTesto(){
-        return messaggio;
+    public Messaggio getMessaggio(){
+        return this.messaggio;
     }
     
     public void setTesto(String testo){
-        messaggio.setTesto(testo);
+        this.messaggio.setTesto(testo);
+    }
+    
+    public void setSostituisci(String sostituisci){
+        this.sostituisci = sostituisci;
+    }   
+    
+    public void setSostituisciCon(String sostituisciCon){
+        this.sostituisciCon = sostituisciCon;
+    }
+    
+    public String getSostituisci(){
+        return this.sostituisci;
+    }   
+    
+    public String getSostituisciCon(){
+        return this.sostituisciCon;
     }
 }
