@@ -5,17 +5,25 @@
  */
 package windows;
 
+import Elements.Messaggio;
+import MainSystem.Ipotesi;
+import java.util.Set;
+
 /**
  *
  * @author luca
  */
-public class AggiungiIpotesiJFrame extends javax.swing.JFrame {
+public class AggiungiIpotesiJFrame extends javax.swing.JDialog {
+    
+    Ipotesi ipotesi;
 
     /**
      * Creates new form AggiungiIpotesiJFrame
      */
-    public AggiungiIpotesiJFrame() {
+    public AggiungiIpotesiJFrame(Ipotesi ipotesi) {
+        this.ipotesi = ipotesi;
         initComponents();
+        this.messaggioJTextArea.setText(ipotesi.getMessaggio().getTesto());
     }
 
     /**
@@ -29,53 +37,69 @@ public class AggiungiIpotesiJFrame extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTextArea2 = new javax.swing.JTextArea();
+        messaggioJTextArea = new javax.swing.JTextArea();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        sostituisciJTextField = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        sostituisciConJTextField = new javax.swing.JTextField();
+        annullaJButton = new javax.swing.JButton();
+        confermaJButton = new javax.swing.JButton();
+        mostraAnalisiFrequenzeJButton = new javax.swing.JButton();
+        mostraDizionarioJButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        jTextArea2.setColumns(20);
-        jTextArea2.setLineWrap(true);
-        jTextArea2.setRows(5);
-        jTextArea2.setText("Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?\n");
-        jScrollPane2.setViewportView(jTextArea2);
+        messaggioJTextArea.setColumns(20);
+        messaggioJTextArea.setLineWrap(true);
+        messaggioJTextArea.setRows(5);
+        messaggioJTextArea.setText("Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?\n");
+        jScrollPane2.setViewportView(messaggioJTextArea);
 
         jLabel1.setText("Testo");
 
         jLabel2.setText("Sostituisci");
 
-        jTextField1.setMinimumSize(new java.awt.Dimension(50, 29));
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+        sostituisciJTextField.setMinimumSize(new java.awt.Dimension(50, 29));
+        sostituisciJTextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+                sostituisciJTextFieldActionPerformed(evt);
             }
         });
 
         jLabel3.setText("con");
 
-        jTextField2.addActionListener(new java.awt.event.ActionListener() {
+        sostituisciConJTextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField2ActionPerformed(evt);
+                sostituisciConJTextFieldActionPerformed(evt);
             }
         });
 
-        jButton1.setText("Annulla");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        annullaJButton.setText("Annulla");
+        annullaJButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                annullaJButtonActionPerformed(evt);
             }
         });
 
-        jButton2.setText("Conferma");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        confermaJButton.setText("Conferma");
+        confermaJButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                confermaJButtonActionPerformed(evt);
+            }
+        });
+
+        mostraAnalisiFrequenzeJButton.setText("Analisi delle frequenze");
+        mostraAnalisiFrequenzeJButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mostraAnalisiFrequenzeJButtonActionPerformed(evt);
+            }
+        });
+
+        mostraDizionarioJButton1.setText("Dizionario");
+        mostraDizionarioJButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mostraDizionarioJButton1ActionPerformed(evt);
             }
         });
 
@@ -90,17 +114,21 @@ public class AggiungiIpotesiJFrame extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(sostituisciJTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(34, 34, 34)
                         .addComponent(jLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(sostituisciConJTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(0, 256, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton2)
+                .addGap(11, 11, 11)
+                .addComponent(mostraDizionarioJButton1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(mostraAnalisiFrequenzeJButton)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(confermaJButton)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton1)
+                .addComponent(annullaJButton)
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -112,13 +140,15 @@ public class AggiungiIpotesiJFrame extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(sostituisciJTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(sostituisciConJTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2))
+                    .addComponent(annullaJButton)
+                    .addComponent(confermaJButton)
+                    .addComponent(mostraAnalisiFrequenzeJButton)
+                    .addComponent(mostraDizionarioJButton1))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -138,67 +168,88 @@ public class AggiungiIpotesiJFrame extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
+    private void sostituisciConJTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sostituisciConJTextFieldActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField2ActionPerformed
+    }//GEN-LAST:event_sostituisciConJTextFieldActionPerformed
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+    private void sostituisciJTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sostituisciJTextFieldActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    }//GEN-LAST:event_sostituisciJTextFieldActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void annullaJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_annullaJButtonActionPerformed
+        this.ipotesi = null;
+        this.dispose();
+    }//GEN-LAST:event_annullaJButtonActionPerformed
+
+    private void confermaJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confermaJButtonActionPerformed
+        this.ipotesi.setTesto(messaggioJTextArea.getText());
+        this.ipotesi.setSostituisci(sostituisciJTextField.getText());
+        this.ipotesi.setSostituisciCon(sostituisciConJTextField.getText());
+        this.dispose();
+    }//GEN-LAST:event_confermaJButtonActionPerformed
+
+    private void mostraAnalisiFrequenzeJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mostraAnalisiFrequenzeJButtonActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+        AnalisiFrequenzeJFrame frame = new AnalisiFrequenzeJFrame();
+        frame.setVisible(true);
+    }//GEN-LAST:event_mostraAnalisiFrequenzeJButtonActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void mostraDizionarioJButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mostraDizionarioJButton1ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton2ActionPerformed
+        DizionarioJFrame frame = new DizionarioJFrame();
+        frame.setVisible(true);
+    }//GEN-LAST:event_mostraDizionarioJButton1ActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(AggiungiIpotesiJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(AggiungiIpotesiJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(AggiungiIpotesiJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(AggiungiIpotesiJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new AggiungiIpotesiJFrame().setVisible(true);
-            }
-        });
+    public Ipotesi getIpotesi(){
+        return this.ipotesi;
     }
+//    /**
+//     * @param args the command line arguments
+//     */
+//    public static void main(String args[]) {
+//        /* Set the Nimbus look and feel */
+//        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+//        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+//         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+//         */
+//        try {
+//            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+//                if ("Nimbus".equals(info.getName())) {
+//                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+//                    break;
+//                }
+//            }
+//        } catch (ClassNotFoundException ex) {
+//            java.util.logging.Logger.getLogger(AggiungiIpotesiJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (InstantiationException ex) {
+//            java.util.logging.Logger.getLogger(AggiungiIpotesiJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (IllegalAccessException ex) {
+//            java.util.logging.Logger.getLogger(AggiungiIpotesiJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+//            java.util.logging.Logger.getLogger(AggiungiIpotesiJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        }
+//        //</editor-fold>
+//
+//        /* Create and display the form */
+//        java.awt.EventQueue.invokeLater(new Runnable() {
+//            public void run() {
+//                new AggiungiIpotesiJFrame().setVisible(true);
+//            }
+//        });
+//    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JButton annullaJButton;
+    private javax.swing.JButton confermaJButton;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTextArea jTextArea2;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
+    private javax.swing.JTextArea messaggioJTextArea;
+    private javax.swing.JButton mostraAnalisiFrequenzeJButton;
+    private javax.swing.JButton mostraDizionarioJButton1;
+    private javax.swing.JTextField sostituisciConJTextField;
+    private javax.swing.JTextField sostituisciJTextField;
     // End of variables declaration//GEN-END:variables
 }

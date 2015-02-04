@@ -48,20 +48,24 @@
                       <Group type="102" alignment="0" attributes="0">
                           <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jTextField1" min="-2" pref="195" max="-2" attributes="0"/>
+                          <Component id="sostituisciJTextField" min="-2" pref="195" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
                           <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jTextField2" min="-2" pref="190" max="-2" attributes="0"/>
+                          <Component id="sostituisciConJTextField" min="-2" pref="190" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                   <EmptySpace min="0" pref="256" max="32767" attributes="0"/>
               </Group>
               <Group type="102" alignment="1" attributes="0">
+                  <EmptySpace min="-2" pref="11" max="-2" attributes="0"/>
+                  <Component id="mostraDizionarioJButton1" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="mostraAnalisiFrequenzeJButton" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="32767" attributes="0"/>
-                  <Component id="jButton2" min="-2" max="-2" attributes="0"/>
+                  <Component id="confermaJButton" min="-2" max="-2" attributes="0"/>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                  <Component id="jButton1" min="-2" max="-2" attributes="0"/>
+                  <Component id="annullaJButton" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
@@ -75,14 +79,16 @@
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jTextField1" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="sostituisciJTextField" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jLabel3" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jTextField2" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="sostituisciConJTextField" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="jButton1" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jButton2" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="annullaJButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="confermaJButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="mostraAnalisiFrequenzeJButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="mostraDizionarioJButton1" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="32767" attributes="0"/>
               </Group>
@@ -97,7 +103,7 @@
 
           <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
           <SubComponents>
-            <Component class="javax.swing.JTextArea" name="jTextArea2">
+            <Component class="javax.swing.JTextArea" name="messaggioJTextArea">
               <Properties>
                 <Property name="columns" type="int" value="20"/>
                 <Property name="lineWrap" type="boolean" value="true"/>
@@ -117,14 +123,14 @@
             <Property name="text" type="java.lang.String" value="Sostituisci"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="jTextField1">
+        <Component class="javax.swing.JTextField" name="sostituisciJTextField">
           <Properties>
             <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
               <Dimension value="[50, 29]"/>
             </Property>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextField1ActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="sostituisciJTextFieldActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel3">
@@ -132,25 +138,41 @@
             <Property name="text" type="java.lang.String" value="con"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="jTextField2">
+        <Component class="javax.swing.JTextField" name="sostituisciConJTextField">
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextField2ActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="sostituisciConJTextFieldActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="jButton1">
+        <Component class="javax.swing.JButton" name="annullaJButton">
           <Properties>
             <Property name="text" type="java.lang.String" value="Annulla"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton1ActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="annullaJButtonActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="jButton2">
+        <Component class="javax.swing.JButton" name="confermaJButton">
           <Properties>
             <Property name="text" type="java.lang.String" value="Conferma"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton2ActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="confermaJButtonActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JButton" name="mostraAnalisiFrequenzeJButton">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Analisi delle frequenze"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mostraAnalisiFrequenzeJButtonActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JButton" name="mostraDizionarioJButton1">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Dizionario"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mostraDizionarioJButton1ActionPerformed"/>
           </Events>
         </Component>
       </SubComponents>
