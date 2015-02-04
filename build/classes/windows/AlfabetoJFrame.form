@@ -55,11 +55,11 @@
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="jScrollPane2" max="32767" attributes="0"/>
+                  <Component id="jScrollPane2" pref="0" max="32767" attributes="0"/>
                   <Group type="102" attributes="0">
                       <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jTextField1" min="-2" pref="156" max="-2" attributes="0"/>
+                      <Component id="codiceJTextField" min="-2" pref="156" max="-2" attributes="0"/>
                       <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                   </Group>
               </Group>
@@ -73,7 +73,7 @@
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jTextField1" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="codiceJTextField" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="jScrollPane2" pref="303" max="32767" attributes="0"/>
@@ -88,13 +88,12 @@
         <Property name="text" type="java.lang.String" value="Codice"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="jTextField1">
+    <Component class="javax.swing.JTextField" name="codiceJTextField">
       <Properties>
         <Property name="editable" type="boolean" value="false"/>
-        <Property name="text" type="java.lang.String" value="EN_us"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextField1ActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="codiceJTextFieldActionPerformed"/>
       </Events>
     </Component>
     <Container class="javax.swing.JScrollPane" name="jScrollPane2">
@@ -104,47 +103,10 @@
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
       <SubComponents>
-        <Component class="javax.swing.JList" name="jList2">
+        <Component class="javax.swing.JList" name="lettereJList">
           <Properties>
             <Property name="model" type="javax.swing.ListModel" editor="org.netbeans.modules.form.editors2.ListModelEditor">
-              <StringArray count="36">
-                <StringItem index="0" value="a"/>
-                <StringItem index="1" value="b"/>
-                <StringItem index="2" value="c"/>
-                <StringItem index="3" value="d"/>
-                <StringItem index="4" value="e"/>
-                <StringItem index="5" value="f"/>
-                <StringItem index="6" value="g"/>
-                <StringItem index="7" value="h"/>
-                <StringItem index="8" value="i"/>
-                <StringItem index="9" value="j"/>
-                <StringItem index="10" value="k"/>
-                <StringItem index="11" value="l"/>
-                <StringItem index="12" value="m"/>
-                <StringItem index="13" value="n"/>
-                <StringItem index="14" value="o"/>
-                <StringItem index="15" value="p"/>
-                <StringItem index="16" value="q"/>
-                <StringItem index="17" value="r"/>
-                <StringItem index="18" value="s"/>
-                <StringItem index="19" value="t"/>
-                <StringItem index="20" value="u"/>
-                <StringItem index="21" value="v"/>
-                <StringItem index="22" value="w"/>
-                <StringItem index="23" value="x"/>
-                <StringItem index="24" value="y"/>
-                <StringItem index="25" value="z"/>
-                <StringItem index="26" value="0"/>
-                <StringItem index="27" value="1"/>
-                <StringItem index="28" value="2"/>
-                <StringItem index="29" value="3"/>
-                <StringItem index="30" value="4"/>
-                <StringItem index="31" value="5"/>
-                <StringItem index="32" value="6"/>
-                <StringItem index="33" value="7"/>
-                <StringItem index="34" value="8"/>
-                <StringItem index="35" value="9"/>
-              </StringArray>
+              <StringArray count="0"/>
             </Property>
           </Properties>
         </Component>
