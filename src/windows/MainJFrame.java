@@ -326,11 +326,11 @@ public class MainJFrame extends javax.swing.JFrame {
     private void mostraAlfabetoJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mostraAlfabetoJButtonActionPerformed
         // TEMP
         String[] chars = new String[]{"a", "b","c","d","e","f","g","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"};
-        Alfabeto alfabeto = new Alfabeto("EN_us", chars);
+        //Alfabeto alfabeto = new Alfabeto("EN_us", chars);
         //\TEMP
         
-        windows.AlfabetoJFrame frame = new windows.AlfabetoJFrame(alfabeto);
-        frame.setVisible(true);
+        //windows.AlfabetoJFrame frame = new windows.AlfabetoJFrame(alfabeto);
+        //frame.setVisible(true);
     }//GEN-LAST:event_mostraAlfabetoJButtonActionPerformed
 
     /**
@@ -370,11 +370,11 @@ public class MainJFrame extends javax.swing.JFrame {
                 manager.inizializza();
                 
                 // TEMP
-                Studente studente = new Studente("mario", "rossi");
-                studente.setNome("Mario");
+                //Studente studente = new Studente("mario", "rossi");
+                //studente.setNome("Mario");
                 // \TEMP
                 
-                frame.studentiJComboBox.addItem(studente);
+                //frame.studentiJComboBox.addItem(studente);
             }
         });
     }
