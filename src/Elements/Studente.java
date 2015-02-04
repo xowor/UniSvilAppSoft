@@ -1,18 +1,18 @@
 package Elements;
 
-
-
 public class Studente {
   public String nome;
   public String cognome;
-  public String id;
+  public int id;
   public String login;
   public String pwd;
 
-  public Studente(String login, String pwd){
+  public Studente(int id, String login, String pwd, String nome, String cognome){
     this.login = login;
     this.pwd = pwd;
-    // id++;
+    this.nome = nome;
+    this.cognome = cognome;
+    this.id = id;
   }
 
 
@@ -22,7 +22,7 @@ public class Studente {
   public String getCognome(){
     return this.cognome;
   }
-  public String getId(){
+  public int getId(){
     return this.id;
   }
   public String getLogin(){
@@ -38,7 +38,7 @@ public class Studente {
   public void setCognome(String cognome){
     this.cognome =cognome ;
   }
-  public void setId(String id){
+  public void setId(int id){
     this.id = id;
   }
   public void setLogin(String login){
