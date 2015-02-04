@@ -1,3 +1,4 @@
+
 package MainSystem;
 
 import Elements.Messaggio;
@@ -39,3 +40,4 @@ public class Ipotesi {
         return this.sostituisciCon;
     }
 }
+
