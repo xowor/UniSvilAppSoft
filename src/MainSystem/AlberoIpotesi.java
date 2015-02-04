@@ -55,9 +55,29 @@ public class AlberoIpotesi extends JTree{
             this.listaFigli.add(idCounter);        
         }
         
-        /* Ritorna l'id del padre */
+        public String getPath(){
+            String path = "";
+            NodoIpotesi tmp = this;
+            while(tmp.getPadre()!= 0){
+                path+= this.parent;
+                tmp = getNodo(this.parent);
+            }
+            return path;
+        }
         
-        public int annullaIpotesi() {
+        /* Aggiungere query che costruisca nodo */
+        public NodoIpotesi getNodo(int id){
+            return null;
+        }
+        
+        /* Torna al padre ed elimina il figlio */
+        
+        public int annullaIpotesi(){
+            
+            return -1;
+        }
+        
+        public int getPadre(){
             return this.parent;
         }
         
