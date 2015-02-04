@@ -1,5 +1,6 @@
 package windows;
 import Elements.*;
+import java.util.Set;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -71,7 +72,6 @@ public class MainJFrame extends javax.swing.JFrame {
 
         jLabel1.setText("Studente");
 
-        studentiJComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Utente 1", "Utente 2" }));
         studentiJComboBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 studentiJComboBoxActionPerformed(evt);
@@ -305,7 +305,9 @@ public class MainJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        windows.AlfabetoJFrame frame = new windows.AlfabetoJFrame();
+        String[] chars = new String[]{"a", "b","c","d","e","f","g","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"};
+        Alfabeto alfabeto = new Alfabeto("EN_us", chars);
+        windows.AlfabetoJFrame frame = new windows.AlfabetoJFrame(alfabeto);
         frame.setVisible(true);
     }//GEN-LAST:event_jButton3ActionPerformed
 
@@ -344,6 +346,9 @@ public class MainJFrame extends javax.swing.JFrame {
                 
                 // TEMP
                 Studente studente = new Studente("mario", "rossi");
+                studente.setNome("Mario");
+                // \TEMP
+                
                 frame.studentiJComboBox.addItem(studente);
             }
         });

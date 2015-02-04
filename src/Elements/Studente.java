@@ -48,6 +48,7 @@ public class Studente {
     this.pwd = pwd;
   }
   
+  @Override
   public String toString(){
       return this.nome;
   }
