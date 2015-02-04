@@ -13,4 +13,16 @@ public class Sessione {
         this.idStudente = idStud;
         this.idSessione = idSes;
     }
+    
+    public void setAlfabeto(){
+        this.alfabeto = null;
+    }
+    
+    public void setAlberoIpotesi(){
+        this.alberoIpotesi = null;
+    }
+    
+    public void setSupporto(){
+        this.strumentoSupporto = null;
+    }
 }
