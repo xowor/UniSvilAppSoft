@@ -17,9 +17,9 @@ public class SistemaDiCifratura {
     this.metodo = met;
   }
 
-  public SistemaDiCifratura(QueryResult info){
-
-  }
+//  public SistemaDiCifratura(QueryResult info){
+//
+//  }
 
   // public String getTesto(){
   //   return this.testo;
@@ -38,13 +38,13 @@ public class SistemaDiCifratura {
 
 
 
-  public List<SistemaDiCifratura> caricaSistemiCifratura(Studente stud){
+//  public List<SistemaDiCifratura> caricaSistemiCifratura(Studente stud){
+//
+//  }
 
-  }
-
-  public SistemaDiCifratura load(String id){
-
-  }
+//  public SistemaDiCifratura load(String id){
+//      
+//  }
 
   public void calcolaMappatura(){
 
@@ -55,11 +55,11 @@ public class SistemaDiCifratura {
   }
 
   public boolean elimina(){
-
+      return false;
   }
 
   public boolean salva(){
-
+      return false;
   }
 
 

@@ -20,10 +20,6 @@ public class Messaggio {
   public Messaggio(String testo){
       this.testo = testo;
   }
-  
-  public Messaggio(Query info){
-
-  }
 
 
   public String getTesto(){
