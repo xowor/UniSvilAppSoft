@@ -9,6 +9,28 @@ java.runtime.version=1.8.0_25-b17
 user.dir=/usr/lib/jvm/java-8-oracle/db
 os.name=Linux
 os.arch=amd64
+<<<<<<< HEAD
+os.version=6.3
+derby.system.home=C:\Users\Federica\Documents\NetBeansProjects\UniSvilAppSoft
+Programma di caricamento classe database avviato - derby.database.classpath=''
+----------------------------------------------------------------
+Wed Feb 04 11:14:57 CET 2015:
+Arresto dell'istanza a816c00e-014b-5415-d2e6-00006960ef3f nella directory del database C:\Users\Federica\Documents\NetBeansProjects\UniSvilAppSoft\CryptoHelperDB con il caricatore di classi sun.misc.Launcher$AppClassLoader@1d44bcfa 
+Wed Feb 04 11:14:58 CET 2015 Thread[DRDAConnThread_3,5,main] (DATABASE = CryptoHelperDB), (DRDAID = {2}), Chiusura del database 'CryptoHelperDB'.
+----------------------------------------------------------------
+Wed Feb 04 11:32:09 CET 2015:
+Avvio della versione di Derby The Apache Software Foundation - Apache Derby - 10.10.1.3 - (1557168): istanza 560740aa-014b-5415-d2e6-00006960ef3f
+sulla directory di database C:\Users\Federica\Documents\NetBeansProjects\UniSvilAppSoft\CryptoHelperDB con caricatore classi sun.misc.Launcher$AppClassLoader@1d44bcfa 
+Caricato da file:/C:/Program%20Files/Java/jdk1.8.0_25/db/lib/derby.jar
+java.vendor=Oracle Corporation
+java.runtime.version=1.8.0_25-b18
+user.dir=C:\Program Files\Java\jdk1.8.0_25\db
+os.name=Windows 8.1
+os.arch=amd64
+os.version=6.3
+derby.system.home=C:\Users\Federica\Documents\NetBeansProjects\UniSvilAppSoft
+Programma di caricamento classe database avviato - derby.database.classpath=''
+=======
 os.version=3.13.0-40-generic
 derby.system.home=/home/jorkut/Desktop/Sviluppo applicazioni software/Progetto/Git/UniSvilAppSoft
 Database Class Loader started - derby.database.classpath=''
@@ -63,3 +85,4 @@ java.sql.SQLException: Autenticazione della connessione non riuscita. Motivo: Au
 ============= end nested exception, level (1) ===========
 Cleanup action completed
 Wed Feb 04 11:33:42 CET 2015 Thread[DRDAConnThread_2,5,main] (DATABASE = CryptoHelperDB), (DRDAID = {1}), Autenticazione della connessione non riuscita. Motivo: Autenticazione non valida..
+>>>>>>> c9bc63024d30101ec58b7a3c2680171b24c294eb
