@@ -48,7 +48,7 @@ public class AlberoIpotesi extends JTree{
         
         /* Aggiunge un nuovo figlio */
         
-        public void addChild(Messaggio mex){
+        public void aggiungiIpotesi(Messaggio mex){
             idCounter++;
             Ipotesi tmp = new Ipotesi(mex, idCounter);
             this.listaFigli.add(idCounter);        
@@ -56,7 +56,7 @@ public class AlberoIpotesi extends JTree{
         
         /* Ritorna l'id del padre */
         
-        public int getIdParent() {
+        public int annullaIpotesi() {
             return this.parent;
         }
         
