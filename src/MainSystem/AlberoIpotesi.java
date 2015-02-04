@@ -2,6 +2,7 @@ package MainSystem;
 
 
 import Elements.*;
+import java.util.ArrayList;
 import java.util.Enumeration;
 import javax.swing.JTree;
 import javax.swing.tree.TreeNode;
@@ -18,9 +19,17 @@ public class AlberoIpotesi {
     /* Classe interna */
     private class NodoIpotesi implements TreeNode{
         
+        private final NodoIpotesi parent;
         private final Ipotesi ip;
+        private ArrayList<NodoIpotesi> listaFigli = new ArrayList<NodoIpotesi>();
         
         private NodoIpotesi(Messaggio tmp){
+            this.parent = null;
+            this.ip = new Ipotesi(tmp);
+        }
+        
+        private NodoIpotesi(Messaggio tmp, NodoIpotesi padre){
+            this.parent = padre;
             this.ip = new Ipotesi(tmp);
         }
         
