@@ -9,10 +9,10 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class DBManager {
-    public static Statement st;
+    public Statement st;
     public DBManager(){}
     
-    public static void inizializza() {
+    public void inizializza() {
         Connection conn=openConnection();
         st=openStatement(conn);
         creaTabelle(st);
@@ -26,7 +26,7 @@ public class DBManager {
     * @param conn indica una connessione disponibile per creare uno Statement;
     * @return uno Statement aperto;
     */
-    public static Statement openStatement(Connection conn) {
+    public Statement openStatement(Connection conn) {
         Statement st = null;
         try {
             st = conn.createStatement();
@@ -41,7 +41,7 @@ public class DBManager {
     *
     * @param st indica lo Statement da chiudere;
     */
-    public static void closeStatement(Statement st){
+    public void closeStatement(Statement st){
         try {
             st.close();
         } catch (SQLException ex) {
@@ -54,7 +54,7 @@ public class DBManager {
     *
     * @return una Connessione aperta;
     */
-    public static Connection openConnection() {
+    public Connection openConnection() {
         Connection conn = null;
         try {
             String ur = "jdbc:derby://localhost:1527/CryptoHelperDB";
@@ -74,7 +74,7 @@ public class DBManager {
     * @param st indica lo Statement creato per l'interazione con il database;
     * @return "true" se la query ha avuto successo;
     */
-    public static boolean esegui(String sql, Statement st) {
+    public boolean esegui(String sql, Statement st) {
         boolean tmp = false;
         try {
             tmp = st.execute(sql);
@@ -91,7 +91,7 @@ public class DBManager {
     * @param st indica lo Statement creato per l'interazione con il database;
     * @return il resultSet della query eseguita;
     */
-    public static ResultSet query(String sql, Statement st) {
+    public ResultSet query(String sql, Statement st) {
         try{
          return st.executeQuery(sql);
         }catch(SQLException e){return null;}
@@ -102,7 +102,7 @@ public class DBManager {
     *
     * @param conn indica la Connessione da chiudere;
     */
-    public static void closeConnection(Connection conn) {
+    public void closeConnection(Connection conn) {
         try {
             conn.close();
         } catch (SQLException ex) {
@@ -110,7 +110,7 @@ public class DBManager {
         }
     }
     
-    public static void creaTabelle(Statement st){
+    public void creaTabelle(Statement st){
         try {
             st.execute( "CREATE TABLE studente(" +
             "id INT NOT NULL GENERATED ALWAYS AS IDENTITY(START WITH 1, INCREMENT BY 1)," +
@@ -163,7 +163,7 @@ public class DBManager {
         }
     }
     
-    public static void creaDati(Statement st){
+    public void creaDati(Statement st){
     aggiungiFrequenza('a', "ita", 12, st);
     aggiungiFrequenza('b', "ita", 1, st);
     aggiungiFrequenza('c', "ita", 4, st);
@@ -219,11 +219,11 @@ public class DBManager {
     aggiungiStudente("admin", "admin", "admin", "admin", st);
     }
     
-    public static void aggiungiFrequenza(char lettera, String lingua, int frequenza, Statement st){
+    public void aggiungiFrequenza(char lettera, String lingua, int frequenza, Statement st){
         esegui("INSERT INTO frequenzaLingua (lettera, lingua, frequenza) VALUES ('"+lettera+"', '"+lingua+"', "+frequenza+");", st);
     }
     
-    public static ArrayList getAlfabeto(String lingua){
+    public ArrayList getAlfabeto(String lingua){
         ArrayList al = null;
         try {
             ResultSet rs = st.executeQuery("SELECT lettera FROM frequenzaLingua WHERE lingua = '"+lingua+"';");
@@ -237,7 +237,7 @@ public class DBManager {
         return al;
     }
     
-    public static Frequenze getFrequenzeAlfabeto(String lingua){
+    public Frequenze getFrequenzeAlfabeto(String lingua){
         HashMap<String, Integer> map = new HashMap();        
         try {
             ResultSet rs = st.executeQuery("SELECT lettera, frequenza FROM frequenzaLingua WHERE lingua = '"+lingua+"';");
@@ -251,11 +251,11 @@ public class DBManager {
         return new Frequenze(map);
     }
     
-    public static void aggiungiStudente(String nome, String cognome, String login, String password, Statement st){
+    public void aggiungiStudente(String nome, String cognome, String login, String password, Statement st){
         esegui("INSERT INTO studente (nome, cognome, login, password) VALUES ('"+nome+"', '"+cognome+"', '"+login+"', '"+password+"');", st);
     }
     
-    public static Studente getStudente(String login, String password){
+    public Studente getStudente(String login, String password){
         Studente studente = null;
         try {
             ResultSet rs = st.executeQuery("SELECT id, nome, cognome FROM studente WHERE login = '"+login+"' AND password = '"+password+"';");
@@ -266,7 +266,7 @@ public class DBManager {
         return studente;
     }
     
-    public static ArrayList<Studente> getStudenti(){
+    public ArrayList<Studente> getStudenti(){
         ArrayList<Studente> al = new ArrayList();
         try {           
             ResultSet rs = st.executeQuery("SELECT id, login, nome, cognome  FROM studente;");
