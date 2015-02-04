@@ -1,4 +1,5 @@
 package MainSystem;
+import Elements.Frequenze;
 import Elements.Studente;
 import javax.management.Query;
 import java.sql.*;
@@ -8,11 +9,12 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class DBManager {
+    public static Statement st;
     public DBManager(){}
     
     public static void inizializza() {
         Connection conn=openConnection();
-        Statement st=openStatement(conn);
+        st=openStatement(conn);
         creaTabelle(st);
         creaDati(st);
         closeStatement(st);
@@ -221,7 +223,7 @@ public class DBManager {
         esegui("INSERT INTO frequenzaLingua (lettera, lingua, frequenza) VALUES ('"+lettera+"', '"+lingua+"', "+frequenza+");", st);
     }
     
-    public static ArrayList getAlfabeto(String lingua, Statement st){
+    public static ArrayList getAlfabeto(String lingua){
         ArrayList al = null;
         try {
             ResultSet rs = st.executeQuery("SELECT lettera FROM frequenzaLingua WHERE lingua = '"+lingua+"';");
@@ -235,8 +237,8 @@ public class DBManager {
         return al;
     }
     
-    public static HashMap getFrequenzeAlfabeto(String lingua, Statement st){
-        HashMap<String, Integer> map = null;
+    public static Frequenze getFrequenzeAlfabeto(String lingua){
+        HashMap<String, Integer> map = new HashMap();        
         try {
             ResultSet rs = st.executeQuery("SELECT lettera, frequenza FROM frequenzaLingua WHERE lingua = '"+lingua+"';");
             map = new HashMap();
@@ -246,14 +248,14 @@ public class DBManager {
         } catch (SQLException ex) {
             Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return map;
+        return new Frequenze(map);
     }
     
     public static void aggiungiStudente(String nome, String cognome, String login, String password, Statement st){
         esegui("INSERT INTO studente (nome, cognome, login, password) VALUES ('"+nome+"', '"+cognome+"', '"+login+"', '"+password+"');", st);
     }
     
-    public static Studente getStudente(String login, String password, Statement st){
+    public static Studente getStudente(String login, String password){
         Studente studente = null;
         try {
             ResultSet rs = st.executeQuery("SELECT id, nome, cognome FROM studente WHERE login = '"+login+"' AND password = '"+password+"';");
@@ -264,7 +266,7 @@ public class DBManager {
         return studente;
     }
     
-    public static ArrayList<Studente> getStudenti(Statement st){
+    public static ArrayList<Studente> getStudenti(){
         ArrayList<Studente> al = new ArrayList();
         try {           
             ResultSet rs = st.executeQuery("SELECT id, login, nome, cognome  FROM studente;");
