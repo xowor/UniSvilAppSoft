@@ -6,7 +6,7 @@
 package windows;
 
 import Elements.Messaggio;
-import MainSystem.Ipotesi;
+import MainSystem.Sostituzione;
 import java.util.Set;
 
 /**
@@ -15,15 +15,15 @@ import java.util.Set;
  */
 public class AggiungiIpotesiJFrame extends javax.swing.JDialog {
     
-    Ipotesi ipotesi;
+    Sostituzione sostituzione;
 
     /**
      * Creates new form AggiungiIpotesiJFrame
      */
-    public AggiungiIpotesiJFrame(Ipotesi ipotesi) {
-        this.ipotesi = ipotesi;
+    public AggiungiIpotesiJFrame(Sostituzione sostituzione) {
+        this.sostituzione = sostituzione;
         initComponents();
-        this.messaggioJTextArea.setText(ipotesi.getMessaggio().getTesto());
+        this.messaggioJTextArea.setText(sostituzione.getMessaggio().getTesto());
     }
 
     /**
@@ -177,14 +177,14 @@ public class AggiungiIpotesiJFrame extends javax.swing.JDialog {
     }//GEN-LAST:event_sostituisciJTextFieldActionPerformed
 
     private void annullaJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_annullaJButtonActionPerformed
-        this.ipotesi = null;
+        this.sostituzione = null;
         this.dispose();
     }//GEN-LAST:event_annullaJButtonActionPerformed
 
     private void confermaJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confermaJButtonActionPerformed
-        this.ipotesi.setTesto(messaggioJTextArea.getText());
-        this.ipotesi.setSostituisci(sostituisciJTextField.getText());
-        this.ipotesi.setSostituisciCon(sostituisciConJTextField.getText());
+        this.sostituzione.getMessaggio().setTesto(messaggioJTextArea.getText());
+        this.sostituzione.setSostituisci(sostituisciJTextField.getText());
+        this.sostituzione.setSostituisciCon(sostituisciConJTextField.getText());
         this.dispose();
     }//GEN-LAST:event_confermaJButtonActionPerformed
 
@@ -200,8 +200,8 @@ public class AggiungiIpotesiJFrame extends javax.swing.JDialog {
         frame.setVisible(true);
     }//GEN-LAST:event_mostraDizionarioJButton1ActionPerformed
 
-    public Ipotesi getIpotesi(){
-        return this.ipotesi;
+    public Sostituzione getSostituzione(){
+        return this.sostituzione;
     }
 //    /**
 //     * @param args the command line arguments
