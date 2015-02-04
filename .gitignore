@@ -12,6 +12,7 @@
 hs_err_pid*
 
 CryptoHelperDB
+CryptoHelperDB/*
 nbproject/private
 nbproject/private/*
 build
