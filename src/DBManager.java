@@ -85,17 +85,17 @@ public class DBManager {
 
         public static void creaTabelle(Statement st) throws SQLException{
             st.execute(   "CREATE TABLE studente(" +
-                            "id         	INT         NOT NULL GENERATED ALWAYS AS IDENTITY(START WITH 1, INCREMENT BY 1)," +
-                            "nome			VARCHAR(24) NOT NULL," +
-                            "cognome		VARCHAR(24) NOT NULL," +
-                            "login			VARCHAR(24) NOT NULL UNIQUE," +
+                            "id             INT         NOT NULL GENERATED ALWAYS AS IDENTITY(START WITH 1, INCREMENT BY 1)," +
+                            "nome           VARCHAR(24) NOT NULL," +
+                            "cognome        VARCHAR(24) NOT NULL," +
+                            "login          VARCHAR(24) NOT NULL UNIQUE," +
                             "password       VARCHAR(24) NOT NULL," +
                             "PRIMARY KEY(id))");
 
             st.execute(   "CREATE TABLE messaggio(" +
-                            "id        		INT         	NOT NULL GENERATED ALWAYS AS IDENTITY(START WITH 1, INCREMENT BY 1)," +
-                            "testo          LONG VARCHAR 	NOT NULL," +
-                            "testoCifrato   LONG VARCHAR 	NOT NULL," +
+                            "id        	    INT             NOT NULL GENERATED ALWAYS AS IDENTITY(START WITH 1, INCREMENT BY 1)," +
+                            "testo          LONG VARCHAR    NOT NULL," +
+                            "testoCifrato   LONG VARCHAR    NOT NULL," +
                             "lingua         VARCHAR(12)     NOT NULL," +
                             "titolo         VARCHAR(24)     NOT NULL," +
                             "bozza          LONG VARCHAR    NOT NULL," +
@@ -104,20 +104,20 @@ public class DBManager {
 
             st.execute(   "CREATE TABLE userInfo(" +
                             "id			INT         NOT NULL GENERATED ALWAYS AS IDENTITY(START WITH 1, INCREMENT BY 1)," +
-                            "nome			VARCHAR(24) NOT NULL," +
+                            "nome		VARCHAR(24) NOT NULL," +
                             "cognome		VARCHAR(24) NOT NULL," +
                             "PRIMARY KEY(id))");
 
             st.execute(   "CREATE TABLE proposta(" +
                             "id			INT         NOT NULL GENERATED ALWAYS AS IDENTITY(START WITH 1, INCREMENT BY 1)," +
                             "stato              VARCHAR(24) NOT NULL," +
-                            "notificata		BOOLEAN		NOT NULL," +
+                            "notificata		BOOLEAN     NOT NULL," +
                             "PRIMARY KEY(id))");
 
             st.execute(   "CREATE TABLE sistemaDiCifratura(" +
-                            "id			INT         NOT NULL GENERATED ALWAYS AS IDENTITY(START WITH 1, INCREMENT BY 1)," +
+                            "id                         INT         NOT NULL GENERATED ALWAYS AS IDENTITY(START WITH 1, INCREMENT BY 1)," +
                             "chiave			VARCHAR(24) NOT NULL," +
-                            "metodo			VARCHAR(24)	NOT NULL," +
+                            "metodo			VARCHAR(24) NOT NULL," +
                             "PRIMARY KEY(id))");
 
             st.execute(   "CREATE TABLE ipotesi(" +
@@ -127,7 +127,7 @@ public class DBManager {
 
             st.execute(   "CREATE TABLE frequenzaLingua(" +
                             "lettera		CHAR         	NOT NULL," +
-                            "lingua			VARCHAR(12)     NOT NULL," +
+                            "lingua		VARCHAR(12)     NOT NULL," +
                             "frequenza		INTEGER 	NOT NULL," +
                             "PRIMARY KEY(lettera, lingua))");
         }
@@ -187,7 +187,4 @@ public class DBManager {
             esegui("INSERT INTO frequenzaLingua (lettera, lingua, frequenza) VALUES ('"+lettera+"', '"+lingua+"', '"+frequenza+"');", st);
         }
 
-  public Query execute(Query q){
-      return null;
-  }
 }
