@@ -16,7 +16,8 @@ public class AlberoIpotesi extends JTree{
     public int idCounter;           // numero di nodi dell'albero
                                     // utile per capire quale id assegnare al nodo successivo
     
-    public AlberoIpotesi(int id, Messaggio cifrato, String lingua){
+      
+    public AlberoIpotesi(int id, String cifrato){
         this.idAlbero = id;
         this.root = new NodoIpotesi(cifrato);
         this.idCounter = 0;
@@ -27,19 +28,20 @@ public class AlberoIpotesi extends JTree{
         
         private final int id;
         private final int parent;
+        private Ipotesi ipotesi;
         private ArrayList<Integer> listaFigli;
         
         /* ****************************************************************** */
         /* Costruttori */
         
-        private NodoIpotesi(int id){
+        private NodoIpotesi(String testo){
             this.id = 0;
             this.parent = 0;
-            Ipotesi tmp = new Ipotesi( );
             this.listaFigli = new ArrayList<>();
+            Ipotesi tmp = new Ipotesi(this.id, testo, this.parent, this.listaFigli);
         }
         
-        private NodoIpotesi(Messaggio mex, int padre, int id){
+        private NodoIpotesi(String testo, int padre, int id){
             this.id = id;
             this.parent = padre;
             Ipotesi tmp = new Ipotesi(mex, this.id);

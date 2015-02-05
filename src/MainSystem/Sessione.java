@@ -34,4 +34,8 @@ public class Sessione {
         this.strumentoSupporto = null;
     }
     
+    public void setAlberoIpotesi(String testo){
+        this.alberoIpotesi = new AlberoIpotesi(this.idSessione, messaggioOriginaleCifrato.testoCifrato);
+    }
+    
 }
