@@ -177,7 +177,7 @@ public class DBManager {
             "idPadre INT NOT NULL," +
             "figli LONG VARCHAR NOT NULL," +
             "testoParzialmenteDecifrato LONG VARCHAR NOT NULL," +
-            "PRIMARY KEY(id, idSessione, idAlbero))");
+            "PRIMARY KEY(id, idSessione, idAlbero)");
             
             st.execute( "CREATE TABLE frequenzaLingua(" +
             "lettera VARCHAR(1) NOT NULL," +
@@ -342,8 +342,10 @@ public class DBManager {
     public Studente getStudenteDaNome(String nome){
         Studente studente = null;
         try {
-            ResultSet rs = st.executeQuery("SELECT * FROM studente WHERE nome = '"+nome+"'");
-            studente = new Studente(rs.getInt("id"), rs.getString("login"), rs.getString("password"), nome, rs.getString("cognome"));
+            ResultSet rs = st.executeQuery("SELECT * FROM studente WHERE nome = '" + nome + "'");
+            if (rs.next()){
+                studente = new Studente(rs.getInt("id"), rs.getString("login"), rs.getString("password"), nome, rs.getString("cognome"));
+            }
         } catch (SQLException ex) {
             Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -353,8 +355,10 @@ public class DBManager {
     public Studente getStudente(String login, String password){
         Studente studente = null;
         try {
-            ResultSet rs = st.executeQuery("SELECT id, nome, cognome FROM studente WHERE login = '"+login+"' AND password = '"+password+"'");
-            studente = new Studente(rs.getInt("id"), login, password, rs.getString("nome"), rs.getString("cognome"));
+            ResultSet rs = st.executeQuery("SELECT * FROM studente WHERE login = '"+login+"' AND password = '"+password+"'");
+            if (rs.next()){
+                studente = new Studente(rs.getInt("id"), login, password, rs.getString("nome"), rs.getString("cognome"));
+            }
         } catch (SQLException ex) {
             Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -413,7 +417,7 @@ public class DBManager {
         return id;
     }
     
-    public Sessione aggiungiSessione(int idStudente){
+    public Sessione getOrInsertSessione(int idStudente){
         Sessione sessione = null;
         // esiste una sessione iniziata?
         // no
