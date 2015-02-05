@@ -1,5 +1,6 @@
 package MainSystem;
 import Elements.Frequenze;
+import Elements.Messaggio;
 import Elements.Studente;
 import javax.management.Query;
 import java.sql.*;
@@ -9,13 +10,14 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class DBManager {
-    public Statement st;
+    
+    public static Statement st;
     public DBManager(){}
     
     public void inizializza() {
         Connection conn=openConnection();
         st=openStatement(conn);
-        //creaTabelle(st);
+        creaTabelle(st);
         creaDati(st);
         closeStatement(st);
         closeConnection(conn);
@@ -124,7 +126,11 @@ public class DBManager {
             st.execute( "CREATE TABLE sessione(" +
             "id INT NOT NULL GENERATED ALWAYS AS IDENTITY(START WITH 1, INCREMENT BY 1)," +
             "idStudente INT NOT NULL," +
+                    // idRoot == idIpotesi che è root dell'alberoIpotesi
+            "idRoot INT NOT NULL," +
+                    // idIpotesi == idIpotesi dell'ipotesi raggiunta nell'alberoIpotesi
             "idIpotesi INT NOT NULL," +
+            "terminata BOOLEAN NOT NULL," +
             "PRIMARY KEY(id))");
             
             st.execute( "CREATE TABLE messaggio(" +
@@ -136,6 +142,15 @@ public class DBManager {
             "bozza LONG VARCHAR NOT NULL," +
             "letto BOOLEAN NOT NULL," +
             "PRIMARY KEY(id))");
+            
+            st.execute( "CREATE TABLE alberoIpotesi(" +
+            "idAlbero INT NOT NULL GENERATED ALWAYS AS IDENTITY(START WITH 1, INCREMENT BY 1)," +
+            "idSessione INT NOT NULL," +
+            "idPadre INT NOT NULL," +
+                    // idIpotesi = nodo corrente
+            "idIpotesi VARCHAR(12) NOT NULL," +
+            "figli VARCHAR(50) NOT NULL," +
+            "PRIMARY KEY(idAlbero))");
             
             st.execute( "CREATE TABLE userInfo(" +
             "id INT NOT NULL GENERATED ALWAYS AS IDENTITY(START WITH 1, INCREMENT BY 1)," +
@@ -157,8 +172,10 @@ public class DBManager {
             
             st.execute( "CREATE TABLE ipotesi(" +
             "id INT NOT NULL GENERATED ALWAYS AS IDENTITY(START WITH 1, INCREMENT BY 1)," +
-            "messaggio LONG VARCHAR NOT NULL," +
-            "PRIMARY KEY(id))");
+            "idSessione INT NOT NULL," +
+            "idMessaggio INT NOT NULL," +
+            "PRIMARY KEY(id, idSessione)" +
+            "FOREIGN KEY idMessaggio REFERENCES messaggio(id))");
             
             st.execute( "CREATE TABLE frequenzaLingua(" +
             "lettera VARCHAR(1) NOT NULL," +
@@ -171,7 +188,7 @@ public class DBManager {
     }
     
     public void creaDati(Statement st){
-     /*   aggiungiFrequenza("a", "ita", 12, st);
+        aggiungiFrequenza("a", "ita", 12, st);
         aggiungiFrequenza("b", "ita", 1, st);
         aggiungiFrequenza("c", "ita", 4, st);
         aggiungiFrequenza("d", "ita", 3, st);
@@ -218,20 +235,20 @@ public class DBManager {
         aggiungiFrequenza("w", "eng", 2, st);
         aggiungiFrequenza("x", "eng", 2, st);
         aggiungiFrequenza("y", "eng", 2, st);
-        aggiungiFrequenza("z", "eng", 1, st);           */
+        aggiungiFrequenza("z", "eng", 1, st);           
 
-     /*   aggiungiStudente("eva", "spia", "spia", "spia", st);
+        aggiungiStudente("eva", "spia", "spia", "spia", st);
         aggiungiStudente("bob", "scrittore", "bob", "bob", st);
         aggiungiStudente("rob", "lettore", "rob", "rob", st);
-        aggiungiStudente("admin", "admin", "admin", "admin", st);*/
+        aggiungiStudente("admin", "admin", "admin", "admin", st);   
     }
     
     public void aggiungiFrequenza(String lettera, String lingua, int frequenza, Statement st){
         esegui("INSERT INTO frequenzaLingua (lettera, lingua, frequenza) VALUES ('"+lettera+"', '"+lingua+"', "+frequenza+")", st);
     }
     
-    public ArrayList getAlfabeto(String lingua){
-        ArrayList al = null;
+    public static ArrayList<String> getAlfabeto(String lingua){
+        ArrayList<String> al = null;
         try {
             ResultSet rs = st.executeQuery("SELECT lettera FROM frequenzaLingua WHERE lingua = '"+lingua+"'");
             al = new ArrayList();
@@ -244,7 +261,7 @@ public class DBManager {
         return al;
     }
    
-    public Frequenze getFrequenzeAlfabeto(String lingua){
+    public static HashMap<String, Integer> getFrequenzeAlfabeto(String lingua){
         HashMap<String, Integer> map = new HashMap();        
         try {
             ResultSet rs = st.executeQuery("SELECT lettera, frequenza FROM frequenzaLingua WHERE lingua = '"+lingua+"'");
@@ -255,7 +272,7 @@ public class DBManager {
         } catch (SQLException ex) {
             Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return new Frequenze(map);
+        return map;
     }
      
     public void aggiungiStudente(String nome, String cognome, String login, String password, Statement st){
@@ -287,7 +304,110 @@ public class DBManager {
         return al;
     }
     
-    public void aggiungiSessione(int idStudente, int idIpotesi){
-        esegui("INSERT INTO sessione (idStudente, idIpotesi) VALUES ('"+idStudente+"', '"+idIpotesi+"'", st);
+    public int getCountSessioniTerminate(int idStudente){
+        int count = -1;
+        try {
+            ResultSet rs = st.executeQuery("SELECT COUNT(idIpotesi) FROM sessione WHERE idStudente = "+idStudente+" AND terminata = 'false'");
+            rs.next();
+            count = rs.getInt(1);
+        } catch (SQLException ex) {
+            Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return count;
+    }
+    
+    public int countVecchieSessioni(int idStudente){
+        int count = -1;
+        try {
+            ResultSet rs = st.executeQuery("SELECT COUNT(id) FROM sessione WHERE idStudente = "+idStudente+"");
+            rs.next();
+            count = rs.getInt(1);
+        } catch (SQLException ex) {
+            Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return count;
+    }
+    
+    public int getIdSessioneCorrente(int idStudente){
+        int id = -1;
+        try {
+            ResultSet rs = st.executeQuery("SELECT id FROM sessione WHERE idStudente = "+idStudente+" AND terminata = 'false'");
+            rs.next();
+            id = rs.getInt(1);
+        } catch (SQLException ex) {
+            Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return id;
+    }
+    
+    public Sessione aggiungiSessione(int idStudente){
+        Sessione sessione = null;
+        // esiste una sessione iniziata?
+        int countTerminate = getCountSessioniTerminate(idStudente);
+        // no
+        if(countTerminate == 0){
+            // conteggio delle vecchie sessioni dello studente
+            int countVecchie = countVecchieSessioni(idStudente);
+            // inizializzare una sessione
+            esegui("INSERT INTO sessione (idStudente, idRoot, terminata) VALUES ('"+idStudente+"', '"+(countVecchie+1)+"', 'false'", st);
+            // creare l'oggetto Sessione
+            sessione = new Sessione(getIdSessioneCorrente(idStudente), idStudente);
+        }else{  try {
+            // si
+            // recuperare la sessione con la decifratura già iniziata (terminata = false)
+            ResultSet rs = st.executeQuery("SELECT * FROM sessione WHERE idStudente = "+idStudente+"");
+            rs.next();
+            sessione = new Sessione(rs.getInt("id"), idStudente, rs.getInt("idRoot"));
+            } catch (SQLException ex) {
+                Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return sessione;
+    }
+ /*   
+    public int getSessione(int idStudente){ 
+        int id = -1;
+        try {
+            ResultSet rs = st.executeQuery("SELECT idIpotesi FROM sessione WHERE idStudente = "+idStudente+"");
+            rs.next();
+            id = rs.getInt("idIpotesi");
+        } catch (SQLException ex) {
+            Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return id;
+    } */
+    
+    public static Messaggio getMessaggio(int idMessaggio){
+        Messaggio messaggio = null;
+        try {            
+            ResultSet rs = st.executeQuery("SELECT * FROM messaggio WHERE id = "+idMessaggio+"");
+            rs.next();
+            messaggio = new Messaggio(rs.getString("titolo"), rs.getString("testo"), rs.getInt("mittente"), 
+                    rs.getInt("destinatario"), rs.getString("lingua"));            
+        } catch (SQLException ex) {
+            Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return messaggio;
+    }
+    
+    public int getIdAlbero(int idSessione){
+        int id = -1;
+        try {            
+            ResultSet rs = st.executeQuery("SELECT idRoot FROM ipotesi WHERE id = "+idSessione+"");
+            rs.next();
+            id = rs.getInt("idRoot");            
+        } catch (SQLException ex) {
+            Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return id;
+    }
+    
+    public AlberoIpotesi getAlberoIpotesi(int idSessione){
+        AlberoIpotesi albero = null;
+        //int idAlbero = getIdAlbero(idSessione);
+        //String messaggio = getMessaggio(idAlbero);
+        //String lingua = getLingua(idMessaggio);
+        //albero = new AlberoIpotesi(idAlbero, messaggio);
+        return albero;
     }
 }

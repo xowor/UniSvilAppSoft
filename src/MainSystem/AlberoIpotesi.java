@@ -11,12 +11,15 @@ import javax.swing.tree.TreeNode;
 public class AlberoIpotesi extends JTree{
     
     private final NodoIpotesi root;
-    private int idAlbero;
-    public int idCounter;
+    private int idAlbero = 0;
+    private Alfabeto alfabeto;
+    public int idCounter;           // numero di nodi dell'albero
+                                    // utile per capire quale id assegnare al nodo successivo
     
-    public AlberoIpotesi(Messaggio cifrato, int id){
+    public AlberoIpotesi(int id, Messaggio cifrato, String lingua){
         this.idAlbero = id;
         this.root = new NodoIpotesi(cifrato);
+        this.alfabeto = new Alfabeto(lingua); 
         this.idCounter = 0;
     }
     
@@ -129,5 +132,12 @@ public class AlberoIpotesi extends JTree{
         
         /* ****************************************************************** */
     }
+
+    public Alfabeto getAlfabeto(){
+        return this.alfabeto;
+    }
+ /*   public AlberoIpotesi getAlberoIpotesi(){
+        return ;
+    }*/
 }
 

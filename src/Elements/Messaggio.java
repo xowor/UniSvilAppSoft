@@ -20,11 +20,12 @@ public class Messaggio {
         this.testo = testo;
     }
     
-    public Messaggio(String titolo, String testo, int mitt, int dest){
+    public Messaggio(String titolo, String testo, int mitt, int dest, String lingua){
         this.oggetto = titolo;
         this.testo = testo;
         this.idMitt = mitt;
         this.idDest = dest;
+        this.lingua = lingua;
     }
     
 

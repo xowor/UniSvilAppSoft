@@ -1,21 +1,29 @@
 package Elements;
 
+import MainSystem.DBManager;
+import java.util.ArrayList;
+
 public class Alfabeto {
-    private final String locale;
-    private String[] lettere;
-    private int[] frequenze;
     
-    public Alfabeto(String alphabet, String[] letters, int[] frequecies){
-        this.locale = alphabet;
-        this.lettere = letters;
-        this.frequenze = frequecies;
+    private final String locale;
+    private ArrayList<String> lettere;
+    private Frequenze frequenze;
+    
+    public Alfabeto(String lingua){
+        this.locale = lingua;
+        this.lettere = DBManager.getAlfabeto(lingua);
+        this.frequenze = new Frequenze(lingua);
     }
     
-    public String getCodice(){
+    public String getLingua(){
         return this.locale;
     }
     
-    public String[] getLettere(){
+    public ArrayList<String> getLettere(){
         return this.lettere;
+    }
+    
+    public Frequenze getFrequenze(){
+        return this.frequenze;
     }
 }
