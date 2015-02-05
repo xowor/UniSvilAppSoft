@@ -31,6 +31,7 @@ public class DizionarioJFrame extends javax.swing.JFrame {
         paroleJList = new javax.swing.JList();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Dizionario");
 
         jScrollPane1.setViewportView(paroleJList);
 

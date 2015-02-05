@@ -14,11 +14,11 @@ public class DBManager {
     
     public void inizializza() {
         Connection conn=openConnection();
-        st=openStatement(conn);
+        this.st=openStatement(conn);
         //creaTabelle(st);
-        creaDati(st);
-        closeStatement(st);
-        closeConnection(conn);
+        //creaDati(st);
+        //closeStatement(st);
+        //closeConnection(conn);
     }
     /**
     * crea uno Statement con il database;
@@ -111,7 +111,7 @@ public class DBManager {
         }
     }
     
-    public void creaTabelle(Statement st){
+    public void creaTabelle(){
         try {
             st.execute( "CREATE TABLE studente(" +
             "id INT NOT NULL GENERATED ALWAYS AS IDENTITY(START WITH 1, INCREMENT BY 1)," +
@@ -170,8 +170,8 @@ public class DBManager {
         }
     }
     
-    public void creaDati(Statement st){
-     /*   aggiungiFrequenza("a", "ita", 12, st);
+    public void creaDati(){
+        aggiungiFrequenza("a", "ita", 12, st);
         aggiungiFrequenza("b", "ita", 1, st);
         aggiungiFrequenza("c", "ita", 4, st);
         aggiungiFrequenza("d", "ita", 3, st);
@@ -218,12 +218,12 @@ public class DBManager {
         aggiungiFrequenza("w", "eng", 2, st);
         aggiungiFrequenza("x", "eng", 2, st);
         aggiungiFrequenza("y", "eng", 2, st);
-        aggiungiFrequenza("z", "eng", 1, st);           */
+        aggiungiFrequenza("z", "eng", 1, st);           
 
-     /*   aggiungiStudente("eva", "spia", "spia", "spia", st);
+        aggiungiStudente("eva", "spia", "spia", "spia", st);
         aggiungiStudente("bob", "scrittore", "bob", "bob", st);
         aggiungiStudente("rob", "lettore", "rob", "rob", st);
-        aggiungiStudente("admin", "admin", "admin", "admin", st);*/
+        aggiungiStudente("admin", "admin", "admin", "admin", st);
     }
     
     public void aggiungiFrequenza(String lettera, String lingua, int frequenza, Statement st){
@@ -282,7 +282,7 @@ public class DBManager {
                 al.add(stud);
             }
         } catch (SQLException ex) {
-            Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
+            //Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
         }
         return al;
     }
