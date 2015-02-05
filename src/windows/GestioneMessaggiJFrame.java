@@ -8,6 +8,9 @@ package windows;
 import Elements.Messaggio;
 import Elements.Studente;
 import MainSystem.DBManager;
+import SistemaCifratura.CalcolatoreCesare;
+import SistemaCifratura.Cifratore;
+import SistemaCifratura.Mappatura;
 import java.util.ArrayList;
 import javax.swing.DefaultListModel;
 
@@ -49,11 +52,11 @@ public class GestioneMessaggiJFrame extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         linguaJTextField = new javax.swing.JTextField();
         jPanel2 = new javax.swing.JPanel();
-        jButton3 = new javax.swing.JButton();
+        inviaJButton = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         inviaJTextPane = new javax.swing.JTextPane();
         jPanel3 = new javax.swing.JPanel();
-        jButton4 = new javax.swing.JButton();
+        riceviJButton = new javax.swing.JButton();
         jScrollPane3 = new javax.swing.JScrollPane();
         ricevutiJList = new javax.swing.JList();
 
@@ -162,10 +165,10 @@ public class GestioneMessaggiJFrame extends javax.swing.JFrame {
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createTitledBorder("Invia"), "Invia"));
 
-        jButton3.setText("Invia");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        inviaJButton.setText("Invia");
+        inviaJButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                inviaJButtonActionPerformed(evt);
             }
         });
 
@@ -179,7 +182,7 @@ public class GestioneMessaggiJFrame extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 353, Short.MAX_VALUE)
-                    .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(inviaJButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -187,16 +190,16 @@ public class GestioneMessaggiJFrame extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addComponent(jScrollPane2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton3)
+                .addComponent(inviaJButton)
                 .addGap(0, 0, 0))
         );
 
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("Ricevi"));
 
-        jButton4.setText("Ricevi");
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
+        riceviJButton.setText("Ricevi");
+        riceviJButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
+                riceviJButtonActionPerformed(evt);
             }
         });
 
@@ -215,7 +218,7 @@ public class GestioneMessaggiJFrame extends javax.swing.JFrame {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                         .addGap(12, 12, 12)
-                        .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, 329, Short.MAX_VALUE))
+                        .addComponent(riceviJButton, javax.swing.GroupLayout.DEFAULT_SIZE, 329, Short.MAX_VALUE))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jScrollPane3)))
@@ -224,7 +227,7 @@ public class GestioneMessaggiJFrame extends javax.swing.JFrame {
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addComponent(jButton4)
+                .addComponent(riceviJButton)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane3))
         );
@@ -251,18 +254,21 @@ public class GestioneMessaggiJFrame extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void inviaJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inviaJButtonActionPerformed
         int idDest = dbManager.getStudenteDaNome(this.destinatarioJComboBox.getSelectedItem().toString()).getId();
-        this.dbManager.aggiungiMessaggio(this.inviaJTextPane.getText(), this.linguaJTextField.getText(), "", "", false, this.mittente.getId(), idDest);
-    }//GEN-LAST:event_jButton3ActionPerformed
+        
+        String testo = Cifratore.cifra(CalcolatoreCesare.cifraCesare("aaa"), this.inviaJTextPane.getText());
+        
+        this.dbManager.aggiungiMessaggio(testo, this.linguaJTextField.getText(), "", "", false, this.mittente.getId(), idDest);
+    }//GEN-LAST:event_inviaJButtonActionPerformed
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+    private void riceviJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_riceviJButtonActionPerformed
         ArrayList<Messaggio> messaggi = dbManager.getMessaggi(this.mittente.getId());
         for (Messaggio messaggio: messaggi){
             DefaultListModel model = (DefaultListModel) ricevutiJList.getModel();
             model.addElement(messaggio.getTesto());
         }
-    }//GEN-LAST:event_jButton4ActionPerformed
+    }//GEN-LAST:event_riceviJButtonActionPerformed
 
     private void destinatarioJComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_destinatarioJComboBoxActionPerformed
         // TODO add your handling code here:
@@ -321,11 +327,10 @@ public class GestioneMessaggiJFrame extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox destinatarioJComboBox;
+    private javax.swing.JButton inviaJButton;
     private javax.swing.JTextPane inviaJTextPane;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
     private javax.swing.JComboBox jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -338,6 +343,7 @@ public class GestioneMessaggiJFrame extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField linguaJTextField;
+    private javax.swing.JButton riceviJButton;
     private javax.swing.JList ricevutiJList;
     // End of variables declaration//GEN-END:variables
 }
