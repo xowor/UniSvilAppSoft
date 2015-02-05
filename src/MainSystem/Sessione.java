@@ -27,7 +27,6 @@ public class Sessione {
         this.idSessione = idSes;
         this.idAlbero = idAlb;    
         this.alberoIpotesi = DBManager.getAlberoIpotesi(idAlbero);
-        this.strumentoSupporto = null;
         this.messaggioOriginaleCifrato = DBManager.getMessaggio(idMessaggioCifrato);
     }
     
