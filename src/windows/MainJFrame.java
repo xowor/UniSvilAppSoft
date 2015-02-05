@@ -5,6 +5,7 @@ import MainSystem.Ipotesi;
 import MainSystem.Sostituzione;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.ArrayList;
 import java.util.Set;
 
 /*
@@ -18,6 +19,9 @@ import java.util.Set;
  * @author luca
  */
 public class MainJFrame extends javax.swing.JFrame {
+    
+    private DBManager dbManager;
+    private ArrayList<Studente> studenti;
 
     /**
      * Creates new form MainJFrame
@@ -332,7 +336,21 @@ public class MainJFrame extends javax.swing.JFrame {
         //windows.AlfabetoJFrame frame = new windows.AlfabetoJFrame(alfabeto);
         //frame.setVisible(true);
     }//GEN-LAST:event_mostraAlfabetoJButtonActionPerformed
-
+    
+    public void inizializza(){
+        this.dbManager = new DBManager();
+        this.dbManager.inizializza();
+    }
+    
+    public void mostraStudenti(){
+        this.studenti = this.dbManager.getStudenti();
+        for (Studente studente : this.studenti){
+            this.studentiJComboBox.addItem(studente);
+        }
+                
+    }
+    
+    
     /**
      * @param args the command line arguments
      */
@@ -366,8 +384,7 @@ public class MainJFrame extends javax.swing.JFrame {
                 MainJFrame frame = new MainJFrame();
                 frame.setVisible(true);
                 
-                DBManager manager = new DBManager();
-                manager.inizializza();
+                
                 
                 // TEMP
                 //Studente studente = new Studente("mario", "rossi");
