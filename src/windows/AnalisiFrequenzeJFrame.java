@@ -29,7 +29,8 @@ public class AnalisiFrequenzeJFrame extends javax.swing.JFrame {
         
         DefaultTableModel model = (DefaultTableModel) this.frequenzeJTable.getModel();
         
-        Frequenze frequenze = dbManager.getFrequenzeAlfabeto(alfabeto.getCodice());
+        Frequenze frequenze = new Frequenze(alfabeto.getLocale());
+        frequenze.setFrequenze( dbManager.getFrequenzeAlfabeto(alfabeto.getLocale()) );
         Frequenze frequenzeTesto = AnalisiFrequenze.calcolaFrequenze(messaggio , alfabeto);
 
         for (String parola : frequenze.getFrequenze().keySet()) {

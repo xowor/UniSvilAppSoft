@@ -11,7 +11,7 @@ public class AnalisiFrequenze {
         String testo = messaggio.getTesto();
         
         for (int i = 0; i < testo.length(); i++){
-            map.put(alfabeto.getLettere()[0], 0);
+            map.put(alfabeto.getLettere().get(i), 0);
         }
         
         for (int i = 0; i < testo.length(); i++){
@@ -27,7 +27,9 @@ public class AnalisiFrequenze {
             
             map.replace(String.valueOf(c),  (map.get(c)) * pc );
         }
-            
-        return new Frequenze(map);
+          
+        Frequenze freq = new Frequenze(alfabeto.getLocale());
+        freq.setFrequenze(map);
+        return freq;
     }
 }

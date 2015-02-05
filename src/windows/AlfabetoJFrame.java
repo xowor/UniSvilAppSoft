@@ -22,11 +22,12 @@ public class AlfabetoJFrame extends javax.swing.JFrame {
     public AlfabetoJFrame(Alfabeto alfabeto) {
         this.alfabeto = alfabeto;
         initComponents();
-        this.codiceJTextField.setText(alfabeto.getCodice());
+        this.codiceJTextField.setText(alfabeto.getLocale());
         DefaultListModel lm1  = new DefaultListModel();
         this.lettereJList.setModel(lm1);
-        for (int i = 0; i < alfabeto.getLettere().length; i++){
-            lm1.addElement(alfabeto.getLettere()[i]);
+        
+        for (int i = 0; i < alfabeto.getLettere().size(); i++){
+            lm1.addElement(alfabeto.getLettere().get(i));
         }
     }
 

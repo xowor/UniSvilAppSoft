@@ -14,7 +14,7 @@ public class Frequenze {
         return this.frequenze;
     }
     
-    public HashMap<String,Integer> getFrequenze(){
-        return this.frequenze;
+    public void setFrequenze(HashMap<String,Integer> frequenze){
+        this.frequenze = frequenze;
     }
 }
