@@ -49,6 +49,7 @@ public class AggiungiIpotesiJFrame extends javax.swing.JDialog {
         mostraDizionarioJButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Aggiungi ipotesi");
 
         messaggioJTextArea.setColumns(20);
         messaggioJTextArea.setLineWrap(true);

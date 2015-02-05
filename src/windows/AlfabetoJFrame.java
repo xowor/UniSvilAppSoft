@@ -57,6 +57,7 @@ public class AlfabetoJFrame extends javax.swing.JFrame {
         jScrollPane1.setViewportView(jList1);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Alfabeto");
 
         jLabel2.setText("Codice");
 
