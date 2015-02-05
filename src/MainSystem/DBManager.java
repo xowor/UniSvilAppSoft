@@ -177,18 +177,17 @@ public class DBManager {
             "idPadre INT NOT NULL," +
             "figli LONG VARCHAR NOT NULL," +
             "testoParzialmenteDecifrato LONG VARCHAR NOT NULL," +
-            "PRIMARY KEY(id, idSessione, idAlbero)");
+            "PRIMARY KEY(id, idSessione, idAlbero))");
             
             st.execute( "CREATE TABLE frequenzaLingua(" +
             "lettera VARCHAR(1) NOT NULL," +
             "lingua VARCHAR(12) NOT NULL," +
-            "frequenza INTEGER NOT NULL," +
+            "frequenza INT NOT NULL," +
             "PRIMARY KEY(lettera, lingua))");
         } catch (SQLException ex) {
             Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
 
     public void creaDati(){
         aggiungiFrequenza("a", "IT_it", 12, st);
@@ -366,11 +365,14 @@ public class DBManager {
     }
    
     public ArrayList<Studente> getStudenti(){
+        
         ArrayList<Studente> al = new ArrayList();
         try {           
             ResultSet rs = st.executeQuery("SELECT id, login, nome, cognome  FROM studente");
+            System.out.println(rs);
             while(rs.next()){
                 Studente stud = new Studente(rs.getInt("id"), rs.getString("login"), "", rs.getString("nome"), rs.getString("cognome"));
+                System.out.println(stud.toString());
                 al.add(stud);
             }
         } catch (SQLException ex) {
