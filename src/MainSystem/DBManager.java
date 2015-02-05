@@ -477,7 +477,7 @@ public class DBManager {
     public static int getIdAlbero(int idSessione){
         int id = -1;
         try {            
-            ResultSet rs = st.executeQuery("SELECT idAlbero FROM ipotesi WHERE id = "+idSessione+"");
+            ResultSet rs = st.executeQuery("SELECT idAlbero FROM ipotesi WHERE idSessione = "+idSessione+"");
             rs.next();
             id = rs.getInt("idAlbero");            
         } catch (SQLException ex) {

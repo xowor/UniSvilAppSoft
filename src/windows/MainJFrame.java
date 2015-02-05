@@ -1,6 +1,7 @@
 package windows;
 import MainSystem.DBManager;
 import Elements.*;
+import MainSystem.AlberoIpotesi;
 import MainSystem.Ipotesi;
 import MainSystem.Sessione;
 import MainSystem.Sostituzione;
@@ -27,7 +28,9 @@ public class MainJFrame extends javax.swing.JFrame {
     
     private DBManager dbManager;
     private Studente studente;
+    private Sessione sessione;
     private ArrayList<Studente> studenti;
+    private AlberoIpotesi alberoIpotesi;
 
     /**
      * Creates new form MainJFrame
@@ -370,8 +373,9 @@ public class MainJFrame extends javax.swing.JFrame {
         if (evt.getStateChange() == ItemEvent.SELECTED) {
             this.studente = dbManager.getStudenteDaNome(studentiJComboBox.getSelectedItem().toString());
             
-            Sessione sessione = this.dbManager.getOrInsertSessione(this.studente.getId());
-            //sessione = new Sessione();
+            this.sessione = this.dbManager.getOrInsertSessione(this.studente.getId());
+            this.alberoIpotesi = this.dbManager.getAlberoIpotesi(this.sessione.getId());
+            System.out.println(this.sessione.getId());
         }
     }//GEN-LAST:event_studentiJComboBoxItemStateChanged
 
@@ -381,7 +385,8 @@ public class MainJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_creaDatiJButtonActionPerformed
 
     private void gestioneMessaggiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_gestioneMessaggiActionPerformed
-        windows.GestioneMessaggiJFrame frame = new windows.GestioneMessaggiJFrame(this.studente, this.dbManager);
+        Messaggio messaggioRicevuto = new Messaggio(null);
+        windows.GestioneMessaggiJFrame frame = new windows.GestioneMessaggiJFrame(this.studente, this.dbManager, messaggioRicevuto);
         frame.addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosed(WindowEvent e) {

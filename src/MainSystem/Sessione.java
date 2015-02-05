@@ -38,4 +38,12 @@ public class Sessione {
         this.alberoIpotesi = new AlberoIpotesi(this.idSessione, this.idAlbero, messaggioOriginaleCifrato.testoCifrato);
     }
     
+    public Studente getStudente(){
+        return this.studente;
+    }
+
+    public int getId() {
+        return this.idSessione;
+    }
+    
 }
