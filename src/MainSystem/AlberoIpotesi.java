@@ -19,7 +19,6 @@ public class AlberoIpotesi extends JTree{
     public AlberoIpotesi(int id, Messaggio cifrato, String lingua){
         this.idAlbero = id;
         this.root = new NodoIpotesi(cifrato);
-        this.alfabeto = new Alfabeto(lingua); 
         this.idCounter = 0;
     }
     
@@ -33,10 +32,10 @@ public class AlberoIpotesi extends JTree{
         /* ****************************************************************** */
         /* Costruttori */
         
-        private NodoIpotesi(Messaggio mex){
+        private NodoIpotesi(int id){
             this.id = 0;
             this.parent = 0;
-            Ipotesi tmp = new Ipotesi(mex, this.id);
+            Ipotesi tmp = new Ipotesi( );
             this.listaFigli = new ArrayList<>();
         }
         

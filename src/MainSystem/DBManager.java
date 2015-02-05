@@ -127,10 +127,10 @@ public class DBManager {
             st.execute( "CREATE TABLE sessione(" +
             "id INT NOT NULL GENERATED ALWAYS AS IDENTITY(START WITH 1, INCREMENT BY 1)," +
             "idStudente INT NOT NULL," +
-                    // idRoot == idIpotesi che è root dell'alberoIpotesi
-            "idRoot INT NOT NULL," +
+            "idAlbero INT NOT NULL," +
                     // idIpotesi == idIpotesi dell'ipotesi raggiunta nell'alberoIpotesi
             "idIpotesi INT NOT NULL," +
+            "idMessaggioOriginaleCifrato INT NOT NULL," +
             "terminata BOOLEAN NOT NULL," +
             "PRIMARY KEY(id))");
             
@@ -147,10 +147,7 @@ public class DBManager {
             st.execute( "CREATE TABLE alberoIpotesi(" +
             "idAlbero INT NOT NULL GENERATED ALWAYS AS IDENTITY(START WITH 1, INCREMENT BY 1)," +
             "idSessione INT NOT NULL," +
-            "idPadre INT NOT NULL," +
-                    // idIpotesi = nodo corrente
-            "idIpotesi VARCHAR(12) NOT NULL," +
-            "figli VARCHAR(50) NOT NULL," +
+            "idIpotesiRoot INT NOT NULL," +
             "PRIMARY KEY(idAlbero))");
             
             st.execute( "CREATE TABLE userInfo(" +
@@ -174,7 +171,10 @@ public class DBManager {
             st.execute( "CREATE TABLE ipotesi(" +
             "id INT NOT NULL GENERATED ALWAYS AS IDENTITY(START WITH 1, INCREMENT BY 1)," +
             "idSessione INT NOT NULL," +
-            "idMessaggio INT NOT NULL," +
+            "idAlbero INT NOT NULL," +
+            "idPadre INT NOT NULL," +
+            "figli LONG VARCHAR NOT NULL," +
+            "testoParzialmenteDecifrato LONG VARCHAR NOT NULL," +
             "PRIMARY KEY(id, idSessione)" +
             "FOREIGN KEY idMessaggio REFERENCES messaggio(id))");
             
@@ -281,6 +281,16 @@ public class DBManager {
         esegui("INSERT INTO studente (nome, cognome, login, password) VALUES ('"+nome+"', '"+cognome+"', '"+login+"', '"+password+"')", st);
     }
     
+    public static Studente getStudente(int id){
+        Studente studente = null;
+        try {
+            ResultSet rs = st.executeQuery("SELECT * FROM studente WHERE id = id");
+            studente = new Studente(id, rs.getString("login"), rs.getString("password"), rs.getString("nome"), rs.getString("cognome"));
+        } catch (SQLException ex) {
+            Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return studente;
+    }
     public Studente getStudente(String login, String password){
         Studente studente = null;
         try {
@@ -359,7 +369,7 @@ public class DBManager {
             // recuperare la sessione con la decifratura già iniziata (terminata = false)
             ResultSet rs = st.executeQuery("SELECT * FROM sessione WHERE idStudente = "+idStudente+"");
             rs.next();
-            sessione = new Sessione(rs.getInt("id"), idStudente, rs.getInt("idRoot"));
+            sessione = new Sessione(rs.getInt("id"), idStudente, rs.getInt("idRoot"),);
             } catch (SQLException ex) {
                 Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -404,7 +414,7 @@ public class DBManager {
         return id;
     }
     
-    public AlberoIpotesi getAlberoIpotesi(int idSessione){
+    public static AlberoIpotesi getAlberoIpotesi(int idSessione){
         AlberoIpotesi albero = null;
         //int idAlbero = getIdAlbero(idSessione);
         //String messaggio = getMessaggio(idAlbero);

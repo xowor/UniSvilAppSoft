@@ -1,22 +1,20 @@
 package MainSystem;
 
 import Elements.Messaggio;
+import java.util.ArrayList;
 
 public class Ipotesi {
     
-    int id;
-    Messaggio messaggio;
+    private int id;
+    private String testoParzialmenteDecifrato;
+    private int idPadre;
+    private ArrayList<Integer> figli;
     
-    public Ipotesi(Messaggio m, int id){
+    public Ipotesi(int id, String testo, int padre, ArrayList<Integer> listaFigli){
         this.id = id;
-        this.messaggio = m;
+        this.testoParzialmenteDecifrato = testo;
+        this.idPadre = padre;
+        this.figli = listaFigli;
     }
-    
-    public Messaggio getMessaggio(){
-        return this.messaggio;
-    }
-    
-    public void setTesto(String testo){
-        this.messaggio.setTesto(testo);
-    }
+
 }
