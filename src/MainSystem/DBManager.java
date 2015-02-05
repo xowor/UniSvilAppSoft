@@ -188,7 +188,6 @@ public class DBManager {
             Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
 
     public void creaDati(){
         aggiungiFrequenza("a", "IT_it", 12, st);
@@ -366,11 +365,14 @@ public class DBManager {
     }
    
     public ArrayList<Studente> getStudenti(){
+        
         ArrayList<Studente> al = new ArrayList();
         try {           
             ResultSet rs = st.executeQuery("SELECT id, login, nome, cognome  FROM studente");
+            System.out.println(rs);
             while(rs.next()){
                 Studente stud = new Studente(rs.getInt("id"), rs.getString("login"), "", rs.getString("nome"), rs.getString("cognome"));
+                System.out.println(stud.toString());
                 al.add(stud);
             }
         } catch (SQLException ex) {
