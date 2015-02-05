@@ -362,7 +362,7 @@ public class DBManager {
             // conteggio delle vecchie sessioni dello studente
             int countVecchie = countVecchieSessioni(idStudente);
             // inizializzare una sessione
-            esegui("INSERT INTO sessione (idStudente, idRoot, terminata) VALUES ('"+idStudente+"', '"+(countVecchie+1)+"', 'false'", st);
+            esegui("INSERT INTO sessione (idStudente, idAlbero, terminata) VALUES ('"+idStudente+"', '"+(countVecchie+1)+"', 'false'", st);
             // creare l'oggetto Sessione
             sessione = new Sessione(getIdSessioneCorrente(idStudente), idStudente);
         }else{  try {
@@ -370,7 +370,7 @@ public class DBManager {
             // recuperare la sessione con la decifratura già iniziata (terminata = false)
             ResultSet rs = st.executeQuery("SELECT * FROM sessione WHERE idStudente = "+idStudente+"");
             rs.next();
-            sessione = new Sessione(rs.getInt("id"), idStudente, rs.getInt("idRoot"),);
+            sessione = new Sessione(rs.getInt("id"), idStudente, rs.getInt("idAlbero"), rs.getInt("idMessaggioOriginaleCifrato"));
             } catch (SQLException ex) {
                 Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -394,9 +394,9 @@ public class DBManager {
     public int getIdAlbero(int idSessione){
         int id = -1;
         try {            
-            ResultSet rs = st.executeQuery("SELECT idRoot FROM ipotesi WHERE id = "+idSessione+"");
+            ResultSet rs = st.executeQuery("SELECT idAlbero FROM ipotesi WHERE id = "+idSessione+"");
             rs.next();
-            id = rs.getInt("idRoot");            
+            id = rs.getInt("idAlbero");            
         } catch (SQLException ex) {
             Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
         }
