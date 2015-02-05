@@ -140,6 +140,8 @@ public class DBManager {
             "testoCifrato LONG VARCHAR NOT NULL," +
             "lingua VARCHAR(12) NOT NULL," +
             "titolo VARCHAR(24) NOT NULL," +
+            "idMittente INT NOT NULL," +
+            "idDestinatario INT NOT NULL," +
             "bozza LONG VARCHAR NOT NULL," +
             "letto BOOLEAN NOT NULL," +
             "PRIMARY KEY(id))");
@@ -175,7 +177,7 @@ public class DBManager {
             "idPadre INT NOT NULL," +
             "figli LONG VARCHAR NOT NULL," +
             "testoParzialmenteDecifrato LONG VARCHAR NOT NULL," +
-            "PRIMARY KEY(id, idSessione)" +
+            "PRIMARY KEY(id, idSessione, idAlbero)" +
             "FOREIGN KEY idMessaggio REFERENCES messaggio(id))");
             
             st.execute( "CREATE TABLE frequenzaLingua(" +
@@ -245,6 +247,11 @@ public class DBManager {
         aggiungiStudente("admin", "admin", "admin", "admin", st);   
     }
     
+    public void aggiungiMessaggio(String testo, String lingua, String titolo, String bozza, Boolean letto, int idMitt, int idDest){
+        esegui("INSERT INTO messaggio (testo, lingua, titolo, idMittente, idDestinatario, bozza, letto) VALUES ('"+testo
+                +"', '"+lingua+"', '"+titolo+"', '"+idMitt+"', '"+idDest+"','"+bozza+"', '"+letto+"')", st);
+    }
+    
     public void aggiungiFrequenza(String lettera, String lingua, int frequenza, Statement st){
         esegui("INSERT INTO frequenzaLingua (lettera, lingua, frequenza) VALUES ('"+lettera+"', '"+lingua+"', "+frequenza+")", st);
     }
@@ -291,6 +298,7 @@ public class DBManager {
         }
         return studente;
     }
+    
     public Studente getStudente(String login, String password){
         Studente studente = null;
         try {
