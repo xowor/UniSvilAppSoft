@@ -10,16 +10,17 @@ import javax.swing.tree.TreeNode;
 
 public class AlberoIpotesi extends JTree{
     
+    private int idSessione;
+    private int idAlbero;
     private final NodoIpotesi root;
-    private int idAlbero = 0;
-    private Alfabeto alfabeto;
     public int idCounter;           // numero di nodi dell'albero
                                     // utile per capire quale id assegnare al nodo successivo
     
       
     public AlberoIpotesi(int id, String cifrato){
+        this.idSessione = id;
         this.idAlbero = id;
-        this.root = new NodoIpotesi(cifrato);
+        this.root = new NodoIpotesi(this.idSessione, this.idAlbero, cifrato);
         this.idCounter = 0;
     }
     
@@ -34,18 +35,19 @@ public class AlberoIpotesi extends JTree{
         /* ****************************************************************** */
         /* Costruttori */
         
-        private NodoIpotesi(String testo){
+        private NodoIpotesi(int idSes, int idAlb, String testo){
             this.id = 0;
             this.parent = 0;
             this.listaFigli = new ArrayList<>();
-            Ipotesi tmp = new Ipotesi(this.id, testo, this.parent, this.listaFigli);
+            this.idCounter++;
+            this.ipotesi = new Ipotesi(idSes, idAlb, idCounter+1, testo, this.parent, this.listaFigli);
         }
         
-        private NodoIpotesi(String testo, int padre, int id){
+        private NodoIpotesi(int idSes, int idAlb, String testo, int padre, int id){
             this.id = id;
             this.parent = padre;
-            Ipotesi tmp = new Ipotesi(mex, this.id);
             this.listaFigli = new ArrayList<>();
+            this.ipotesi = new Ipotesi(idSes, idAlb, idCounter+1, testo, this.parent, this.listaFigli);
         }
         
         /* ****************************************************************** */
@@ -53,6 +55,7 @@ public class AlberoIpotesi extends JTree{
         
         /* Aggiunge un nuovo figlio */
         
+        /*
         public void aggiungiIpotesi(Messaggio mex){
             idCounter++;
             Ipotesi tmp = new Ipotesi(mex, idCounter);
@@ -68,7 +71,7 @@ public class AlberoIpotesi extends JTree{
             }
             return path;
         }
-        
+        */
         /* Aggiungere query che costruisca nodo */
         public NodoIpotesi getNodo(int id){
             return null;
