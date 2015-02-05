@@ -18,6 +18,13 @@ public class Ipotesi {
         this.testoParzialmenteDecifrato = testo;
         this.idPadre = padre;
         this.figli = listaFigli;
+        String figli = listaFigli.toString();
+        DBManager.aggiungiIpotesi(idSes, idAlb, idIp, testo, padre, figli);
+    }
+    
+    public void addFiglio(int figlio){
+        this.figli.add(figlio);
+        
     }
 
 }
