@@ -177,12 +177,12 @@ public class DBManager {
             "idPadre INT NOT NULL," +
             "figli LONG VARCHAR NOT NULL," +
             "testoParzialmenteDecifrato LONG VARCHAR NOT NULL," +
-            "PRIMARY KEY(id, idSessione, idAlbero)");
+            "PRIMARY KEY(id, idSessione, idAlbero))");
             
             st.execute( "CREATE TABLE frequenzaLingua(" +
             "lettera VARCHAR(1) NOT NULL," +
             "lingua VARCHAR(12) NOT NULL," +
-            "frequenza INTEGER NOT NULL," +
+            "frequenza INT NOT NULL," +
             "PRIMARY KEY(lettera, lingua))");
         } catch (SQLException ex) {
             Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
