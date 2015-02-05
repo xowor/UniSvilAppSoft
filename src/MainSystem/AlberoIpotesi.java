@@ -50,8 +50,8 @@ public class AlberoIpotesi extends JTree{
             ArrayList<Integer> tmp = ip.getFigli();
             int ses = ip.getSessione();
             int alb = ip.getAlbero();
-            for(Integer c : tmp){
-                Ipotesi temp = DBManager.getIpotesi(ses, alb, c);
+            for(Integer idNewIp : tmp){
+                Ipotesi temp = DBManager.getIpotesi(ses, alb, idNewIp);
                 this.listaFigli.add(new NodoIpotesi(temp));
             }
             
