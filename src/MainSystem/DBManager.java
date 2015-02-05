@@ -78,7 +78,7 @@ public class DBManager {
     * @param st indica lo Statement creato per l'interazione con il database;
     * @return "true" se la query ha avuto successo;
     */
-    public boolean esegui(String sql, Statement st) {
+    public static boolean esegui(String sql, Statement st) {
         boolean tmp = false;
         try {
             tmp = st.execute(sql);
@@ -260,6 +260,30 @@ public class DBManager {
         esegui("INSERT INTO ipotesi (idSessione, idAlbero, testoParzialmenteDecifrato, idPadre, figli) VALUES ("+idSessione+", "+idAlbero+", '"+testo+"', "+idPadre+", '"+figli+"')", st);
     }
     
+    public static Ipotesi getIpotesi(int idIpotesi, int idSessione, int idAlbero){
+        Ipotesi ip = null;
+        try {
+            ResultSet rs = st.executeQuery("SELECT * FROM ipotesi WHERE idIpotesi="+idIpotesi+", idSessione="+idSessione+", idAlbero="+idAlbero+"");
+            rs.next();
+            ArrayList<Integer> figli = getArrayFigli(rs.getString("figli"));
+            ip = new Ipotesi(idIpotesi, idSessione, idAlbero, rs.getString("testoParzialmenteDecifrato"), 
+                    rs.getInt("idPadre"), figli);
+        } catch (SQLException ex) {
+            Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return ip;
+    }
+    
+    public static ArrayList<Integer> getArrayFigli(String figli){
+        ArrayList<Integer> arrayFigli = new ArrayList<>();
+        String[] str = figli.split(",");
+        for(int i = 0; i < str.length; i++){
+            int val = Integer.parseInt(str[i]);
+            arrayFigli.add(val);
+        }
+        return arrayFigli;
+    }
+        
     public HashMap<Integer, String> recuperaMessaggiCifrati(){                  // per la spia
         HashMap<Integer, String> map = new HashMap<Integer, String>();
         try {

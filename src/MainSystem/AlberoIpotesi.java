@@ -142,6 +142,13 @@ public class AlberoIpotesi extends JTree{
     public Alfabeto getAlfabeto(){
         return this.alfabeto;
     }
+    
+    public ArrayList<Integer> getArrayFigli(String figli){
+        ArrayList<Integer> arrayFigli = new ArrayList<>();
+        
+        return arrayFigli;
+    }
+    
  /*   public AlberoIpotesi getAlberoIpotesi(){
         return ;
     }*/
