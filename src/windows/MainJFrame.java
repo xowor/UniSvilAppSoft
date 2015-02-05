@@ -25,6 +25,7 @@ import javax.swing.UnsupportedLookAndFeelException;
 public class MainJFrame extends javax.swing.JFrame {
     
     private DBManager dbManager;
+    private Studente studente;
     private ArrayList<Studente> studenti;
 
     /**
@@ -366,8 +367,7 @@ public class MainJFrame extends javax.swing.JFrame {
 
     private void studentiJComboBoxItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_studentiJComboBoxItemStateChanged
         if (evt.getStateChange() == ItemEvent.SELECTED) {
-            String stundente = studentiJComboBox.getSelectedItem().toString();
-            System.out.println("SampleText : "+stundente);
+            this.studente = dbManager.getStudenteDaNome(studentiJComboBox.getSelectedItem().toString());
         }
     }//GEN-LAST:event_studentiJComboBoxItemStateChanged
 
@@ -377,7 +377,7 @@ public class MainJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_creaDatiJButtonActionPerformed
 
     private void gestioneMessaggiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_gestioneMessaggiActionPerformed
-        windows.GestioneMessaggiJFrame frame = new windows.GestioneMessaggiJFrame();
+        windows.GestioneMessaggiJFrame frame = new windows.GestioneMessaggiJFrame(this.studente, this.dbManager);
         frame.addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosed(WindowEvent e) {
