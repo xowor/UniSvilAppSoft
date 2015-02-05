@@ -257,7 +257,7 @@ public class GestioneMessaggiJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        ArrayList<Messaggio> messaggi = dbManager.getMessaggi();
+        ArrayList<Messaggio> messaggi = dbManager.getMessaggi(this.mittente.getId());
         for (Messaggio messaggio: messaggi){
             DefaultListModel model = (DefaultListModel) ricevutiJList.getModel();
             model.addElement(messaggio.getTesto());

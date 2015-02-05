@@ -427,10 +427,10 @@ public class DBManager {
         return messaggio;
     }
     
-    public static ArrayList<Messaggio> getMessaggi(){
+    public static ArrayList<Messaggio> getMessaggi(int idMittente){
         ArrayList<Messaggio> messaggi = new ArrayList();
         try {            
-            ResultSet rs = st.executeQuery("SELECT * FROM messaggio");
+            ResultSet rs = st.executeQuery("SELECT * FROM messaggio WHERE mittente = " + idMittente + "");
             rs.next();
             while(rs.next()){
                 Messaggio messaggio = new Messaggio(rs.getString("titolo"), rs.getString("testo"), rs.getInt("mittente"), 
