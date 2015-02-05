@@ -496,6 +496,12 @@ public class DBManager {
     }
     
     public static void rimuoviIpotesi(int idSessione, int idAlbero, int id){
+        // creare un'ipotesi temporanea con i parametri
         
+        // recuperare il padre dell'ipotesi creata
+        
+        // eliminare DAI FIGLI DEL PADRE l'id dell'ipotesi creata (modifica per mezzo di query)
+        
+        // eliminare il record dalla tabella ipotesi che ha idSessione, idAlbero e id uguali ai parametri
     }
 }
