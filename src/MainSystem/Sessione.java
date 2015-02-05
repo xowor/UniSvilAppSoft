@@ -9,6 +9,7 @@ public class Sessione {
     
     private Studente studente;
     private final int idSessione;
+    private int idAlbero;
     private int idIpotesiCorrente;
     private Messaggio messaggioOriginaleCifrato;
     private AlberoIpotesi alberoIpotesi;
@@ -21,9 +22,10 @@ public class Sessione {
     }
     
     // Sessione recuperata dal db
-    public Sessione(int idSes, int idStud, int idAlbero, int idMessaggioCifrato){
+    public Sessione(int idSes, int idStud, int idAlb, int idMessaggioCifrato){
         this.studente = DBManager.getStudente(idStud);
-        this.idSessione = idSes;               
+        this.idSessione = idSes;
+        this.idAlbero = idAlb;    
         this.alberoIpotesi = DBManager.getAlberoIpotesi(idAlbero);
         this.strumentoSupporto = null;
         this.messaggioOriginaleCifrato = DBManager.getMessaggio(idMessaggioCifrato);
@@ -35,7 +37,7 @@ public class Sessione {
     }
     
     public void setAlberoIpotesi(String testo){
-        this.alberoIpotesi = new AlberoIpotesi(this.idSessione, messaggioOriginaleCifrato.testoCifrato);
+        this.alberoIpotesi = new AlberoIpotesi(this.idSessione, this.idAlbero, messaggioOriginaleCifrato.testoCifrato);
     }
     
 }

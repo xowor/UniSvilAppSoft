@@ -256,6 +256,23 @@ public class DBManager {
         esegui("INSERT INTO frequenzaLingua (lettera, lingua, frequenza) VALUES ('"+lettera+"', '"+lingua+"', "+frequenza+")", st);
     }
     
+    public static void aggiungiIpotesi(int idSessione, int idAlbero, int idIpotesi, String testo, int idPadre, String figli){
+        esegui("INSERT INTO ipotesi (idSessione, idAlbero, testoParzialmenteDecifrato, idPadre, figli) VALUES ("+idSessione+", "+idAlbero+", '"+testo+"', "+idPadre+", '"+figli+"')", st);
+    }
+    
+    public HashMap<Integer, String> recuperaMessaggiCifrati(){                  // per la spia
+        HashMap<Integer, String> map = new HashMap<Integer, String>();
+        try {
+            ResultSet rs = st.executeQuery("SELECT id, testoCifrato FROM messaggio");
+            while(rs.next()){
+                map.put(rs.getInt("id"), rs.getString("testoCifrato"));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return map;
+    }
+    
     public static ArrayList<String> getAlfabeto(String lingua){
         ArrayList<String> al = null;
         try {
