@@ -12,16 +12,17 @@ import java.util.logging.Logger;
 public class DBManager {
     
     public static Statement st;
+    private static Connection conn;
     public DBManager(){}
     
     public void inizializza() {
-        Connection conn=openConnection();
+        this.conn = openConnection();
 
         this.st=openStatement(conn);
         //creaTabelle();
         //creaDati();
-        closeStatement(st);
-        closeConnection(conn);
+        //closeStatement(st);
+        //closeConnection(conn);
     }
     /**
     * crea uno Statement con il database;
@@ -368,15 +369,15 @@ public class DBManager {
         
         ArrayList<Studente> al = new ArrayList();
         try {           
-            ResultSet rs = st.executeQuery("SELECT id, login, nome, cognome  FROM studente");
-            System.out.println(rs);
+            PreparedStatement ps = conn.prepareStatement("SELECT id, login, nome, cognome  FROM studente");
+            ResultSet rs = ps.executeQuery();
             while(rs.next()){
                 Studente stud = new Studente(rs.getInt("id"), rs.getString("login"), "", rs.getString("nome"), rs.getString("cognome"));
                 System.out.println(stud.toString());
                 al.add(stud);
             }
         } catch (SQLException ex) {
-            //Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
         }
         return al;
     }
@@ -427,7 +428,7 @@ public class DBManager {
             // conteggio delle vecchie sessioni dello studente
             int countVecchie = countVecchieSessioni(idStudente);
             // inizializzare una sessione
-            esegui("INSERT INTO sessione (idStudente, idAlbero, terminata) VALUES ('"+idStudente+"', '"+(countVecchie+1)+"', 'false'", st);
+            esegui("INSERT INTO sessione (idStudente, idAlbero, terminata) VALUES ("+idStudente+", "+(countVecchie+1)+", 'false')", st);
             // creare l'oggetto Sessione
             sessione = new Sessione(getIdSessioneCorrente(idStudente), idStudente);
         }else{  try {
@@ -458,7 +459,7 @@ public class DBManager {
     
     public static ArrayList<Messaggio> getMessaggi(int idMittente){
         ArrayList<Messaggio> messaggi = new ArrayList();
-        try {            
+        try {           
             ResultSet rs = st.executeQuery("SELECT * FROM messaggio WHERE mittente = " + idMittente + "");
             rs.next();
             while(rs.next()){
