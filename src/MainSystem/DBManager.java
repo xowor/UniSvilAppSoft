@@ -458,14 +458,14 @@ public class DBManager {
         return messaggio;
     }
     
-    public static ArrayList<Messaggio> getMessaggi(int idMittente){
+    public static ArrayList<Messaggio> getMessaggi(int idDestinatario){
         ArrayList<Messaggio> messaggi = new ArrayList();
         try {           
-            ResultSet rs = st.executeQuery("SELECT * FROM messaggio WHERE mittente = " + idMittente + "");
+            ResultSet rs = st.executeQuery("SELECT * FROM messaggio WHERE idDestinatario = " + idDestinatario + "");
             rs.next();
             while(rs.next()){
                 Messaggio messaggio = new Messaggio(rs.getString("titolo"), rs.getString("testo"), rs.getInt("mittente"), 
-                    rs.getInt("destinatario"), rs.getString("lingua"));  
+                    rs.getInt("mittente"), rs.getString("lingua"));  
                 messaggi.add(messaggio);
             }   
         } catch (SQLException ex) {
