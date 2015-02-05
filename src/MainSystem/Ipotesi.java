@@ -26,5 +26,21 @@ public class Ipotesi {
         this.figli.add(figlio);
         
     }
+    
+    public int getSessione(){
+        return this.idSessione;
+    }
+    
+    public int getAlbero(){
+        return this.idAlbero;
+    }
+    
+    public int getParent(){
+        return this.idPadre;
+    }
+    
+    public ArrayList<Integer> getFigli(){
+        return this.figli;
+    }
 
 }

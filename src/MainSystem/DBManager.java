@@ -340,6 +340,17 @@ public class DBManager {
         return studente;
     }
     
+    public Studente getStudenteDaNome(String nome){
+        Studente studente = null;
+        try {
+            ResultSet rs = st.executeQuery("SELECT * FROM studente WHERE nome = nome");
+            studente = new Studente(rs.getInt("id"), rs.getString("login"), rs.getString("password"), nome, rs.getString("cognome"));
+        } catch (SQLException ex) {
+            Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return studente;
+    }
+    
     public Studente getStudente(String login, String password){
         Studente studente = null;
         try {
@@ -438,6 +449,22 @@ public class DBManager {
             Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
         }
         return messaggio;
+    }
+    
+    public static ArrayList<Messaggio> getMessaggi(int idMittente){
+        ArrayList<Messaggio> messaggi = new ArrayList();
+        try {            
+            ResultSet rs = st.executeQuery("SELECT * FROM messaggio WHERE mittente = " + idMittente + "");
+            rs.next();
+            while(rs.next()){
+                Messaggio messaggio = new Messaggio(rs.getString("titolo"), rs.getString("testo"), rs.getInt("mittente"), 
+                    rs.getInt("destinatario"), rs.getString("lingua"));  
+                messaggi.add(messaggio);
+            }   
+        } catch (SQLException ex) {
+            Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return messaggi;
     }
     
     public int getIdAlbero(int idSessione){
