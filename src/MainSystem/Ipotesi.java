@@ -25,6 +25,10 @@ public class Ipotesi {
         DBManager.aggiungiIpotesi(this.idSessione, this.idAlbero, this.idIpotesi, this.testoParzialmenteDecifrato, this.idPadre, figli);
     }
     
+    public void rimuoviIpotesi(){
+        DBManager.rimuoviIpotesi(this.idSessione, this.idAlbero, this.idIpotesi);
+    }
+    
     public void addFiglio(int figlio){
         this.figli.add(figlio);
         
