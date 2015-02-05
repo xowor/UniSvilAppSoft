@@ -1,4 +1,4 @@
-package MainSystem;
+package SistemaSupporto;
 
 public class Supporto {
     
