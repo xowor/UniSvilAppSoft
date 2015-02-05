@@ -93,7 +93,7 @@ public class DBManager {
     *
     * @param sql indica il testo di una query SQL;
     * @param st indica lo Statement creato per l'interazione con il database;
-    * @return il resultSet della query eseguita;
+    * @return il resultSet della query eseguIT_it;
     */
     public ResultSet query(String sql, Statement st) {
         try{
@@ -140,6 +140,8 @@ public class DBManager {
             "testoCifrato LONG VARCHAR NOT NULL," +
             "lingua VARCHAR(12) NOT NULL," +
             "titolo VARCHAR(24) NOT NULL," +
+            "idMittente INT NOT NULL," +
+            "idDestinatario INT NOT NULL," +
             "bozza LONG VARCHAR NOT NULL," +
             "letto BOOLEAN NOT NULL," +
             "PRIMARY KEY(id))");
@@ -175,7 +177,7 @@ public class DBManager {
             "idPadre INT NOT NULL," +
             "figli LONG VARCHAR NOT NULL," +
             "testoParzialmenteDecifrato LONG VARCHAR NOT NULL," +
-            "PRIMARY KEY(id, idSessione)" +
+            "PRIMARY KEY(id, idSessione, idAlbero)" +
             "FOREIGN KEY idMessaggio REFERENCES messaggio(id))");
             
             st.execute( "CREATE TABLE frequenzaLingua(" +
@@ -190,54 +192,54 @@ public class DBManager {
     
 
     public void creaDati(){
-        aggiungiFrequenza("a", "ita", 12, st);
-        aggiungiFrequenza("b", "ita", 1, st);
-        aggiungiFrequenza("c", "ita", 4, st);
-        aggiungiFrequenza("d", "ita", 3, st);
-        aggiungiFrequenza("e", "ita", 12, st);
-        aggiungiFrequenza("f", "ita", 1, st);
-        aggiungiFrequenza("g", "ita", 2, st);
-        aggiungiFrequenza("h", "ita", 2, st);
-        aggiungiFrequenza("i", "ita", 11, st);
-        aggiungiFrequenza("l", "ita", 6, st);
-        aggiungiFrequenza("m", "ita", 3, st);
-        aggiungiFrequenza("n", "ita", 7, st);
-        aggiungiFrequenza("o", "ita", 10, st);
-        aggiungiFrequenza("p", "ita", 3, st);
-        aggiungiFrequenza("q", "ita", 1, st);
-        aggiungiFrequenza("r", "ita", 6, st);
-        aggiungiFrequenza("s", "ita", 5, st);
-        aggiungiFrequenza("t", "ita", 5, st);
-        aggiungiFrequenza("u", "ita", 3, st);
-        aggiungiFrequenza("v", "ita", 2, st);
-        aggiungiFrequenza("z", "ita", 1, st);
+        aggiungiFrequenza("a", "IT_it", 12, st);
+        aggiungiFrequenza("b", "IT_it", 1, st);
+        aggiungiFrequenza("c", "IT_it", 4, st);
+        aggiungiFrequenza("d", "IT_it", 3, st);
+        aggiungiFrequenza("e", "IT_it", 12, st);
+        aggiungiFrequenza("f", "IT_it", 1, st);
+        aggiungiFrequenza("g", "IT_it", 2, st);
+        aggiungiFrequenza("h", "IT_it", 2, st);
+        aggiungiFrequenza("i", "IT_it", 11, st);
+        aggiungiFrequenza("l", "IT_it", 6, st);
+        aggiungiFrequenza("m", "IT_it", 3, st);
+        aggiungiFrequenza("n", "IT_it", 7, st);
+        aggiungiFrequenza("o", "IT_it", 10, st);
+        aggiungiFrequenza("p", "IT_it", 3, st);
+        aggiungiFrequenza("q", "IT_it", 1, st);
+        aggiungiFrequenza("r", "IT_it", 6, st);
+        aggiungiFrequenza("s", "IT_it", 5, st);
+        aggiungiFrequenza("t", "IT_it", 5, st);
+        aggiungiFrequenza("u", "IT_it", 3, st);
+        aggiungiFrequenza("v", "IT_it", 2, st);
+        aggiungiFrequenza("z", "IT_it", 1, st);
 
-        aggiungiFrequenza("a", "eng", 8, st);
-        aggiungiFrequenza("b", "eng", 2, st);
-        aggiungiFrequenza("c", "eng", 3, st);
-        aggiungiFrequenza("d", "eng", 4, st);
-        aggiungiFrequenza("e", "eng", 13, st);
-        aggiungiFrequenza("f", "eng", 2, st);
-        aggiungiFrequenza("g", "eng", 2, st);
-        aggiungiFrequenza("h", "eng", 2, st);
-        aggiungiFrequenza("i", "eng", 7, st);
-        aggiungiFrequenza("j", "eng", 2, st);
-        aggiungiFrequenza("k", "eng", 2, st);
-        aggiungiFrequenza("l", "eng", 4, st);
-        aggiungiFrequenza("m", "eng", 2, st);
-        aggiungiFrequenza("n", "eng", 7, st);
-        aggiungiFrequenza("o", "eng", 8, st);
-        aggiungiFrequenza("p", "eng", 2, st);
-        aggiungiFrequenza("q", "eng", 1, st);
-        aggiungiFrequenza("r", "eng", 6, st);
-        aggiungiFrequenza("s", "eng", 6, st);
-        aggiungiFrequenza("t", "eng", 9, st);
-        aggiungiFrequenza("u", "eng", 3, st);
-        aggiungiFrequenza("v", "eng", 1, st);
-        aggiungiFrequenza("w", "eng", 2, st);
-        aggiungiFrequenza("x", "eng", 2, st);
-        aggiungiFrequenza("y", "eng", 2, st);
-        aggiungiFrequenza("z", "eng", 1, st);           
+        aggiungiFrequenza("a", "EN_us", 8, st);
+        aggiungiFrequenza("b", "EN_us", 2, st);
+        aggiungiFrequenza("c", "EN_us", 3, st);
+        aggiungiFrequenza("d", "EN_us", 4, st);
+        aggiungiFrequenza("e", "EN_us", 13, st);
+        aggiungiFrequenza("f", "EN_us", 2, st);
+        aggiungiFrequenza("g", "EN_us", 2, st);
+        aggiungiFrequenza("h", "EN_us", 2, st);
+        aggiungiFrequenza("i", "EN_us", 7, st);
+        aggiungiFrequenza("j", "EN_us", 2, st);
+        aggiungiFrequenza("k", "EN_us", 2, st);
+        aggiungiFrequenza("l", "EN_us", 4, st);
+        aggiungiFrequenza("m", "EN_us", 2, st);
+        aggiungiFrequenza("n", "EN_us", 7, st);
+        aggiungiFrequenza("o", "EN_us", 8, st);
+        aggiungiFrequenza("p", "EN_us", 2, st);
+        aggiungiFrequenza("q", "EN_us", 1, st);
+        aggiungiFrequenza("r", "EN_us", 6, st);
+        aggiungiFrequenza("s", "EN_us", 6, st);
+        aggiungiFrequenza("t", "EN_us", 9, st);
+        aggiungiFrequenza("u", "EN_us", 3, st);
+        aggiungiFrequenza("v", "EN_us", 1, st);
+        aggiungiFrequenza("w", "EN_us", 2, st);
+        aggiungiFrequenza("x", "EN_us", 2, st);
+        aggiungiFrequenza("y", "EN_us", 2, st);
+        aggiungiFrequenza("z", "EN_us", 1, st);           
 
         aggiungiStudente("eva", "spia", "spia", "spia", st);
         aggiungiStudente("bob", "scrittore", "bob", "bob", st);
@@ -245,8 +247,26 @@ public class DBManager {
         aggiungiStudente("admin", "admin", "admin", "admin", st);   
     }
     
+    public void aggiungiMessaggio(String testo, String lingua, String titolo, String bozza, Boolean letto, int idMitt, int idDest){
+        esegui("INSERT INTO messaggio (testo, lingua, titolo, idMittente, idDestinatario, bozza, letto) VALUES ('"+testo
+                +"', '"+lingua+"', '"+titolo+"', '"+idMitt+"', '"+idDest+"','"+bozza+"', '"+letto+"')", st);
+    }
+    
     public void aggiungiFrequenza(String lettera, String lingua, int frequenza, Statement st){
         esegui("INSERT INTO frequenzaLingua (lettera, lingua, frequenza) VALUES ('"+lettera+"', '"+lingua+"', "+frequenza+")", st);
+    }
+    
+    public HashMap<Integer, String> recuperaMessaggiCifrati(){                  // per la spia
+        HashMap<Integer, String> map = new HashMap<Integer, String>();
+        try {
+            ResultSet rs = st.executeQuery("SELECT id, testoCifrato FROM messaggio");
+            while(rs.next()){
+                map.put(rs.getInt("id"), rs.getString("testoCifrato"));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return map;
     }
     
     public static ArrayList<String> getAlfabeto(String lingua){
@@ -291,6 +311,7 @@ public class DBManager {
         }
         return studente;
     }
+    
     public Studente getStudente(String login, String password){
         Studente studente = null;
         try {
