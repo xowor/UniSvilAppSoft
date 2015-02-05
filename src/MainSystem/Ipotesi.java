@@ -18,13 +18,36 @@ public class Ipotesi {
         this.testoParzialmenteDecifrato = testo;
         this.idPadre = padre;
         this.figli = listaFigli;
-        String figli = listaFigli.toString();
-        DBManager.aggiungiIpotesi(idSes, idAlb, idIp, testo, padre, figli);
+    }
+    
+    public void aggiungiIpotesi(){
+        String figli = this.figli.toString();
+        DBManager.aggiungiIpotesi(this.idSessione, this.idAlbero, this.idIpotesi, this.testoParzialmenteDecifrato, this.idPadre, figli);
     }
     
     public void addFiglio(int figlio){
         this.figli.add(figlio);
         
+    }
+    
+    public int getSessione(){
+        return this.idSessione;
+    }
+    
+    public int getAlbero(){
+        return this.idAlbero;
+    }
+    
+    public int getId(){
+        return this.idIpotesi;
+    }
+    
+    public int getParent(){
+        return this.idPadre;
+    }
+    
+    public ArrayList<Integer> getFigli(){
+        return this.figli;
     }
 
 }
