@@ -491,4 +491,8 @@ public class DBManager {
         }
         return albero;
     }
+    
+    public static void rimuoviIpotesi(int idSessione, int idAlbero, int id){
+        
+    }
 }
