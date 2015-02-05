@@ -12,7 +12,7 @@ public class AlberoIpotesi extends JTree{
     
     public int idSessione;
     public int idAlbero;
-    private final Ipotesi root;
+    private final NodoIpotesi root;
     public int idCounter = 0;           // numero di nodi dell'albero
                                     // utile per capire quale id assegnare al nodo successivo
     
@@ -20,7 +20,7 @@ public class AlberoIpotesi extends JTree{
     public AlberoIpotesi(int idSes, int idAlb, String cifrato){
         this.idSessione = idSes;
         this.idAlbero = idAlb;
-        this.root = new Ipotesi(this.idSessione, this.idAlbero, 0, cifrato, 0, new ArrayList<>());
+        this.root = new NodoIpotesi(this.idSessione, this.idAlbero, cifrato);
         
     }
     
@@ -28,7 +28,7 @@ public class AlberoIpotesi extends JTree{
     /* Classe interna */
     private class NodoIpotesi implements TreeNode{
         
-        private NodoIpotesi parent;
+        private int parent;
         private Ipotesi ipotesi;
         private ArrayList<NodoIpotesi> listaFigli;
         
@@ -37,19 +37,24 @@ public class AlberoIpotesi extends JTree{
         
         // root
         private NodoIpotesi(int idSes, int idAlb, String testo){
-            this.id = 0;
             this.parent = 0;
-            this.listaFigli = new ArrayList<>();
-            this.ipotesi = new Ipotesi(idSes, idAlb, idCounter, testo, this.parent, this.listaFigli);
+            this.ipotesi = new Ipotesi(idSes, idAlb, idCounter, testo, 0, new ArrayList<>());
             idCounter++;
+            listaFigli = new ArrayList<>();
         }
         
         // nuovo nodo ipotesi
-        private NodoIpotesi(int idSes, int idAlb, String testo, int padre, int id){
-            this.id = id;
-            this.parent = padre;
-            this.listaFigli = new ArrayList<>();
-            this.ipotesi = new Ipotesi(idSes, idAlb, idCounter, testo, this.parent, this.listaFigli);
+        private NodoIpotesi(Ipotesi ip){
+            this.parent = ip.getParent();
+            this.ipotesi = ip;
+            ArrayList<Integer> tmp = ip.getFigli();
+            int ses = ip.getSessione();
+            int alb = ip.getAlbero();
+            for(Integer c : tmp){
+                Ipotesi temp = DBManager.getIpotesi(ses, alb, c);
+                this.listaFigli.add(new NodoIpotesi(temp));
+            }
+            
         }
         
         /* ****************************************************************** */
@@ -57,7 +62,7 @@ public class AlberoIpotesi extends JTree{
         
         /* Aggiunge un nuovo figlio */
         
-        
+        /*
         public void aggiungiIpotesi(String testo){
             idCounter++;
             this.listaFigli.add(idCounter);
@@ -73,7 +78,7 @@ public class AlberoIpotesi extends JTree{
             }
             return path;
         }
-        
+        */
         /* Aggiungere query che costruisca nodo */
         public NodoIpotesi getNodo(int id){
             return null;

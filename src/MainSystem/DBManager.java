@@ -78,7 +78,7 @@ public class DBManager {
     * @param st indica lo Statement creato per l'interazione con il database;
     * @return "true" se la query ha avuto successo;
     */
-    public boolean esegui(String sql, Statement st) {
+    public static boolean esegui(String sql, Statement st) {
         boolean tmp = false;
         try {
             tmp = st.execute(sql);
