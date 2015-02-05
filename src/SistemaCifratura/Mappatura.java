@@ -18,4 +18,8 @@ public class Mappatura {
        }
        return mappaIP;
    }
+
+    public Mappatura() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }
