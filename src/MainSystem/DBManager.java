@@ -130,8 +130,8 @@ public class DBManager {
             "idStudente INT NOT NULL," +
             "idAlbero INT NOT NULL," +
                     // idIpotesi == idIpotesi dell'ipotesi raggiunta nell'alberoIpotesi
-            "idIpotesi INT NOT NULL," +
-            "idMessaggioOriginaleCifrato INT NOT NULL," +
+            "idIpotesi INT," +
+            "idMessaggioOriginaleCifrato INT," +
             "terminata BOOLEAN NOT NULL," +     // false = sessione corrente; true = chiusa
             "PRIMARY KEY(id))");
             
@@ -332,7 +332,9 @@ public class DBManager {
         Studente studente = null;
         try {
             ResultSet rs = st.executeQuery("SELECT * FROM studente WHERE id = id");
-            studente = new Studente(id, rs.getString("login"), rs.getString("password"), rs.getString("nome"), rs.getString("cognome"));
+            if (rs.next()){
+                studente = new Studente(id, rs.getString("login"), rs.getString("password"), rs.getString("nome"), rs.getString("cognome"));
+            }
         } catch (SQLException ex) {
             Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
         }
