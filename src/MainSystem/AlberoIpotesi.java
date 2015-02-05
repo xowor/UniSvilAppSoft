@@ -91,8 +91,8 @@ public final class AlberoIpotesi extends JTree{
         public void eliminaIpotesi(NodoIpotesi nodo){
             Ipotesi tmp = DBManager.getIpotesi(nodo.ipotesi.getParent(), idSessione, idAlbero);
             NodoIpotesi temp = new NodoIpotesi(tmp);
-            nodo.ipotesi.rimuoviIpotesi();
             temp.listaFigli.remove(nodo);
+            nodo.ipotesi.rimuoviIpotesi();
         }
         
         public int getPadre(){
