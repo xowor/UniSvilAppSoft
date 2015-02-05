@@ -123,8 +123,7 @@ public class MainJFrame extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(creaDatiJButton)
-                .addGap(6, 6, 6))
+                .addComponent(creaDatiJButton))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -341,14 +340,14 @@ public class MainJFrame extends javax.swing.JFrame {
     
     private void aggiungiIpotesiJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aggiungiIpotesiJButtonActionPerformed
         Sostituzione ipotesi = new Sostituzione(new Messaggio("Lorem ipsum"));
-        windows.AggiungiIpotesiJFrame frame = new windows.AggiungiIpotesiJFrame(ipotesi);
-        frame.addWindowListener(new WindowAdapter() {
-            @Override
-            public void windowClosed(WindowEvent e) {
-                aggiungiIpotesi(frame.getSostituzione());
-            }
-        });
-        frame.setVisible(true);
+//        windows.AggiungiIpotesiJFrame frame = new windows.AggiungiIpotesiJFrame(ipotesi, this.dbManager);
+//        frame.addWindowListener(new WindowAdapter() {
+//            @Override
+//            public void windowClosed(WindowEvent e) {
+//                aggiungiIpotesi(frame.getSostituzione());
+//            }
+//        });
+//        frame.setVisible(true);
     }//GEN-LAST:event_aggiungiIpotesiJButtonActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed

@@ -5,17 +5,39 @@
  */
 package windows;
 
+import Elements.Alfabeto;
+import Elements.Frequenze;
+import Elements.Messaggio;
+import MainSystem.DBManager;
+import SistemaSupporto.AnalisiFrequenze;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author luca
  */
 public class AnalisiFrequenzeJFrame extends javax.swing.JFrame {
 
+    DBManager dbManager;
+    
     /**
      * Creates new form AnalisiFrequenzeJFrame
      */
-    public AnalisiFrequenzeJFrame() {
+    public AnalisiFrequenzeJFrame(Messaggio messaggio, Alfabeto alfabeto, DBManager dbManager) {
+        this.dbManager = dbManager;
         initComponents();
+        
+        DefaultTableModel model = (DefaultTableModel) this.frequenzeJTable.getModel();
+        
+        Frequenze frequenze = dbManager.getFrequenzeAlfabeto(alfabeto.getCodice());
+        Frequenze frequenzeTesto = AnalisiFrequenze.calcolaFrequenze(messaggio , alfabeto);
+
+        for (String parola : frequenze.getFrequenze().keySet()) {
+            int frequenza = frequenze.getFrequenze().get(parola);
+            Object[] row = new Object[]{parola, String.valueOf(frequenza) + "%", String.valueOf(frequenzeTesto.getFrequenze().get(parola)) + "%"};
+            model.addRow(row);
+        }
+        
     }
 
     /**
@@ -35,17 +57,14 @@ public class AnalisiFrequenzeJFrame extends javax.swing.JFrame {
 
         frequenzeJTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
+
             },
             new String [] {
                 "Lettera", "Frequenze lingua", "Frequenze testo"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.Float.class, java.lang.Float.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
                 false, false, false
@@ -75,40 +94,40 @@ public class AnalisiFrequenzeJFrame extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(AnalisiFrequenzeJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(AnalisiFrequenzeJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(AnalisiFrequenzeJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(AnalisiFrequenzeJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new AnalisiFrequenzeJFrame().setVisible(true);
-            }
-        });
-    }
+//    /**
+//     * @param args the command line arguments
+//     */
+//    public static void main(String args[]) {
+//        /* Set the Nimbus look and feel */
+//        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+//        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+//         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+//         */
+//        try {
+//            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+//                if ("Nimbus".equals(info.getName())) {
+//                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+//                    break;
+//                }
+//            }
+//        } catch (ClassNotFoundException ex) {
+//            java.util.logging.Logger.getLogger(AnalisiFrequenzeJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (InstantiationException ex) {
+//            java.util.logging.Logger.getLogger(AnalisiFrequenzeJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (IllegalAccessException ex) {
+//            java.util.logging.Logger.getLogger(AnalisiFrequenzeJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+//            java.util.logging.Logger.getLogger(AnalisiFrequenzeJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        }
+//        //</editor-fold>
+//
+//        /* Create and display the form */
+//        java.awt.EventQueue.invokeLater(new Runnable() {
+//            public void run() {
+//                new AnalisiFrequenzeJFrame().setVisible(true);
+//            }
+//        });
+//    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable frequenzeJTable;

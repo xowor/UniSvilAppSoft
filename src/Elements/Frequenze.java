@@ -8,4 +8,8 @@ public class Frequenze {
     public Frequenze(HashMap<String,Integer> frequenze){
         this.frequenze = frequenze;
     }
+    
+    public HashMap<String,Integer> getFrequenze(){
+        return this.frequenze;
+    }
 }
