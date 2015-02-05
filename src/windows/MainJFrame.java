@@ -2,6 +2,7 @@ package windows;
 import MainSystem.DBManager;
 import Elements.*;
 import MainSystem.Ipotesi;
+import MainSystem.Sessione;
 import MainSystem.Sostituzione;
 import java.awt.event.ItemEvent;
 import java.awt.event.WindowAdapter;
@@ -368,6 +369,9 @@ public class MainJFrame extends javax.swing.JFrame {
     private void studentiJComboBoxItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_studentiJComboBoxItemStateChanged
         if (evt.getStateChange() == ItemEvent.SELECTED) {
             this.studente = dbManager.getStudenteDaNome(studentiJComboBox.getSelectedItem().toString());
+            
+            Sessione sessione = this.dbManager.getOrInsertSessione(this.studente.getId());
+            //sessione = new Sessione();
         }
     }//GEN-LAST:event_studentiJComboBoxItemStateChanged
 
