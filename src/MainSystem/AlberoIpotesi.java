@@ -50,9 +50,11 @@ public class AlberoIpotesi extends JTree{
             ArrayList<Integer> tmp = ip.getFigli();
             int ses = ip.getSessione();
             int alb = ip.getAlbero();
-            for(Integer idNewIp : tmp){
-                Ipotesi temp = DBManager.getIpotesi(ses, alb, idNewIp);
-                this.listaFigli.add(new NodoIpotesi(temp));
+            if(!tmp.isEmpty()){
+                for(Integer idNewIp : tmp){
+                    Ipotesi temp = DBManager.getIpotesi(ses, alb, idNewIp);
+                    this.listaFigli.add(new NodoIpotesi(temp));
+                }
             }
             
         }
@@ -62,44 +64,17 @@ public class AlberoIpotesi extends JTree{
         
         /* Aggiunge un nuovo figlio */
         
-        /*
+        
         public void aggiungiIpotesi(String testo){
+            Ipotesi tmp = new Ipotesi(this.ipotesi.getSessione(), this.ipotesi.getAlbero(), idCounter, testo, this.ipotesi.getId(), new ArrayList<Integer>());
             idCounter++;
-            this.listaFigli.add(idCounter);
-            new NodoIpotesi(idSessione, idAlbero, testo, this.id, idCounter);
+            this.listaFigli.add(new NodoIpotesi(tmp));
         }
-        
-        public String getPath(){
-            String path = "";
-            NodoIpotesi tmp = this;
-            while(tmp.getPadre()!= 0){
-                path+= this.parent;
-                tmp = getNodo(this.parent);
-            }
-            return path;
-        }
-        */
-        /* Aggiungere query che costruisca nodo */
-        public NodoIpotesi getNodo(int id){
-            return null;
-        }
-        
-        /* Torna al padre ed elimina il figlio */
-        
-        public int annullaIpotesi(){
-            
-            return -1;
-        }
-        
+ 
         public int getPadre(){
             return this.parent;
         }
         
-        /* Ritorna l'id del nodo */
-        
-        public int getId() {
-            return this.id;
-        }
         
         /* ****************************************************************** */
         
@@ -122,7 +97,7 @@ public class AlberoIpotesi extends JTree{
 
         @Override
         public int getIndex(TreeNode node) {
-            return this.id;
+            throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
         }
 
         @Override
@@ -144,11 +119,5 @@ public class AlberoIpotesi extends JTree{
         /* ****************************************************************** */
     }
 
-    public Alfabeto getAlfabeto(){
-        return this.alfabeto;
-    }
- /*   public AlberoIpotesi getAlberoIpotesi(){
-        return ;
-    }*/
 }
 

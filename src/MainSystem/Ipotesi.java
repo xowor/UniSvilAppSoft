@@ -35,6 +35,10 @@ public class Ipotesi {
         return this.idAlbero;
     }
     
+    public int getId(){
+        return this.idIpotesi;
+    }
+    
     public int getParent(){
         return this.idPadre;
     }
