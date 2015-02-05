@@ -427,6 +427,22 @@ public class DBManager {
         return messaggio;
     }
     
+    public static ArrayList<Messaggio> getMessaggi(){
+        ArrayList<Messaggio> messaggi = new ArrayList();
+        try {            
+            ResultSet rs = st.executeQuery("SELECT * FROM messaggio");
+            rs.next();
+            while(rs.next()){
+                Messaggio messaggio = new Messaggio(rs.getString("titolo"), rs.getString("testo"), rs.getInt("mittente"), 
+                    rs.getInt("destinatario"), rs.getString("lingua"));  
+                messaggi.add(messaggio);
+            }   
+        } catch (SQLException ex) {
+            Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return messaggi;
+    }
+    
     public int getIdAlbero(int idSessione){
         int id = -1;
         try {            

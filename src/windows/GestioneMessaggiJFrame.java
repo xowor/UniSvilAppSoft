@@ -5,8 +5,11 @@
  */
 package windows;
 
+import Elements.Messaggio;
 import Elements.Studente;
 import MainSystem.DBManager;
+import java.util.ArrayList;
+import javax.swing.DefaultListModel;
 
 /**
  *
@@ -51,8 +54,8 @@ public class GestioneMessaggiJFrame extends javax.swing.JFrame {
         inviaJTextPane = new javax.swing.JTextPane();
         jPanel3 = new javax.swing.JPanel();
         jButton4 = new javax.swing.JButton();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTextPane1 = new javax.swing.JTextPane();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        ricevutiJList = new javax.swing.JList();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Gestione Messaggi");
@@ -142,7 +145,7 @@ public class GestioneMessaggiJFrame extends javax.swing.JFrame {
                 .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(linguaJTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -197,18 +200,25 @@ public class GestioneMessaggiJFrame extends javax.swing.JFrame {
             }
         });
 
-        jTextPane1.setEditable(false);
-        jScrollPane1.setViewportView(jTextPane1);
+        ricevutiJList.setModel(new javax.swing.AbstractListModel() {
+            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+            public int getSize() { return strings.length; }
+            public Object getElementAt(int i) { return strings[i]; }
+        });
+        jScrollPane3.setViewportView(ricevutiJList);
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addGap(12, 12, 12)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, 329, Short.MAX_VALUE)
-                    .addComponent(jScrollPane1))
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                        .addGap(12, 12, 12)
+                        .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, 329, Short.MAX_VALUE))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jScrollPane3)))
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
@@ -216,8 +226,7 @@ public class GestioneMessaggiJFrame extends javax.swing.JFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addComponent(jButton4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1)
-                .addGap(0, 0, 0))
+                .addComponent(jScrollPane3))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -248,7 +257,11 @@ public class GestioneMessaggiJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        // TODO add your handling code here:
+        ArrayList<Messaggio> messaggi = dbManager.getMessaggi();
+        for (Messaggio messaggio: messaggi){
+            DefaultListModel model = (DefaultListModel) ricevutiJList.getModel();
+            model.addElement(messaggio.getTesto());
+        }
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void destinatarioJComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_destinatarioJComboBoxActionPerformed
@@ -321,10 +334,10 @@ public class GestioneMessaggiJFrame extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextPane jTextPane1;
     private javax.swing.JTextField linguaJTextField;
+    private javax.swing.JList ricevutiJList;
     // End of variables declaration//GEN-END:variables
 }
