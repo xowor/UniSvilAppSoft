@@ -18,10 +18,10 @@ public class DBManager {
         Connection conn=openConnection();
 
         this.st=openStatement(conn);
-        //creaTabelle(st);
-        //creaDati(st);
-        //closeStatement(st);
-        //closeConnection(conn);
+        //creaTabelle();
+        //creaDati();
+        closeStatement(st);
+        closeConnection(conn);
     }
     /**
     * crea uno Statement con il database;
@@ -470,7 +470,7 @@ public class DBManager {
         return messaggi;
     }
     
-    public int getIdAlbero(int idSessione){
+    public static int getIdAlbero(int idSessione){
         int id = -1;
         try {            
             ResultSet rs = st.executeQuery("SELECT idAlbero FROM ipotesi WHERE id = "+idSessione+"");
@@ -484,10 +484,11 @@ public class DBManager {
     
     public static AlberoIpotesi getAlberoIpotesi(int idSessione){
         AlberoIpotesi albero = null;
-        //int idAlbero = getIdAlbero(idSessione);
-        //String messaggio = getMessaggio(idAlbero);
-        //String lingua = getLingua(idMessaggio);
-        //albero = new AlberoIpotesi(idAlbero, messaggio);
+        int idAlbero = getIdAlbero(idSessione);
+        if(idAlbero != -1){
+            Ipotesi ip = getIpotesi(0, idSessione, idAlbero);
+            albero = new AlberoIpotesi(ip);
+        }
         return albero;
     }
 }
