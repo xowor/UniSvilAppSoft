@@ -28,10 +28,9 @@ public class AlberoIpotesi extends JTree{
     /* Classe interna */
     private class NodoIpotesi implements TreeNode{
         
-        private final int id;
-        private final int parent;
+        private NodoIpotesi parent;
         private Ipotesi ipotesi;
-        private ArrayList<Integer> listaFigli;
+        private ArrayList<NodoIpotesi> listaFigli;
         
         /* ****************************************************************** */
         /* Costruttori */
