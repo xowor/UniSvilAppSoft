@@ -369,10 +369,8 @@ public class DBManager {
         ArrayList<Studente> al = new ArrayList();
         try {           
             ResultSet rs = st.executeQuery("SELECT id, login, nome, cognome  FROM studente");
-            System.out.println(rs);
             while(rs.next()){
                 Studente stud = new Studente(rs.getInt("id"), rs.getString("login"), "", rs.getString("nome"), rs.getString("cognome"));
-                System.out.println(stud.toString());
                 al.add(stud);
             }
         } catch (SQLException ex) {
