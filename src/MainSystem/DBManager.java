@@ -131,7 +131,7 @@ public class DBManager {
                     // idIpotesi == idIpotesi dell'ipotesi raggiunta nell'alberoIpotesi
             "idIpotesi INT NOT NULL," +
             "idMessaggioOriginaleCifrato INT NOT NULL," +
-            "terminata BOOLEAN NOT NULL," +
+            "terminata BOOLEAN NOT NULL," +     // false = sessione corrente; true = chiusa
             "PRIMARY KEY(id))");
             
             st.execute( "CREATE TABLE messaggio(" +
@@ -316,16 +316,18 @@ public class DBManager {
         return al;
     }
     
-    public int getCountSessioniTerminate(int idStudente){
-        int count = -1;
+    public boolean getIfSessioneTerminate(int idStudente){
         try {
             ResultSet rs = st.executeQuery("SELECT COUNT(idIpotesi) FROM sessione WHERE idStudente = "+idStudente+" AND terminata = 'false'");
             rs.next();
-            count = rs.getInt(1);
+            // se le sessioni non terminate (-> aperte) == 0
+            if(rs.getInt(1) == 0){
+                return true;
+            }
         } catch (SQLException ex) {
             Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return count;
+        return false;
     }
     
     public int countVecchieSessioni(int idStudente){
@@ -355,9 +357,8 @@ public class DBManager {
     public Sessione aggiungiSessione(int idStudente){
         Sessione sessione = null;
         // esiste una sessione iniziata?
-        int countTerminate = getCountSessioniTerminate(idStudente);
         // no
-        if(countTerminate == 0){
+        if(getIfSessioneTerminate(idStudente)){
             // conteggio delle vecchie sessioni dello studente
             int countVecchie = countVecchieSessioni(idStudente);
             // inizializzare una sessione
@@ -376,18 +377,6 @@ public class DBManager {
         }
         return sessione;
     }
- /*   
-    public int getSessione(int idStudente){ 
-        int id = -1;
-        try {
-            ResultSet rs = st.executeQuery("SELECT idIpotesi FROM sessione WHERE idStudente = "+idStudente+"");
-            rs.next();
-            id = rs.getInt("idIpotesi");
-        } catch (SQLException ex) {
-            Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return id;
-    } */
     
     public static Messaggio getMessaggio(int idMessaggio){
         Messaggio messaggio = null;
