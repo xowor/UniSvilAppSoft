@@ -1,32 +1,31 @@
-//package MainSystem;
-//
-//import Studente;
-//
-//public class Proposta {
-//  public String idproponente;
-//  public String idpartner;
-//  public String stato;
-//  public boolean notificata;
-//
-//
-//  public Proposta(QueryResult info){
-//
-//  }
-//
-//
-//  // public String getTesto(){
-//  //   return this.testo;
-//  // }
-//  // public String getTestoCifrato(){
-//  //   return this.testoCifrato;
-//  // }
-//  //
-//  //
-//  // public void setTesto(String testo){
-//  //   this.testo = testo;
-//  // }
-//  // public void setTestoCifrato(String testoCifrato){
-//  //   this.testoCifrato =testoCifrato ;
-//  // }
-//
-//}
+package MainSystem;
+import SistemaCifratura.*;
+
+public class Proposta {
+    int id;
+    String destinatario = "";
+    String accettata;
+    
+    public SistemaDiCifratura sistema;
+    public int idp;
+    public String testoCifrato;
+
+    public Proposta(SistemaDiCifratura sisC){
+        sistema = sisC;
+    }
+
+    public void setId(int idp){
+        id = idp;
+    }
+    public void accetta(){
+        accettata = "approvata";
+    }
+
+    public void rifiuta(){
+        accettata = "rifiutata";
+    }
+
+    public void setDest(String nome){
+        this.destinatario = nome;
+    }
+}
