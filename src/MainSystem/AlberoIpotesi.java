@@ -84,6 +84,7 @@ public final class AlberoIpotesi extends JTree{
         
         public void aggiungiIpotesi(NodoIpotesi nodo, String testo){
             Ipotesi tmp = new Ipotesi(nodo.ipotesi.getSessione(), nodo.ipotesi.getAlbero(), idCounter, testo, nodo.ipotesi.getId(), new ArrayList<Integer>());
+            tmp.aggiungiIpotesi();
             idCounter++;
             this.listaFigli.add(new NodoIpotesi(tmp));
         }
