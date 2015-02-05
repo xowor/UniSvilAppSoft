@@ -299,6 +299,17 @@ public class DBManager {
         return studente;
     }
     
+    public Studente getStudenteDaNome(String nome){
+        Studente studente = null;
+        try {
+            ResultSet rs = st.executeQuery("SELECT * FROM studente WHERE nome = nome");
+            studente = new Studente(rs.getInt("id"), rs.getString("login"), rs.getString("password"), nome, rs.getString("cognome"));
+        } catch (SQLException ex) {
+            Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return studente;
+    }
+    
     public Studente getStudente(String login, String password){
         Studente studente = null;
         try {
