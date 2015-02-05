@@ -15,7 +15,7 @@ public class Alfabeto {
         this.frequenze = new Frequenze(lingua);
     }
     
-    public String getLingua(){
+    public String getLocale(){
         return this.locale;
     }
     

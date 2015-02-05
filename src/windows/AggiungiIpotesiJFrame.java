@@ -5,7 +5,9 @@
  */
 package windows;
 
+import Elements.Alfabeto;
 import Elements.Messaggio;
+import MainSystem.DBManager;
 import MainSystem.Sostituzione;
 import java.util.Set;
 
@@ -15,13 +17,19 @@ import java.util.Set;
  */
 public class AggiungiIpotesiJFrame extends javax.swing.JDialog {
     
-    Sostituzione sostituzione;
+    private Sostituzione sostituzione;
+    private final DBManager dbManager;
+    private final Messaggio messaggio;
+    private final Alfabeto alfabeto;
 
     /**
      * Creates new form AggiungiIpotesiJFrame
      */
-    public AggiungiIpotesiJFrame(Sostituzione sostituzione) {
+    public AggiungiIpotesiJFrame(Messaggio messaggio, Alfabeto alfabeto, Sostituzione sostituzione, DBManager dbManager) {
         this.sostituzione = sostituzione;
+        this.messaggio = messaggio;
+        this.alfabeto = alfabeto;
+        this.dbManager = dbManager;
         initComponents();
         this.messaggioJTextArea.setText(sostituzione.getMessaggio().getTesto());
     }
@@ -191,13 +199,13 @@ public class AggiungiIpotesiJFrame extends javax.swing.JDialog {
 
     private void mostraAnalisiFrequenzeJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mostraAnalisiFrequenzeJButtonActionPerformed
         // TODO add your handling code here:
-        AnalisiFrequenzeJFrame frame = new AnalisiFrequenzeJFrame();
+        AnalisiFrequenzeJFrame frame = new AnalisiFrequenzeJFrame(this.messaggio, this.alfabeto, this.dbManager);
         frame.setVisible(true);
     }//GEN-LAST:event_mostraAnalisiFrequenzeJButtonActionPerformed
 
     private void mostraDizionarioJButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mostraDizionarioJButton1ActionPerformed
         // TODO add your handling code here:
-        DizionarioJFrame frame = new DizionarioJFrame();
+        DizionarioJFrame frame = new DizionarioJFrame(this.dbManager);
         frame.setVisible(true);
     }//GEN-LAST:event_mostraDizionarioJButton1ActionPerformed
 
