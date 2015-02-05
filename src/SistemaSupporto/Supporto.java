@@ -1,5 +1,5 @@
 package SistemaSupporto;
 
-public class Supporto {
+public interface Supporto {
     
 }

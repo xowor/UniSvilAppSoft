@@ -16,11 +16,12 @@ public class DBManager {
     
     public void inizializza() {
         Connection conn=openConnection();
-        st=openStatement(conn);
-        creaTabelle(st);
-        creaDati(st);
-        closeStatement(st);
-        closeConnection(conn);
+
+        this.st=openStatement(conn);
+        //creaTabelle(st);
+        //creaDati(st);
+        //closeStatement(st);
+        //closeConnection(conn);
     }
     /**
     * crea uno Statement con il database;
@@ -113,7 +114,7 @@ public class DBManager {
         }
     }
     
-    public void creaTabelle(Statement st){
+    public void creaTabelle(){
         try {
             st.execute( "CREATE TABLE studente(" +
             "id INT NOT NULL GENERATED ALWAYS AS IDENTITY(START WITH 1, INCREMENT BY 1)," +
@@ -187,7 +188,8 @@ public class DBManager {
         }
     }
     
-    public void creaDati(Statement st){
+
+    public void creaDati(){
         aggiungiFrequenza("a", "ita", 12, st);
         aggiungiFrequenza("b", "ita", 1, st);
         aggiungiFrequenza("c", "ita", 4, st);
@@ -299,7 +301,7 @@ public class DBManager {
                 al.add(stud);
             }
         } catch (SQLException ex) {
-            Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
+            //Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
         }
         return al;
     }

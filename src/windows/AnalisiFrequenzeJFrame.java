@@ -31,6 +31,7 @@ public class AnalisiFrequenzeJFrame extends javax.swing.JFrame {
         frequenzeJTable = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Analisi frequenze");
 
         frequenzeJTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
