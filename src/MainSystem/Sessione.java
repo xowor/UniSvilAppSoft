@@ -30,14 +30,14 @@ public class Sessione {
         this.alberoIpotesi = DBManager.getAlberoIpotesi(idSes);
         this.messaggioOriginaleCifrato = DBManager.getMessaggio(idMessaggioCifrato);
     }
-    /*
+    
     // pre: cosa sostituire
     // post: con cosa sostituire
     public String sostituisci(String testo, String pre, String post){
-        String testoSostituito = "";
+        String testoSostituito = testo.replace(pre, post);
         return testoSostituito;
     }
-    */
+    
     // TODO
     public void setSupporto(){
         this.strumentoSupporto = null;
