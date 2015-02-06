@@ -474,30 +474,16 @@ public class DBManager {
         }
         return messaggi;
     }
-    /*
-    public static int getIdAlbero(int idSessione, int idAlbero){
-        int id = -1;
-        try {            
-            ResultSet rs = st.executeQuery("SELECT idAlbero FROM ipotesi WHERE id = "+idSessione+"");
-            if (rs.next()){
-                id = rs.getInt("idAlbero");   
-            }         
-        } catch (SQLException ex) {
-            Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return id;
-    }
     
     public static AlberoIpotesi getAlberoIpotesi(int idSessione, int idAlbero){
         AlberoIpotesi albero = null;
-        int idAlbero = getIdAlbero(idSessione, idAlbero);
         if(idAlbero != -1){
             Ipotesi ip = getIpotesi(0, idSessione, idAlbero);
             albero = new AlberoIpotesi(ip);
         }
         return albero;
     }
-    */
+    
     public static int getPadre(int idIpotesi,  int idAlbero, int idSessione){
         int id = -1;
         try {            
