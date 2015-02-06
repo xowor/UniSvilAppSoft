@@ -14,6 +14,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.tree.DefaultTreeModel;
+import javax.swing.tree.TreePath;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -41,6 +42,7 @@ public class MainJFrame extends javax.swing.JFrame {
      */
     public MainJFrame() {
         initComponents();
+        setContentEnabled(false);
     }
 
     /**
@@ -59,11 +61,11 @@ public class MainJFrame extends javax.swing.JFrame {
         gestioneMessaggi = new javax.swing.JButton();
         creaDatiJButton = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
-        jSplitPane1 = new javax.swing.JSplitPane();
+        contentJSplitPane = new javax.swing.JSplitPane();
         IpotesiJPanel = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         aggiungiIpotesiJButton = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        rimuoviIpotesiJButton = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTree1 = new javax.swing.JTree();
         RightJPanel = new javax.swing.JPanel();
@@ -153,11 +155,11 @@ public class MainJFrame extends javax.swing.JFrame {
             }
         });
 
-        jButton2.setText("-");
-        jButton2.setToolTipText("Annulla");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        rimuoviIpotesiJButton.setText("-");
+        rimuoviIpotesiJButton.setToolTipText("Annulla");
+        rimuoviIpotesiJButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                rimuoviIpotesiJButtonActionPerformed(evt);
             }
         });
 
@@ -185,7 +187,7 @@ public class MainJFrame extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(aggiungiIpotesiJButton, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(rimuoviIpotesiJButton, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(27, 27, 27))
             .addComponent(jScrollPane1)
         );
@@ -198,10 +200,10 @@ public class MainJFrame extends javax.swing.JFrame {
                 .addGroup(IpotesiJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(aggiungiIpotesiJButton)
-                    .addComponent(jButton2)))
+                    .addComponent(rimuoviIpotesiJButton)))
         );
 
-        jSplitPane1.setLeftComponent(IpotesiJPanel);
+        contentJSplitPane.setLeftComponent(IpotesiJPanel);
 
         RightJPanel.setBorder(null);
 
@@ -269,13 +271,13 @@ public class MainJFrame extends javax.swing.JFrame {
                 .addComponent(mostraAlfabetoJButton))
         );
 
-        jSplitPane1.setRightComponent(RightJPanel);
+        contentJSplitPane.setRightComponent(RightJPanel);
 
         javax.swing.GroupLayout mainJPanelLayout = new javax.swing.GroupLayout(mainJPanel);
         mainJPanel.setLayout(mainJPanelLayout);
         mainJPanelLayout.setHorizontalGroup(
             mainJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jSplitPane1)
+            .addComponent(contentJSplitPane)
             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         mainJPanelLayout.setVerticalGroup(
@@ -283,7 +285,7 @@ public class MainJFrame extends javax.swing.JFrame {
             .addGroup(mainJPanelLayout.createSequentialGroup()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jSplitPane1))
+                .addComponent(contentJSplitPane))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -330,9 +332,9 @@ public class MainJFrame extends javax.swing.JFrame {
         
     }//GEN-LAST:event_aggiungiIpotesiJButtonActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void rimuoviIpotesiJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rimuoviIpotesiJButtonActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_rimuoviIpotesiJButtonActionPerformed
 
     private void mostraAlfabetoJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mostraAlfabetoJButtonActionPerformed
         // TEMP
@@ -387,6 +389,7 @@ public class MainJFrame extends javax.swing.JFrame {
         AlberoIpotesi.NodoIpotesi nodoIpotesi = (AlberoIpotesi.NodoIpotesi) this.jTree1.getLastSelectedPathComponent();
         ipotesiJTextPane.setText(nodoIpotesi.toString());
         this.ipotesiCorrente = nodoIpotesi.getIpotesi();
+        setContentEnabled(true);
     }//GEN-LAST:event_jTree1ValueChanged
     
     public void inizializza(){
@@ -410,9 +413,19 @@ public class MainJFrame extends javax.swing.JFrame {
         //this.alberoIpotesi.
         DefaultTreeModel a = new DefaultTreeModel(this.alberoIpotesi.getRoot());
         this.jTree1.setModel(a);
+        this.jTree1.setSelectionPath(new TreePath(this.alberoIpotesi.getRoot().getPath()));
+        setContentEnabled(true);
         //System.out.println(messaggio.getTesto());
     }
     
+    public void setContentEnabled(boolean enabled){
+        this.jTree1.setEnabled(enabled);
+        this.testoCifratoJTextPane.setEnabled(enabled);
+        this.ipotesiJTextPane.setEnabled(enabled);
+        this.aggiungiIpotesiJButton.setEnabled(enabled);
+        this.rimuoviIpotesiJButton.setEnabled(enabled);
+        this.mostraAlfabetoJButton.setEnabled(enabled);
+    }
     
     /**
      * @param args the command line arguments
@@ -475,11 +488,11 @@ public class MainJFrame extends javax.swing.JFrame {
     private javax.swing.JPanel IpotesiJPanel;
     private javax.swing.JPanel RightJPanel;
     private javax.swing.JButton aggiungiIpotesiJButton;
+    private javax.swing.JSplitPane contentJSplitPane;
     private javax.swing.JButton creaDatiJButton;
     private javax.swing.JButton gestioneMessaggi;
     private javax.swing.JTextPane ipotesiJTextPane;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel2;
@@ -488,11 +501,11 @@ public class MainJFrame extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane4;
-    private javax.swing.JSplitPane jSplitPane1;
     private javax.swing.JSplitPane jSplitPane2;
     private javax.swing.JTree jTree1;
     private javax.swing.JPanel mainJPanel;
     private javax.swing.JButton mostraAlfabetoJButton;
+    private javax.swing.JButton rimuoviIpotesiJButton;
     private javax.swing.JComboBox studentiJComboBox;
     private javax.swing.JTextPane testoCifratoJTextPane;
     // End of variables declaration//GEN-END:variables
