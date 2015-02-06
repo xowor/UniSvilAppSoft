@@ -589,6 +589,7 @@ public class DBManager {
         String figliFinali = getStringFromArray(newFigli);
         // sostituire la lista di figli nel padre
         aggiornaFigli(idPadre, idAlbero, idSessione, figliFinali);
+<<<<<<< HEAD
     }
     
     public void aggiungiSistemaCifratura(int key, String metodo){
@@ -611,5 +612,7 @@ public class DBManager {
             Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
         }
         return sdc;
+=======
+>>>>>>> 8089e544729f9f7d983c80cc222ae4c7da1794e8
     }
 }
