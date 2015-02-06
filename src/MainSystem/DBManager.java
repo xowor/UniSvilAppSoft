@@ -589,30 +589,7 @@ public class DBManager {
         String figliFinali = getStringFromArray(newFigli);
         // sostituire la lista di figli nel padre
         aggiornaFigli(idPadre, idAlbero, idSessione, figliFinali);
-<<<<<<< HEAD
+
     }
     
-    public void aggiungiSistemaCifratura(int key, String metodo){
-        esegui("INSERT INTO sistemadicifratura (chiave, metodo) VALUES ("+key + ", '"+metodo+"')", st);
-    }
-    
-    public void eliminaSistemaCifratura(int key, String metodo){
-        esegui("DELETE FROM sistemadicifratura WHERE chiave="+key+" AND metodo='"+metodo+"')", st);
-    }
-    
-    public static SistemaDiCifratura getSistemaDiCifratura(int id){
-        SistemaDiCifratura sdc = null;
-        try {
-            ResultSet rs = st.executeQuery("SELECT * FROM sistemadicifratura WHERE id="+id+"");
-            if(rs.next()){
-                ArrayList<Integer> figli = getArrayFigli(rs.getString("figli"));
-                sdc = new SistemaDiCifratura(rs.getString("chiave"), rs.getString("metodo"));
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return sdc;
-=======
->>>>>>> 8089e544729f9f7d983c80cc222ae4c7da1794e8
-    }
 }
