@@ -1,6 +1,5 @@
 package SistemaCifratura;
 
-import javax.management.Query;
 
 public class SistemaDiCifratura {
     public String id;
