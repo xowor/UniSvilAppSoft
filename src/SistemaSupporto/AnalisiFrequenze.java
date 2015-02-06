@@ -7,27 +7,29 @@ import java.util.HashMap;
 
 public class AnalisiFrequenze extends Supporto{
     
-    public static Frequenze calcolaFrequenze(Messaggio messaggio, Alfabeto alfabeto){
+    public static Frequenze calcolaFrequenze(String testo, Alfabeto alfabeto){
         HashMap<String,Integer> map = new HashMap();
-        String testo = messaggio.getTesto();
         
         // chiave hashmap -> lettera alfabeto
-        for (int i = 0; i < testo.length(); i++){
+        for (int i = 0; i < alfabeto.getLettere().size(); i++){
             map.put(alfabeto.getLettere().get(i), 0);
         }
         
         // integer hash incrementato in corrispondenza dell'occorrenza della lettera
         for (int i = 0; i < testo.length(); i++){
-            char c = testo.charAt(i);            
-            map.replace(String.valueOf(c),  (map.get(c)) + 1 );
+            char c = testo.charAt(i);
+            int val = map.get(String.valueOf(c)); 
+            System.out.println(c);
+            System.out.println(val);    
+            map.replace(String.valueOf(c),  val + 1 );   
+            System.out.println(c);
+            System.out.println(val);    
         }
+                
         
-        int pc = 100 / testo.length();
-        
-        
-        for (int i = 0; i < testo.length(); i++){
-            char c = testo.charAt(i);            
-            map.replace(String.valueOf(c),  (map.get(c)) * pc );
+        for (String lett: map.keySet()){
+            int val = map.get(lett);
+            map.replace(lett,  (val * 100) / testo.length() );
         }
           
         Frequenze freq = new Frequenze(alfabeto.getLocale());

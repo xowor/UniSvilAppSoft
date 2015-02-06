@@ -14,17 +14,17 @@ import Elements.Messaggio;
 public class Sostituzione {
     
     int id;
-    Messaggio messaggio;
+    private String testo;
     
     private String sostituisci;
     private String sostituisciCon;
     
-    public Sostituzione(Messaggio m){
-        this.messaggio = m;
+    public Sostituzione(String m){
+        this.testo = m;
     }
     
-    public Messaggio getMessaggio(){
-        return this.messaggio;
+    public String getTesto(){
+        return this.testo;
     }
 
     
@@ -42,5 +42,9 @@ public class Sostituzione {
     
     public String getSostituisciCon(){
         return this.sostituisciCon;
+    }
+
+    public void setTesto(String testo) {
+        this.testo = testo;
     }
 }

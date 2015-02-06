@@ -46,7 +46,7 @@ public final class AlberoIpotesi extends JTree{
         }
     
     /* Classe interna */
-    private class NodoIpotesi implements TreeNode{
+    public class NodoIpotesi implements TreeNode{
         
         private final int parent;
         private final Ipotesi ipotesi;
@@ -96,6 +96,10 @@ public final class AlberoIpotesi extends JTree{
             NodoIpotesi temp = new NodoIpotesi(tmp);
             temp.listaFigli.remove(nodo);
             nodo.ipotesi.rimuoviIpotesi();
+        }
+        
+        public Ipotesi getIpotesi(){
+            return this.ipotesi;
         }
         
         public int getPadre(){

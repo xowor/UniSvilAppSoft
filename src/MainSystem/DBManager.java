@@ -201,6 +201,8 @@ public class DBManager {
         aggiungiFrequenza("g", "IT_it", 2, st);
         aggiungiFrequenza("h", "IT_it", 2, st);
         aggiungiFrequenza("i", "IT_it", 11, st);
+        aggiungiFrequenza("j", "IT_it", 0, st);
+        aggiungiFrequenza("k", "IT_it", 0, st);
         aggiungiFrequenza("l", "IT_it", 6, st);
         aggiungiFrequenza("m", "IT_it", 3, st);
         aggiungiFrequenza("n", "IT_it", 7, st);
@@ -212,6 +214,9 @@ public class DBManager {
         aggiungiFrequenza("t", "IT_it", 5, st);
         aggiungiFrequenza("u", "IT_it", 3, st);
         aggiungiFrequenza("v", "IT_it", 2, st);
+        aggiungiFrequenza("w", "IT_it", 0, st);
+        aggiungiFrequenza("x", "IT_it", 0, st);
+        aggiungiFrequenza("y", "IT_it", 0, st);
         aggiungiFrequenza("z", "IT_it", 1, st);
 
         aggiungiFrequenza("a", "EN_us", 8, st);
@@ -253,6 +258,7 @@ public class DBManager {
                 +"', '"+lingua+"', '"+titolo+"', "+idMitt+", "+idDest+",'"+bozza+"', '"+letto+"')", st);
     }
     
+    
     public void aggiungiSistemaCifratura(int key, String metodo){
         esegui("INSERT INTO sistemadicifratura (chiave, metodo) VALUES ("+key + ", '"+metodo+"')", st);
     }
@@ -260,6 +266,7 @@ public class DBManager {
     public void eliminaSistemaCifratura(int key, String metodo){
         esegui("DELETE FROM sistemadicifratura WHERE chiave="+key+" AND metodo='"+metodo+"')", st);
     }
+    
     
     public void aggiungiFrequenza(String lettera, String lingua, int frequenza, Statement st){
         esegui("INSERT INTO frequenzaLingua (lettera, lingua, frequenza) VALUES ('"+lettera+"', '"+lingua+"', "+frequenza+")", st);
@@ -291,7 +298,7 @@ public class DBManager {
             if(rs.next()){
                 ArrayList<Integer> figli = getArrayFigli(rs.getString("figli"));
                 sdc = new SistemaDiCifratura(rs.getString("chiave"), rs.getString("metodo"));
-            }
+        }
         } catch (SQLException ex) {
             Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -591,5 +598,4 @@ public class DBManager {
         aggiornaFigli(idPadre, idAlbero, idSessione, figliFinali);
 
     }
-    
 }
