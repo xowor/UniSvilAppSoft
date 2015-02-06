@@ -1,11 +1,11 @@
 package SistemaCifratura;
 import MainSystem.*;
 
-public class CalcolatorePseudo implements CalcolatoreMappe {
+public class CalcolatorePseudoCasuale implements InterfacciaCalcolatori {
     
     
     @Override
-    public CalcolatoreMappe create(String met) {
+    public InterfacciaCalcolatori create(String met) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
@@ -15,7 +15,8 @@ public class CalcolatorePseudo implements CalcolatoreMappe {
         return new Mappatura(c);
     }
 
-    
+    /* ********************************************************************** */
+    // Metodi di cifratura/decifratura
 
   
     
