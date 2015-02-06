@@ -23,7 +23,7 @@ public class AnalisiFrequenzeJFrame extends javax.swing.JFrame {
     /**
      * Creates new form AnalisiFrequenzeJFrame
      */
-    public AnalisiFrequenzeJFrame(Messaggio messaggio, Alfabeto alfabeto, DBManager dbManager) {
+    public AnalisiFrequenzeJFrame(String messaggio, Alfabeto alfabeto, DBManager dbManager) {
         this.dbManager = dbManager;
         initComponents();
         

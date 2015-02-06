@@ -84,6 +84,10 @@ public class Messaggio {
 
     }
     
+    public String getLocale(){
+        return this.lingua;
+    }
+    
     @Override
     public String toString(){
         return this.testoCifrato;

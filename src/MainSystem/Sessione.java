@@ -41,7 +41,7 @@ public class Sessione {
     }
     
     public void setSistemaCifratura(int id){
-        this.sistemaCifratura = DBManager.getSistemaCifratura(id);
+        //this.sistemaCifratura = DBManager.getSistemaCifratura(id);
     }
     
     public Studente getStudente(){

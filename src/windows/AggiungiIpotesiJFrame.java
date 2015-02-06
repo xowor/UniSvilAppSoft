@@ -19,19 +19,19 @@ public class AggiungiIpotesiJFrame extends javax.swing.JDialog {
     
     private Sostituzione sostituzione;
     private final DBManager dbManager;
-    private final Messaggio messaggio;
+    private final String messaggio;
     private final Alfabeto alfabeto;
 
     /**
      * Creates new form AggiungiIpotesiJFrame
      */
-    public AggiungiIpotesiJFrame(Messaggio messaggio, Alfabeto alfabeto, Sostituzione sostituzione, DBManager dbManager) {
+    public AggiungiIpotesiJFrame(String messaggio, Alfabeto alfabeto, Sostituzione sostituzione, DBManager dbManager) {
         this.sostituzione = sostituzione;
         this.messaggio = messaggio;
         this.alfabeto = alfabeto;
         this.dbManager = dbManager;
         initComponents();
-        this.messaggioJTextArea.setText(sostituzione.getMessaggio().getTesto());
+        this.messaggioJTextArea.setText(messaggio);
     }
 
     /**
@@ -191,7 +191,7 @@ public class AggiungiIpotesiJFrame extends javax.swing.JDialog {
     }//GEN-LAST:event_annullaJButtonActionPerformed
 
     private void confermaJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confermaJButtonActionPerformed
-        this.sostituzione.getMessaggio().setTesto(messaggioJTextArea.getText());
+        this.sostituzione.setTesto(messaggioJTextArea.getText());
         this.sostituzione.setSostituisci(sostituisciJTextField.getText());
         this.sostituzione.setSostituisciCon(sostituisciConJTextField.getText());
         this.dispose();
