@@ -13,6 +13,7 @@ import SistemaCifratura.Cifratore;
 import SistemaCifratura.Mappatura;
 import java.util.ArrayList;
 import javax.swing.DefaultListModel;
+import javax.swing.ListModel;
 
 /**
  *
@@ -20,17 +21,23 @@ import javax.swing.DefaultListModel;
  */
 public class GestioneMessaggiJFrame extends javax.swing.JFrame {
     private final DBManager dbManager;
-    private final Studente mittente;
+    private final Studente studente;
     private Messaggio messaggioRicevuto;
+    private final ArrayList<Studente> studenti;
 
     /**
      * Creates new form GestioneMessaggiJFrame
      */
-    public GestioneMessaggiJFrame(Studente mittente, DBManager dbManager, Messaggio messaggioRicevuto) {
+    public GestioneMessaggiJFrame(Studente studente, DBManager dbManager, Messaggio messaggioRicevuto) {
         this.dbManager = dbManager;
-        this.mittente = mittente;
+        this.studente = studente;
         this.messaggioRicevuto = messaggioRicevuto;
         initComponents();
+        
+        this.studenti = this.dbManager.getStudenti();
+        for (Studente stud : this.studenti){
+            this.studentiJComboBox.addItem(stud);
+        }
     }
 
     /**
@@ -49,7 +56,7 @@ public class GestioneMessaggiJFrame extends javax.swing.JFrame {
         jTextField1 = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jButton2 = new javax.swing.JButton();
-        destinatarioJComboBox = new javax.swing.JComboBox();
+        studentiJComboBox = new javax.swing.JComboBox();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         linguaJTextField = new javax.swing.JTextField();
@@ -96,10 +103,9 @@ public class GestioneMessaggiJFrame extends javax.swing.JFrame {
             }
         });
 
-        destinatarioJComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        destinatarioJComboBox.addActionListener(new java.awt.event.ActionListener() {
+        studentiJComboBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                destinatarioJComboBoxActionPerformed(evt);
+                studentiJComboBoxActionPerformed(evt);
             }
         });
 
@@ -125,7 +131,7 @@ public class GestioneMessaggiJFrame extends javax.swing.JFrame {
                     .addComponent(jLabel3)
                     .addComponent(linguaJTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 316, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addComponent(destinatarioJComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(studentiJComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -146,7 +152,7 @@ public class GestioneMessaggiJFrame extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(destinatarioJComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(studentiJComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -270,24 +276,25 @@ public class GestioneMessaggiJFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void inviaJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inviaJButtonActionPerformed
-        int idDest = dbManager.getStudenteDaNome(this.destinatarioJComboBox.getSelectedItem().toString()).getId();
+        int idDest = dbManager.getStudenteDaNome(this.studentiJComboBox.getSelectedItem().toString()).getId();
         
-        String testo = Cifratore.cifra(CalcolatoreCesare.cifraCesare("aaa"), this.inviaJTextPane.getText());
+        String testo = this.inviaJTextPane.getText();//Cifratore.cifra(CalcolatoreCesare.cifraCesare("aaa"), this.inviaJTextPane.getText());
         
-        this.dbManager.aggiungiMessaggio(testo, this.linguaJTextField.getText(), "", "", false, this.mittente.getId(), idDest);
+        this.dbManager.aggiungiMessaggio(testo, testo, this.linguaJTextField.getText(), "", "", false, this.studente.getId(), idDest);
     }//GEN-LAST:event_inviaJButtonActionPerformed
 
     private void riceviJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_riceviJButtonActionPerformed
-        ArrayList<Messaggio> messaggi = dbManager.getMessaggi(this.mittente.getId());
+        ArrayList<Messaggio> messaggi = dbManager.getMessaggi(this.studente.getId());
+        DefaultListModel model = new DefaultListModel();
         for (Messaggio messaggio: messaggi){
-            DefaultListModel model = (DefaultListModel) ricevutiJList.getModel();
             model.addElement(messaggio);
         }
+        this.ricevutiJList.setModel(model);
     }//GEN-LAST:event_riceviJButtonActionPerformed
 
-    private void destinatarioJComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_destinatarioJComboBoxActionPerformed
+    private void studentiJComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_studentiJComboBoxActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_destinatarioJComboBoxActionPerformed
+    }//GEN-LAST:event_studentiJComboBoxActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
@@ -309,6 +316,11 @@ public class GestioneMessaggiJFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_analizzaButtonActionPerformed
 
+    
+    
+    Messaggio getMessaggioRicevuto() {
+        return this.messaggioRicevuto;
+    }
 //    /**
 //     * @param args the command line arguments
 //     */
@@ -346,7 +358,6 @@ public class GestioneMessaggiJFrame extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton analizzaButton;
-    private javax.swing.JComboBox destinatarioJComboBox;
     private javax.swing.JButton inviaJButton;
     private javax.swing.JTextPane inviaJTextPane;
     private javax.swing.JButton jButton1;
@@ -365,5 +376,7 @@ public class GestioneMessaggiJFrame extends javax.swing.JFrame {
     private javax.swing.JTextField linguaJTextField;
     private javax.swing.JButton riceviJButton;
     private javax.swing.JList ricevutiJList;
+    private javax.swing.JComboBox studentiJComboBox;
     // End of variables declaration//GEN-END:variables
+
 }
