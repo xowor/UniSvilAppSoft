@@ -17,6 +17,7 @@ public class SistemaDiCifratura {
         this.chiave = key;
         this.metodo = met;
         this.calcola = CalcolatoreMappe.create(met);
+        calcolaMappatura();
         salva();
     }
     
@@ -25,6 +26,7 @@ public class SistemaDiCifratura {
         this.chiave = key;
         this.metodo = met;
         this.calcola = CalcolatoreMappe.create(met);
+        calcolaMappatura();
     }
     
     public ArrayList<SistemiDiCifratura> caricaSistemaCifratura(Studente s){
