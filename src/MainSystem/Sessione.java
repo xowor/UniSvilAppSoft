@@ -2,6 +2,7 @@ package MainSystem;
 
 import SistemaSupporto.Supporto;
 import Elements.*;
+import SistemaCifratura.SistemaDiCifratura;
 import java.util.ArrayList;
 
 public class Sessione {
@@ -13,6 +14,7 @@ public class Sessione {
     private Messaggio messaggioOriginaleCifrato;
     private AlberoIpotesi alberoIpotesi;
     private ArrayList<Supporto> strumentoSupporto;
+    private SistemaDiCifratura sistemaCifratura;
     
     // Sessione iniziale senza aver ancora deciso cosa decifrare
     public Sessione(int idStud, int idSes){
@@ -36,6 +38,10 @@ public class Sessione {
     
     public void setAlberoIpotesi(String testo){
         this.alberoIpotesi = new AlberoIpotesi(this.idSessione, this.idAlbero, messaggioOriginaleCifrato.testoCifrato);
+    }
+    
+    public void setSistemaCifratura(int id){
+        this.sistemaCifratura = DBManager.getSistemaCifratura(id);
     }
     
     public Studente getStudente(){
