@@ -212,10 +212,10 @@ public class GestioneMessaggiJFrame extends javax.swing.JFrame {
             }
         });
 
-        ricevutiJList.setModel(new javax.swing.AbstractListModel() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public Object getElementAt(int i) { return strings[i]; }
+        ricevutiJList.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
+            public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
+                ricevutiJListValueChanged(evt);
+            }
         });
         jScrollPane3.setViewportView(ricevutiJList);
 
@@ -313,8 +313,13 @@ public class GestioneMessaggiJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_linguaJTextFieldActionPerformed
 
     private void analizzaButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_analizzaButtonActionPerformed
-        // TODO add your handling code here:
+        this.messaggioRicevuto = (Messaggio) this.ricevutiJList.getSelectedValue();
+        this.dispose();
     }//GEN-LAST:event_analizzaButtonActionPerformed
+
+    private void ricevutiJListValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_ricevutiJListValueChanged
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ricevutiJListValueChanged
 
     
     

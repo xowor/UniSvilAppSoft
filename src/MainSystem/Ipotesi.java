@@ -54,4 +54,7 @@ public class Ipotesi {
         return this.figli;
     }
 
+    public String getTestoParzialmenteDecifrato(){
+        return this.testoParzialmenteDecifrato;
+    }
 }
