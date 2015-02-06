@@ -13,19 +13,12 @@ public class SistemaDiCifratura {
     }
 
 
-    public void calcolaMappatura(){
-
+    public Mappatura calcolaMappatura(String chiave, String metodo){
+        if(this.metodo.equals("cesare")){
+            return CalcolatoreCesare.cifraCesare(chiave);
+        } else if (this.metodo.equals("monoalfabetica")){
+            return null;
+        } else return null;
     }
 
-    public void prova(){
-
-    }
-
-    public boolean elimina(){
-        return false;
-    }
-
-    public boolean salva(){
-        return false;
-    }
 }

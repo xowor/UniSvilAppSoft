@@ -2,6 +2,7 @@ package MainSystem;
 import Elements.Frequenze;
 import Elements.Messaggio;
 import Elements.Studente;
+import SistemaCifratura.SistemaDiCifratura;
 import javax.management.Query;
 import java.sql.*;
 import java.util.ArrayList;
@@ -567,5 +568,27 @@ public class DBManager {
         // sostituire la lista di figli nel padre
         aggiornaFigli(idPadre, idAlbero, idSessione, figliFinali);
 
+    }
+    
+    public void aggiungiSistemaCifratura(int key, String metodo){
+        esegui("INSERT INTO sistemadicifratura (chiave, metodo) VALUES ("+key + ", '"+metodo+"')", st);
+    }
+    
+    public void eliminaSistemaCifratura(int key, String metodo){
+        esegui("DELETE FROM sistemadicifratura WHERE chiave="+key+" AND metodo='"+metodo+"')", st);
+    }
+    
+    public static SistemaDiCifratura getSistemaDiCifratura(int id){
+        SistemaDiCifratura sdc = null;
+        try {
+            ResultSet rs = st.executeQuery("SELECT * FROM sistemadicifratura WHERE id="+id+"");
+            if(rs.next()){
+                ArrayList<Integer> figli = getArrayFigli(rs.getString("figli"));
+                sdc = new SistemaDiCifratura(rs.getString("chiave"), rs.getString("metodo"));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return sdc;
     }
 }
