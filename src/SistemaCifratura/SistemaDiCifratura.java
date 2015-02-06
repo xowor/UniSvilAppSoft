@@ -18,7 +18,7 @@ public class SistemaDiCifratura {
         this.metodo = met;
         this.calcola = CalcolatoreMappe.create(met);
         calcolaMappatura();
-        salva();
+        DBManager.aggiungiSistemaCifratura(Integer.parseInt(key),met);
     }
     
     public SistemaDiCifratura(int id, String key, String met){
@@ -41,11 +41,8 @@ public class SistemaDiCifratura {
         this.mappatura = calcola.calcola(this.chiave);
     }
     
-    public boolean salva(){
-        return DBManager.salvaSistemaCifratura(this);
-    }
     
     public boolean elimina(){
-        return DBManager.eliminaSistemaCifratura(this.id);
+        DBManager.eliminaSistemaCifratura(Integer.parseInt(key),met);
     }
 }
