@@ -293,6 +293,8 @@ public class DBManager {
         return ip;
     }
     
+    
+    
     public static SistemaDiCifratura getSistemaDiCifratura(int id){
         SistemaDiCifratura sdc = null;
         try {
@@ -331,10 +333,11 @@ public class DBManager {
         return arrayFigli;
     }
         
-    public HashMap<Integer, String> recuperaMessaggiCifrati(){                  // per la spia
+    public HashMap<Integer, String> recuperaMessaggiCifrati(Studente studente){                  // per la spia
         HashMap<Integer, String> map = new HashMap<Integer, String>();
         try {
-            ResultSet rs = st.executeQuery("SELECT id, testoCifrato FROM messaggio");
+            ResultSet rs = st.executeQuery("SELECT id, testoCifrato FROM messaggio WHERE idDestinatario<>"+studente.getId()+""
+                    + " AND idMittente<>"+studente.getId()+"");
             while(rs.next()){
                 map.put(rs.getInt("id"), rs.getString("testoCifrato"));
             }
