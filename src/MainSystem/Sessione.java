@@ -34,8 +34,7 @@ public class Sessione {
     // pre: cosa sostituire
     // post: con cosa sostituire
     public String sostituisci(String testo, String pre, String post){
-        String testoSostituito = testo.replace(pre, post);
-        return testoSostituito;
+        return testo.replace(pre, post);
     }
     
     // TODO
