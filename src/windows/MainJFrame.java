@@ -13,6 +13,7 @@ import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.UnsupportedLookAndFeelException;
+import javax.swing.tree.DefaultTreeModel;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -374,7 +375,10 @@ public class MainJFrame extends javax.swing.JFrame {
             this.studente = dbManager.getStudenteDaNome(studentiJComboBox.getSelectedItem().toString());
             
             this.sessione = this.dbManager.getOrInsertSessione(this.studente.getId());
-            this.alberoIpotesi = this.dbManager.getAlberoIpotesi(this.sessione.getId());
+            //this.alberoIpotesi = this.dbManager.getAlberoIpotesi(this.sessione.getId(), -1);
+            //DefaultTreeModel a = new DefaultTreeModel(this.alberoIpotesi.getRoot());
+            //this.jTree1.setModel(a);
+            
             System.out.println(this.sessione.getId());
         }
     }//GEN-LAST:event_studentiJComboBoxItemStateChanged
@@ -390,7 +394,7 @@ public class MainJFrame extends javax.swing.JFrame {
         frame.addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosed(WindowEvent e) {
-                //aggiungiIpotesi(frame.getSostituzione());
+                mostraMessaggio(frame.getMessaggioRicevuto());
             }
         });
         frame.setVisible(true);
@@ -418,6 +422,10 @@ public class MainJFrame extends javax.swing.JFrame {
             this.studentiJComboBox.addItem(studente);
         }
                 
+    }
+    
+    public void mostraMessaggio(Messaggio messaggio){
+        System.out.println(messaggio.getTesto());
     }
     
     

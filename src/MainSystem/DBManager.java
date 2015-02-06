@@ -246,9 +246,10 @@ public class DBManager {
         aggiungiStudente("admin", "admin", "admin", "admin", st);   
     }
     
-    public void aggiungiMessaggio(String testo, String lingua, String titolo, String bozza, Boolean letto, int idMitt, int idDest){
-        esegui("INSERT INTO messaggio (testo, lingua, titolo, idMittente, idDestinatario, bozza, letto) VALUES ('"+testo
-                +"', '"+lingua+"', '"+titolo+"', "+idMitt+", "+idDest+"','"+bozza+"', '"+letto+"')", st);
+
+    public void aggiungiMessaggio(String testo, String testoCifrato, String lingua, String titolo, String bozza, Boolean letto, int idMitt, int idDest){
+        esegui("INSERT INTO messaggio (testo, testoCifrato, lingua, titolo, idMittente, idDestinatario, bozza, letto) VALUES ('"+testo + "', '" + testoCifrato
+                +"', '"+lingua+"', '"+titolo+"', "+idMitt+", "+idDest+",'"+bozza+"', '"+letto+"')", st);
     }
     
     public void aggiungiFrequenza(String lettera, String lingua, int frequenza, Statement st){
@@ -452,7 +453,7 @@ public class DBManager {
         try {            
             ResultSet rs = st.executeQuery("SELECT * FROM messaggio WHERE id = "+idMessaggio+"");
             rs.next();
-            messaggio = new Messaggio(rs.getString("titolo"), rs.getString("testo"), rs.getInt("mittente"), 
+            messaggio = new Messaggio(rs.getString("titolo"), rs.getString("testo"), rs.getString("testoCifrato"), rs.getInt("mittente"), 
                     rs.getInt("destinatario"), rs.getString("lingua"));            
         } catch (SQLException ex) {
             Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
@@ -466,8 +467,8 @@ public class DBManager {
             ResultSet rs = st.executeQuery("SELECT * FROM messaggio WHERE idDestinatario = " + idDestinatario + "");
             rs.next();
             while(rs.next()){
-                Messaggio messaggio = new Messaggio(rs.getString("titolo"), rs.getString("testo"), rs.getInt("mittente"), 
-                    rs.getInt("mittente"), rs.getString("lingua"));  
+                Messaggio messaggio = new Messaggio(rs.getString("titolo"), rs.getString("testo"), rs.getString("testoCifrato"), rs.getInt("idMittente"), 
+                    rs.getInt("idDestinatario"), rs.getString("lingua"));  
                 messaggi.add(messaggio);
             }   
         } catch (SQLException ex) {

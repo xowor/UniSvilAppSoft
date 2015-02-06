@@ -29,7 +29,10 @@ public final class AlberoIpotesi extends JTree{
         this.idAlbero = root.getAlbero();
         this.root = new NodoIpotesi(root);
         idCounter = contaNodi(this.root);
-        
+    }
+    
+    public NodoIpotesi getRoot(){
+        return this.root;
     }
     
     public int contaNodi(NodoIpotesi nodo){

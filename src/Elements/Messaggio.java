@@ -20,12 +20,13 @@ public class Messaggio {
         this.testo = testo;
     }
     
-    public Messaggio(String titolo, String testo, int mitt, int dest, String lingua){
+    public Messaggio(String titolo, String testo, String testoCifrato, int mitt, int dest, String lingua){
         this.oggetto = titolo;
         this.testo = testo;
         this.idMitt = mitt;
         this.idDest = dest;
         this.lingua = lingua;
+        this.testoCifrato = testoCifrato;
     }
     
 
@@ -82,6 +83,10 @@ public class Messaggio {
     public void cifra(){
 
     }
-
+    
+    @Override
+    public String toString(){
+        return this.testoCifrato;
+    }
 
 }
