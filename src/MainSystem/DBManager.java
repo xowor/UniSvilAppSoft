@@ -262,11 +262,12 @@ public class DBManager {
     public static Ipotesi getIpotesi(int idIpotesi, int idSessione, int idAlbero){
         Ipotesi ip = null;
         try {
-            ResultSet rs = st.executeQuery("SELECT * FROM ipotesi WHERE idIpotesi="+idIpotesi+", idSessione="+idSessione+", idAlbero="+idAlbero+"");
-            rs.next();
-            ArrayList<Integer> figli = getArrayFigli(rs.getString("figli"));
-            ip = new Ipotesi(idIpotesi, idSessione, idAlbero, rs.getString("testoParzialmenteDecifrato"), 
+            ResultSet rs = st.executeQuery("SELECT * FROM ipotesi WHERE id="+idIpotesi+" AND idSessione="+idSessione+" AND idAlbero="+idAlbero+"");
+            if(rs.next()){
+                ArrayList<Integer> figli = getArrayFigli(rs.getString("figli"));
+                ip = new Ipotesi(idIpotesi, idSessione, idAlbero, rs.getString("testoParzialmenteDecifrato"), 
                     rs.getInt("idPadre"), figli);
+            }
         } catch (SQLException ex) {
             Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -475,19 +476,31 @@ public class DBManager {
         return messaggi;
     }
     
-    public static AlberoIpotesi getAlberoIpotesi(int idSessione, int idAlbero){
-        AlberoIpotesi albero = null;
-        if(idAlbero != -1){
-            Ipotesi ip = getIpotesi(0, idSessione, idAlbero);
-            albero = new AlberoIpotesi(ip);
+    public static int getIdAlbero(int idSessione){
+        int id = -1;
+        try {            
+            ResultSet rs = st.executeQuery("SELECT idAlbero FROM ipotesi WHERE id = "+idSessione+""
+                    + "AND id=0");
+            if (rs.next()){
+                id = rs.getInt("idAlbero");   
+            }         
+        } catch (SQLException ex) {
+            Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
         }
+        return id;
+    }
+    
+    public static AlberoIpotesi getAlberoIpotesi(int idSessione){
+        AlberoIpotesi albero = null;
+        Ipotesi ip = getIpotesi(0, idSessione, getIdAlbero(idSessione));
+        albero = new AlberoIpotesi(ip);
         return albero;
     }
     
     public static int getPadre(int idIpotesi,  int idAlbero, int idSessione){
         int id = -1;
         try {            
-            ResultSet rs = st.executeQuery("SELECT idPadre FROM ipotesi WHERE id = "+idIpotesi+"AND "
+            ResultSet rs = st.executeQuery("SELECT idPadre FROM ipotesi WHERE id = "+idIpotesi+" AND "
                     + "idAlbero="+idAlbero+" AND idSessione="+idSessione+"");
             rs.next();
             id = rs.getInt("idPadre");            

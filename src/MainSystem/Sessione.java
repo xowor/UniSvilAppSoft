@@ -25,7 +25,7 @@ public class Sessione {
         this.studente = DBManager.getStudente(idStud);
         this.idSessione = idSes;
         this.idAlbero = idAlb;    
-        this.alberoIpotesi = DBManager.getAlberoIpotesi(idSes, idAlbero);
+        this.alberoIpotesi = DBManager.getAlberoIpotesi(idSes);
         this.messaggioOriginaleCifrato = DBManager.getMessaggio(idMessaggioCifrato);
     }
     
