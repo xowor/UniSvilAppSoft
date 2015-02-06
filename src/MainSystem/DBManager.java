@@ -253,6 +253,14 @@ public class DBManager {
                 +"', '"+lingua+"', '"+titolo+"', "+idMitt+", "+idDest+",'"+bozza+"', '"+letto+"')", st);
     }
     
+    public void aggiungiSistemaCifratura(int key, String metodo){
+        esegui("INSERT INTO sistemadicifratura (chiave, metodo) VALUES ("+key + ", '"+metodo+"')", st);
+    }
+    
+    public void eliminaSistemaCifratura(int key, String metodo){
+        esegui("DELETE FROM sistemadicifratura WHERE chiave="+key+" AND metodo='"+metodo+"')", st);
+    }
+    
     public void aggiungiFrequenza(String lettera, String lingua, int frequenza, Statement st){
         esegui("INSERT INTO frequenzaLingua (lettera, lingua, frequenza) VALUES ('"+lettera+"', '"+lingua+"', "+frequenza+")", st);
     }
@@ -274,6 +282,20 @@ public class DBManager {
             Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
         }
         return ip;
+    }
+    
+    public static SistemaDiCifratura getSistemaDiCifratura(int id){
+        SistemaDiCifratura sdc = null;
+        try {
+            ResultSet rs = st.executeQuery("SELECT * FROM sistemadicifratura WHERE id="+id+"");
+            if(rs.next()){
+                ArrayList<Integer> figli = getArrayFigli(rs.getString("figli"));
+                sdc = new SistemaDiCifratura(rs.getString("chiave"), rs.getString("metodo"));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return sdc;
     }
     
     public static ArrayList<Integer> getArrayFigli(String figli){
@@ -567,7 +589,6 @@ public class DBManager {
         String figliFinali = getStringFromArray(newFigli);
         // sostituire la lista di figli nel padre
         aggiornaFigli(idPadre, idAlbero, idSessione, figliFinali);
-
     }
     
     public void aggiungiSistemaCifratura(int key, String metodo){
