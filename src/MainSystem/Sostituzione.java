@@ -14,8 +14,7 @@ import Elements.Messaggio;
 public class Sostituzione {
     
     int id;
-    private String testo;
-    
+    private String testo;    
     private String sostituisci;
     private String sostituisciCon;
     
@@ -26,7 +25,6 @@ public class Sostituzione {
     public String getTesto(){
         return this.testo;
     }
-
     
     public void setSostituisci(String sostituisci){
         this.sostituisci = sostituisci;
