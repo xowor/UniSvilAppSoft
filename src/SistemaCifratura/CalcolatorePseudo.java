@@ -1,19 +1,12 @@
 package SistemaCifratura;
-import MainSystem.*;
 
-public class CalcolatorePseudoCasuale implements InterfacciaCalcolatori {
-    
-    
+public class CalcolatorePseudo  extends CalcolatoreMappe {
+
     @Override
-    public InterfacciaCalcolatori create(String met) {
+    Mappatura calcola(String chiave) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
-    @Override
-    public Mappatura calcola(String chiave) {
-        char[] c = chiave.toCharArray();
-        return new Mappatura(c);
-    }
 
     /* ********************************************************************** */
     // Metodi di cifratura/decifratura
