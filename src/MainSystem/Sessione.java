@@ -14,7 +14,7 @@ public class Sessione {
     private Messaggio messaggioOriginaleCifrato;
     private AlberoIpotesi alberoIpotesi;
     private ArrayList<Supporto> strumentoSupporto;
-    private SistemaDiCifratura sistemaCifratura;
+    private ArrayList<SistemaDiCifratura> sistemaCifratura;
     
     // Sessione iniziale senza aver ancora deciso cosa decifrare
     public Sessione(int idStud, int idSes){
@@ -31,6 +31,13 @@ public class Sessione {
         this.messaggioOriginaleCifrato = DBManager.getMessaggio(idMessaggioCifrato);
     }
     
+    // pre: cosa sostituire
+    // post: con cosa sostituire
+    public String sostituisci(String testo, String pre, String post){
+        String testoSostituito = testo.replace(pre, post);
+        return testoSostituito;
+    }
+    
     // TODO
     public void setSupporto(){
         this.strumentoSupporto = null;
@@ -40,7 +47,7 @@ public class Sessione {
         this.alberoIpotesi = new AlberoIpotesi(this.idSessione, this.idAlbero, messaggioOriginaleCifrato.testoCifrato);
     }
     
-    public void setSistemaCifratura(int id){
+    public void setSistemaCifratura(Studente id){
         this.sistemaCifratura = DBManager.getSistemaDiCifratura(id);
     }
     

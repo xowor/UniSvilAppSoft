@@ -1,12 +1,7 @@
 package SistemaCifratura;
 
-public class CalcolatoreParolaChiave implements InterfacciaCalcolatori {
+public class CalcolatoreChiave  extends CalcolatoreMappe {
 
-    @Override
-    public InterfacciaCalcolatori create(String met) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-    
     @Override
     public Mappatura calcola(String chiave) {
         char[] key = chiave.toCharArray();
@@ -31,5 +26,8 @@ public class CalcolatoreParolaChiave implements InterfacciaCalcolatori {
     }
     /* ********************************************************************** */
     // Metodi di cifratura/decifratura
+
+
+   
     
 }

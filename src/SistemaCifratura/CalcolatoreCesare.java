@@ -1,14 +1,9 @@
 package SistemaCifratura;
 
-public class CalcolatoreCesare implements InterfacciaCalcolatori {
+public class CalcolatoreCesare extends CalcolatoreMappe {
     
     static char[] alphabet = {'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','y','x','z'};
-    
-    @Override
-    public InterfacciaCalcolatori create(String met) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-    
+        
     @Override
     public Mappatura calcola(String chiave) {
         char[] m = new char[26];
@@ -22,10 +17,9 @@ public class CalcolatoreCesare implements InterfacciaCalcolatori {
     }
 
 
-    /* ********************************************************************** */
-    // Metodi di cifratura/decifratura
+    /* 
     
-public static Mappatura cifraCesare(String chiave){
+public static Mappatura cifraCesare(String chiave, String message){
         int key = Integer.parseInt(chiave);
         
         String out = "abcdefghijklmnopqrstuvwxyz";
@@ -77,4 +71,5 @@ public static Mappatura cifraCesare(String chiave){
         }
         return out;
     }
+********************************************************************** */
 }

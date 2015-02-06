@@ -14,6 +14,7 @@ public class DBManager {
     
     public static Statement st;
     private static Connection conn;
+    
     public DBManager(){}
     
     public void inizializza() {
@@ -168,6 +169,7 @@ public class DBManager {
             
             st.execute( "CREATE TABLE sistemaDiCifratura(" +
             "id INT NOT NULL GENERATED ALWAYS AS IDENTITY(START WITH 1, INCREMENT BY 1)," +
+            "idStudente INT NOT NULL," + 
             "chiave VARCHAR(24) NOT NULL," +
             "metodo VARCHAR(24) NOT NULL," +
             "PRIMARY KEY(id))");
@@ -259,11 +261,11 @@ public class DBManager {
     }
     
     
-    public void aggiungiSistemaCifratura(int key, String metodo){
+    public static void aggiungiSistemaCifratura(int key, String metodo){
         esegui("INSERT INTO sistemadicifratura (chiave, metodo) VALUES ("+key + ", '"+metodo+"')", st);
     }
     
-    public void eliminaSistemaCifratura(int key, String metodo){
+    public static void eliminaSistemaCifratura(int key, String metodo){
         esegui("DELETE FROM sistemadicifratura WHERE chiave="+key+" AND metodo='"+metodo+"')", st);
     }
     
@@ -296,13 +298,27 @@ public class DBManager {
         try {
             ResultSet rs = st.executeQuery("SELECT * FROM sistemadicifratura WHERE id="+id+"");
             if(rs.next()){
-                ArrayList<Integer> figli = getArrayFigli(rs.getString("figli"));
                 sdc = new SistemaDiCifratura(rs.getString("chiave"), rs.getString("metodo"));
-        }
+            }
         } catch (SQLException ex) {
             Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
         }
         return sdc;
+    }
+    
+    public static ArrayList<SistemaDiCifratura> getSistemaDiCifratura(Studente studente){
+        ArrayList<SistemaDiCifratura> lista = null;
+        int idStudente = studente.getId();
+        try {
+            ResultSet rs = st.executeQuery("SELECT * FROM sistemadicifratura WHERE idStudente="+idStudente+"");
+            while(rs.next()){
+                SistemaDiCifratura tmp = new SistemaDiCifratura(rs.getString("chiave"), rs.getString("metodo"));
+                lista.add(tmp);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return lista;
     }
     
     public static ArrayList<Integer> getArrayFigli(String figli){
