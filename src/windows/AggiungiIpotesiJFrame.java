@@ -32,6 +32,7 @@ public class AggiungiIpotesiJFrame extends javax.swing.JDialog {
         this.dbManager = dbManager;
         initComponents();
         this.messaggioJTextArea.setText(messaggio);
+        this.confermaJButton.setEnabled(false);
     }
 
     /**
@@ -75,12 +76,28 @@ public class AggiungiIpotesiJFrame extends javax.swing.JDialog {
                 sostituisciJTextFieldActionPerformed(evt);
             }
         });
+        sostituisciJTextField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                sostituisciJTextFieldKeyTyped(evt);
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                sostituisciJTextFieldKeyReleased(evt);
+            }
+        });
 
         jLabel3.setText("con");
 
         sostituisciConJTextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 sostituisciConJTextFieldActionPerformed(evt);
+            }
+        });
+        sostituisciConJTextField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                sostituisciConJTextFieldKeyTyped(evt);
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                sostituisciConJTextFieldKeyReleased(evt);
             }
         });
 
@@ -116,28 +133,34 @@ public class AggiungiIpotesiJFrame extends javax.swing.JDialog {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane2)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(sostituisciJTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(94, 94, 94)
+                .addComponent(jLabel3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(sostituisciConJTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGap(11, 11, 11)
+                        .addComponent(mostraDizionarioJButton1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(mostraAnalisiFrequenzeJButton)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 382, Short.MAX_VALUE)
+                        .addComponent(confermaJButton)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(annullaJButton))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(sostituisciJTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(34, 34, 34)
-                        .addComponent(jLabel3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(sostituisciConJTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(0, 256, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(11, 11, 11)
-                .addComponent(mostraDizionarioJButton1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(mostraAnalisiFrequenzeJButton)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(confermaJButton)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(annullaJButton)
+                        .addContainerGap()
+                        .addComponent(jScrollPane2))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel1)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -169,7 +192,7 @@ public class AggiungiIpotesiJFrame extends javax.swing.JDialog {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
@@ -208,6 +231,42 @@ public class AggiungiIpotesiJFrame extends javax.swing.JDialog {
         DizionarioJFrame frame = new DizionarioJFrame(this.dbManager);
         frame.setVisible(true);
     }//GEN-LAST:event_mostraDizionarioJButton1ActionPerformed
+
+    private void sostituisciJTextFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_sostituisciJTextFieldKeyTyped
+        if (sostituisciJTextField.getText().length() > 0 && 
+                sostituisciConJTextField.getText().length() > 0){
+            this.confermaJButton.setEnabled(true);
+        } else {
+            this.confermaJButton.setEnabled(false);
+        }
+    }//GEN-LAST:event_sostituisciJTextFieldKeyTyped
+
+    private void sostituisciConJTextFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_sostituisciConJTextFieldKeyTyped
+        if (sostituisciJTextField.getText().length() > 0 && 
+                sostituisciConJTextField.getText().length() > 0){
+            this.confermaJButton.setEnabled(true);
+        } else {
+            this.confermaJButton.setEnabled(false);
+        }
+    }//GEN-LAST:event_sostituisciConJTextFieldKeyTyped
+
+    private void sostituisciConJTextFieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_sostituisciConJTextFieldKeyReleased
+        if (sostituisciJTextField.getText().length() > 0 && 
+                sostituisciConJTextField.getText().length() > 0){
+            this.confermaJButton.setEnabled(true);
+        } else {
+            this.confermaJButton.setEnabled(false);
+        }
+    }//GEN-LAST:event_sostituisciConJTextFieldKeyReleased
+
+    private void sostituisciJTextFieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_sostituisciJTextFieldKeyReleased
+        if (sostituisciJTextField.getText().length() > 0 && 
+                sostituisciConJTextField.getText().length() > 0){
+            this.confermaJButton.setEnabled(true);
+        } else {
+            this.confermaJButton.setEnabled(false);
+        }
+    }//GEN-LAST:event_sostituisciJTextFieldKeyReleased
 
     public Sostituzione getSostituzione(){
         return this.sostituzione;

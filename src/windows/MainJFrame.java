@@ -13,6 +13,7 @@ import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.UnsupportedLookAndFeelException;
+import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreePath;
 
@@ -312,11 +313,12 @@ public class MainJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_studentiJComboBoxActionPerformed
 
     private void aggiungiIpotesi(Sostituzione i){
-        if (i != null){
-            System.out.println(i.getTesto()); 
-            System.out.println(i.getSostituisci()); 
-            System.out.println(i.getSostituisciCon()); 
-        }
+        String nuovoTesto = this.sessione.sostituisci(this.ipotesiCorrente.getTestoParzialmenteDecifrato(), i.getSostituisci(), i.getSostituisciCon());
+        AlberoIpotesi.NodoIpotesi nodoIpotesi = (AlberoIpotesi.NodoIpotesi) this.jTree1.getLastSelectedPathComponent();
+        nodoIpotesi.aggiungiIpotesi(nuovoTesto);
+        
+        DefaultTreeModel model = (DefaultTreeModel)jTree1.getModel();
+        model.reload(); 
     }
     
     private void aggiungiIpotesiJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aggiungiIpotesiJButtonActionPerformed
@@ -387,9 +389,11 @@ public class MainJFrame extends javax.swing.JFrame {
 
     private void jTree1ValueChanged(javax.swing.event.TreeSelectionEvent evt) {//GEN-FIRST:event_jTree1ValueChanged
         AlberoIpotesi.NodoIpotesi nodoIpotesi = (AlberoIpotesi.NodoIpotesi) this.jTree1.getLastSelectedPathComponent();
-        ipotesiJTextPane.setText(nodoIpotesi.toString());
-        this.ipotesiCorrente = nodoIpotesi.getIpotesi();
-        setContentEnabled(true);
+        if (nodoIpotesi != null){
+            ipotesiJTextPane.setText(nodoIpotesi.toString());
+            this.ipotesiCorrente = nodoIpotesi.getIpotesi();
+            setContentEnabled(true);   
+        }
     }//GEN-LAST:event_jTree1ValueChanged
     
     public void inizializza(){

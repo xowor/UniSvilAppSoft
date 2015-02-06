@@ -62,7 +62,7 @@ public final class AlberoIpotesi extends JTree{
             this.parent = 0;
             this.parentNodo = null;
             this.ipotesi = new Ipotesi(idSes, idAlb, 0, testo, 0, new ArrayList<>());
-            listaFigli = new ArrayList<>();
+            this.listaFigli = new ArrayList<>();
         }
         
         // nuovo nodo ipotesi
@@ -70,6 +70,7 @@ public final class AlberoIpotesi extends JTree{
             this.parent = ip.getParent();
             this.ipotesi = ip;
             this.parentNodo = parent;
+            this.listaFigli = new ArrayList<>();
             ArrayList<Integer> tmp = ip.getFigli();
             int ses = ip.getSessione();
             int alb = ip.getAlbero();
@@ -88,8 +89,8 @@ public final class AlberoIpotesi extends JTree{
         /* Aggiunge un nuovo figlio */
         
         
-        public void aggiungiIpotesi(NodoIpotesi nodo, String testo){
-            Ipotesi tmp = new Ipotesi(nodo.ipotesi.getSessione(), nodo.ipotesi.getAlbero(), idCounter, testo, nodo.ipotesi.getId(), new ArrayList<Integer>());
+        public void aggiungiIpotesi(String testo){
+            Ipotesi tmp = new Ipotesi(this.ipotesi.getSessione(), this.ipotesi.getAlbero(), idCounter, testo, this.ipotesi.getId(), new ArrayList<Integer>());
             tmp.aggiungiIpotesi();
             idCounter++;
             this.listaFigli.add(new NodoIpotesi(tmp, this));
@@ -121,7 +122,7 @@ public final class AlberoIpotesi extends JTree{
         
         @Override
         public TreeNode getChildAt(int childIndex) {
-            throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+            return this.listaFigli.get(childIndex);
         }
 
         @Override
@@ -146,7 +147,7 @@ public final class AlberoIpotesi extends JTree{
 
         @Override
         public boolean isLeaf() {
-            return this.listaFigli.isEmpty();
+            return this. listaFigli == null || this.listaFigli.isEmpty();
         }
 
         @Override
