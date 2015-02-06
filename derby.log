@@ -9,6 +9,17 @@ java.runtime.version=1.8.0_25-b18
 user.dir=C:\Program Files\Java\jdk1.8.0_25\db
 os.name=Windows 8.1
 os.arch=amd64
+<<<<<<< HEAD
+os.version=6.3
+derby.system.home=C:\Users\Federica\Documents\NetBeansProjects\UniSvilAppSoft
+Programma di caricamento classe database avviato - derby.database.classpath=''
+----------------------------------------------------------------
+Fri Feb 06 12:21:22 CET 2015: arresto in corso del motore di Derby
+----------------------------------------------------------------
+Fri Feb 06 12:21:22 CET 2015:
+Arresto dell'istanza a816c00e-014b-5e4c-31d2-00006960ef3f nella directory del database C:\Users\Federica\Documents\NetBeansProjects\UniSvilAppSoft\CryptoHelperDB con il caricatore di classi sun.misc.Launcher$AppClassLoader@1d44bcfa 
+----------------------------------------------------------------
+=======
 os.version=6.3
 derby.system.home=D:\Documents\Dropbox\Università\2 - Laurea Triennale\3 - Terzo anno\Esami da sostenere\Sviluppo applicazioni software\Progetto\Git\UniSvilAppSoft
 Programma di caricamento classe database avviato - derby.database.classpath=''
@@ -63,3 +74,4 @@ java.sql.SQLException: Autenticazione della connessione non riuscita. Motivo: Au
 ============= end nested exception, level (1) ===========
 Cleanup action completed
 Fri Feb 06 11:32:48 CET 2015 Thread[DRDAConnThread_2,5,main] (DATABASE = CryptoHelperDB), (DRDAID = {1}), Autenticazione della connessione non riuscita. Motivo: Autenticazione non valida..
+>>>>>>> 30437d80033f06f5387c354e4636cca561ecd360

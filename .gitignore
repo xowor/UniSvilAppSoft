@@ -18,6 +18,7 @@ CryptoHelperDB/db.lck
 CryptoHelperDB/dbex.lck
 nbproject/private
 nbproject/private/*
+derby.log
 build
 build/*
 =======
