@@ -246,6 +246,7 @@ public class DBManager {
         aggiungiStudente("admin", "admin", "admin", "admin", st);   
     }
     
+
     public void aggiungiMessaggio(String testo, String testoCifrato, String lingua, String titolo, String bozza, Boolean letto, int idMitt, int idDest){
         esegui("INSERT INTO messaggio (testo, testoCifrato, lingua, titolo, idMittente, idDestinatario, bozza, letto) VALUES ('"+testo + "', '" + testoCifrato
                 +"', '"+lingua+"', '"+titolo+"', "+idMitt+", "+idDest+",'"+bozza+"', '"+letto+"')", st);
