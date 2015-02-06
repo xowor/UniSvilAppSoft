@@ -248,7 +248,7 @@ public class DBManager {
     
     public void aggiungiMessaggio(String testo, String lingua, String titolo, String bozza, Boolean letto, int idMitt, int idDest){
         esegui("INSERT INTO messaggio (testo, lingua, titolo, idMittente, idDestinatario, bozza, letto) VALUES ('"+testo
-                +"', '"+lingua+"', '"+titolo+"', '"+idMitt+"', '"+idDest+"','"+bozza+"', '"+letto+"')", st);
+                +"', '"+lingua+"', '"+titolo+"', "+idMitt+", "+idDest+"','"+bozza+"', '"+letto+"')", st);
     }
     
     public void aggiungiFrequenza(String lettera, String lingua, int frequenza, Statement st){
