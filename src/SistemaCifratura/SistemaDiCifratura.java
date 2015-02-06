@@ -38,7 +38,8 @@ public class SistemaDiCifratura {
     }
     
     public void calcolaMappatura(){
-        this.mappatura = calcola.calcola(this.chiave);
+        if (this.calcola != null)
+            this.mappatura = calcola.calcola(this.chiave);
     }
     
     
