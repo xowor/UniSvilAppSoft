@@ -68,7 +68,7 @@ public class MainJFrame extends javax.swing.JFrame {
         aggiungiIpotesiJButton = new javax.swing.JButton();
         rimuoviIpotesiJButton = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTree1 = new javax.swing.JTree();
+        ipotesiJTree = new javax.swing.JTree();
         RightJPanel = new javax.swing.JPanel();
         jSplitPane2 = new javax.swing.JSplitPane();
         jPanel4 = new javax.swing.JPanel();
@@ -164,20 +164,14 @@ public class MainJFrame extends javax.swing.JFrame {
             }
         });
 
-        javax.swing.tree.DefaultMutableTreeNode treeNode1 = new javax.swing.tree.DefaultMutableTreeNode("Messaggio");
-        javax.swing.tree.DefaultMutableTreeNode treeNode2 = new javax.swing.tree.DefaultMutableTreeNode("Ipotesi 1");
-        javax.swing.tree.DefaultMutableTreeNode treeNode3 = new javax.swing.tree.DefaultMutableTreeNode("Ipotesi 3");
-        treeNode2.add(treeNode3);
-        treeNode1.add(treeNode2);
-        treeNode2 = new javax.swing.tree.DefaultMutableTreeNode("Ipotesi 2");
-        treeNode1.add(treeNode2);
-        jTree1.setModel(new javax.swing.tree.DefaultTreeModel(treeNode1));
-        jTree1.addTreeSelectionListener(new javax.swing.event.TreeSelectionListener() {
+        javax.swing.tree.DefaultMutableTreeNode treeNode1 = new javax.swing.tree.DefaultMutableTreeNode("root");
+        ipotesiJTree.setModel(new javax.swing.tree.DefaultTreeModel(treeNode1));
+        ipotesiJTree.addTreeSelectionListener(new javax.swing.event.TreeSelectionListener() {
             public void valueChanged(javax.swing.event.TreeSelectionEvent evt) {
-                jTree1ValueChanged(evt);
+                ipotesiJTreeValueChanged(evt);
             }
         });
-        jScrollPane1.setViewportView(jTree1);
+        jScrollPane1.setViewportView(ipotesiJTree);
 
         javax.swing.GroupLayout IpotesiJPanelLayout = new javax.swing.GroupLayout(IpotesiJPanel);
         IpotesiJPanel.setLayout(IpotesiJPanelLayout);
@@ -314,10 +308,10 @@ public class MainJFrame extends javax.swing.JFrame {
 
     private void aggiungiIpotesi(Sostituzione i){
         String nuovoTesto = this.sessione.sostituisci(this.ipotesiCorrente.getTestoParzialmenteDecifrato(), i.getSostituisci(), i.getSostituisciCon());
-        AlberoIpotesi.NodoIpotesi nodoIpotesi = (AlberoIpotesi.NodoIpotesi) this.jTree1.getLastSelectedPathComponent();
+        AlberoIpotesi.NodoIpotesi nodoIpotesi = (AlberoIpotesi.NodoIpotesi) this.ipotesiJTree.getLastSelectedPathComponent();
         nodoIpotesi.aggiungiIpotesi(nuovoTesto);
         
-        DefaultTreeModel model = (DefaultTreeModel)jTree1.getModel();
+        DefaultTreeModel model = (DefaultTreeModel)ipotesiJTree.getModel();
         model.reload(); 
     }
     
@@ -335,10 +329,10 @@ public class MainJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_aggiungiIpotesiJButtonActionPerformed
 
     private void rimuoviIpotesiJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rimuoviIpotesiJButtonActionPerformed
-        AlberoIpotesi.NodoIpotesi nodoIpotesi = (AlberoIpotesi.NodoIpotesi) this.jTree1.getLastSelectedPathComponent();
+        AlberoIpotesi.NodoIpotesi nodoIpotesi = (AlberoIpotesi.NodoIpotesi) this.ipotesiJTree.getLastSelectedPathComponent();
         ((AlberoIpotesi.NodoIpotesi) nodoIpotesi.getParent()).eliminaIpotesi(nodoIpotesi);
         
-        DefaultTreeModel model = (DefaultTreeModel)jTree1.getModel();
+        DefaultTreeModel model = (DefaultTreeModel)ipotesiJTree.getModel();
         model.reload(); 
     }//GEN-LAST:event_rimuoviIpotesiJButtonActionPerformed
 
@@ -381,7 +375,7 @@ public class MainJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_gestioneMessaggiActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        windows.SistemiCifraturaJFrame frame = new windows.SistemiCifraturaJFrame();
+        windows.SistemiCifraturaJFrame frame = new windows.SistemiCifraturaJFrame(this.dbManager);
         frame.addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosed(WindowEvent e) {
@@ -391,14 +385,14 @@ public class MainJFrame extends javax.swing.JFrame {
         frame.setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void jTree1ValueChanged(javax.swing.event.TreeSelectionEvent evt) {//GEN-FIRST:event_jTree1ValueChanged
-        AlberoIpotesi.NodoIpotesi nodoIpotesi = (AlberoIpotesi.NodoIpotesi) this.jTree1.getLastSelectedPathComponent();
+    private void ipotesiJTreeValueChanged(javax.swing.event.TreeSelectionEvent evt) {//GEN-FIRST:event_ipotesiJTreeValueChanged
+        AlberoIpotesi.NodoIpotesi nodoIpotesi = (AlberoIpotesi.NodoIpotesi) this.ipotesiJTree.getLastSelectedPathComponent();
         if (nodoIpotesi != null){
             ipotesiJTextPane.setText(nodoIpotesi.toString());
             this.ipotesiCorrente = nodoIpotesi.getIpotesi();
             setContentEnabled(true);   
         }
-    }//GEN-LAST:event_jTree1ValueChanged
+    }//GEN-LAST:event_ipotesiJTreeValueChanged
     
     public void inizializza(){
         this.dbManager = new DBManager();
@@ -420,14 +414,14 @@ public class MainJFrame extends javax.swing.JFrame {
         this.alberoIpotesi = new AlberoIpotesi(this.sessione.getId(), -1, messaggio.getTestoCifrato());
         //this.alberoIpotesi.
         DefaultTreeModel a = new DefaultTreeModel(this.alberoIpotesi.getRoot());
-        this.jTree1.setModel(a);
-        this.jTree1.setSelectionPath(new TreePath(this.alberoIpotesi.getRoot().getPath()));
+        this.ipotesiJTree.setModel(a);
+        this.ipotesiJTree.setSelectionPath(new TreePath(this.alberoIpotesi.getRoot().getPath()));
         setContentEnabled(true);
         //System.out.println(messaggio.getTesto());
     }
     
     public void setContentEnabled(boolean enabled){
-        this.jTree1.setEnabled(enabled);
+        this.ipotesiJTree.setEnabled(enabled);
         this.testoCifratoJTextPane.setEnabled(enabled);
         this.ipotesiJTextPane.setEnabled(enabled);
         this.aggiungiIpotesiJButton.setEnabled(enabled);
@@ -500,6 +494,7 @@ public class MainJFrame extends javax.swing.JFrame {
     private javax.swing.JButton creaDatiJButton;
     private javax.swing.JButton gestioneMessaggi;
     private javax.swing.JTextPane ipotesiJTextPane;
+    private javax.swing.JTree ipotesiJTree;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -510,7 +505,6 @@ public class MainJFrame extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JSplitPane jSplitPane2;
-    private javax.swing.JTree jTree1;
     private javax.swing.JPanel mainJPanel;
     private javax.swing.JButton mostraAlfabetoJButton;
     private javax.swing.JButton rimuoviIpotesiJButton;

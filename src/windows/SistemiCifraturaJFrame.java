@@ -5,20 +5,27 @@
  */
 package windows;
 
+import MainSystem.DBManager;
+import SistemaCifratura.SistemaDiCifratura;
 import java.awt.event.ItemEvent;
+import java.util.ArrayList;
+import javax.swing.DefaultListModel;
 
 /**
  *
  * @author luca
  */
 public class SistemiCifraturaJFrame extends javax.swing.JFrame {
+    private final DBManager dbManager;
 
     /**
      * Creates new form SistemiCifraturaJFrame
      */
-    public SistemiCifraturaJFrame() {
+    public SistemiCifraturaJFrame(DBManager dbManager) {
+        this.dbManager = dbManager;
         initComponents();
         this.chiaveJTextField.setVisible(false);
+        this.caricaSistemi();
     }
 
     /**
@@ -32,10 +39,9 @@ public class SistemiCifraturaJFrame extends javax.swing.JFrame {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         jList1 = new javax.swing.JList();
-        jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
-        jComboBox1 = new javax.swing.JComboBox();
+        metodoJComboBox = new javax.swing.JComboBox();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         chiaveJTextField = new javax.swing.JTextField();
@@ -52,26 +58,24 @@ public class SistemiCifraturaJFrame extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(jList1);
 
-        jButton1.setText("Usa sistema");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        jButton2.setText("Elimina sistema");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                jButton2ActionPerformed(evt);
             }
         });
-
-        jButton2.setText("Elimina sistema");
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Nuovo sistema"));
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Cesare", "Monoalfabetico" }));
-        jComboBox1.addItemListener(new java.awt.event.ItemListener() {
+        metodoJComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Cesare", "Monoalfabetico" }));
+        metodoJComboBox.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                jComboBox1ItemStateChanged(evt);
+                metodoJComboBoxItemStateChanged(evt);
             }
         });
-        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+        metodoJComboBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBox1ActionPerformed(evt);
+                metodoJComboBoxActionPerformed(evt);
             }
         });
 
@@ -103,7 +107,7 @@ public class SistemiCifraturaJFrame extends javax.swing.JFrame {
                     .addComponent(jLabel1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jComboBox1, 0, 325, Short.MAX_VALUE)
+                    .addComponent(metodoJComboBox, 0, 325, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(chiaveJSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -115,7 +119,7 @@ public class SistemiCifraturaJFrame extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(41, 41, 41)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(metodoJComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -133,7 +137,6 @@ public class SistemiCifraturaJFrame extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jScrollPane1)
                     .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -142,9 +145,7 @@ public class SistemiCifraturaJFrame extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton1)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 269, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton2)
                 .addGap(0, 0, Short.MAX_VALUE))
@@ -154,25 +155,28 @@ public class SistemiCifraturaJFrame extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
-
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        // TODO add your handling code here:
+        String chiave;
+            if (metodoJComboBox.getSelectedItem().toString() == "Cesare"){
+                chiave = String.valueOf(this.chiaveJSpinner.getValue());
+            } else {
+                chiave = this.chiaveJTextField.getText();
+            }
+        this.dbManager.aggiungiSistemaCifratura(chiave , this.metodoJComboBox.getSelectedItem().toString());
+        caricaSistemi();
     }//GEN-LAST:event_jButton3ActionPerformed
 
-    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+    private void metodoJComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_metodoJComboBoxActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jComboBox1ActionPerformed
+    }//GEN-LAST:event_metodoJComboBoxActionPerformed
 
     private void chiaveJTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chiaveJTextFieldActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_chiaveJTextFieldActionPerformed
 
-    private void jComboBox1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBox1ItemStateChanged
+    private void metodoJComboBoxItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_metodoJComboBoxItemStateChanged
         if (evt.getStateChange() == ItemEvent.SELECTED) {
-            if (jComboBox1.getSelectedItem().toString() == "Cesare"){
+            if (metodoJComboBox.getSelectedItem().toString() == "Cesare"){
                 this.chiaveJSpinner.setVisible(true);
                 this.chiaveJTextField.setVisible(false);
             } else {
@@ -180,54 +184,70 @@ public class SistemiCifraturaJFrame extends javax.swing.JFrame {
                 this.chiaveJTextField.setVisible(true);
             }
         }
-    }//GEN-LAST:event_jComboBox1ItemStateChanged
+    }//GEN-LAST:event_metodoJComboBoxItemStateChanged
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(SistemiCifraturaJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(SistemiCifraturaJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(SistemiCifraturaJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(SistemiCifraturaJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        SistemaDiCifratura sistema = (SistemaDiCifratura) this.jList1.getSelectedValue();
+        if (sistema != null){
+            this.dbManager.eliminaSistemaCifratura(sistema.chiave, sistema.metodo);
         }
-        //</editor-fold>
+    }//GEN-LAST:event_jButton2ActionPerformed
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new SistemiCifraturaJFrame().setVisible(true);
-            }
-        });
+    private void caricaSistemi() {
+        ArrayList<SistemaDiCifratura> sistemi = this.dbManager.getSistemiDiCifratura();
+        DefaultListModel m = new DefaultListModel();
+        for (SistemaDiCifratura sistema: sistemi){
+            m.addElement(sistema);
+        }
+        this.jList1.setModel(m);
     }
+    
+//    /**
+//     * @param args the command line arguments
+//     */
+//    public static void main(String args[]) {
+//        /* Set the Nimbus look and feel */
+//        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+//        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+//         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+//         */
+//        try {
+//            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+//                if ("Nimbus".equals(info.getName())) {
+//                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+//                    break;
+//                }
+//            }
+//        } catch (ClassNotFoundException ex) {
+//            java.util.logging.Logger.getLogger(SistemiCifraturaJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (InstantiationException ex) {
+//            java.util.logging.Logger.getLogger(SistemiCifraturaJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (IllegalAccessException ex) {
+//            java.util.logging.Logger.getLogger(SistemiCifraturaJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+//            java.util.logging.Logger.getLogger(SistemiCifraturaJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        }
+//        //</editor-fold>
+//
+//        /* Create and display the form */
+//        java.awt.EventQueue.invokeLater(new Runnable() {
+//            public void run() {
+//                new SistemiCifraturaJFrame().setVisible(true);
+//            }
+//        });
+//    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JSpinner chiaveJSpinner;
     private javax.swing.JTextField chiaveJTextField;
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
-    private javax.swing.JComboBox jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JList jList1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JComboBox metodoJComboBox;
     // End of variables declaration//GEN-END:variables
+
 }

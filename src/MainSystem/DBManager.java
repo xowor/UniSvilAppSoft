@@ -261,12 +261,12 @@ public class DBManager {
     }
     
     
-    public static void aggiungiSistemaCifratura(int key, String metodo){
-        esegui("INSERT INTO sistemadicifratura (chiave, metodo) VALUES ("+key + ", '"+metodo+"')", st);
+    public static void aggiungiSistemaCifratura(String key, String metodo){
+        esegui("INSERT INTO sistemadicifratura (chiave, metodo) VALUES ('"+key + "', '"+metodo+"')", st);
     }
     
-    public static void eliminaSistemaCifratura(int key, String metodo){
-        esegui("DELETE FROM sistemadicifratura WHERE chiave="+key+" AND metodo='"+metodo+"')", st);
+    public static void eliminaSistemaCifratura(String key, String metodo){
+        esegui("DELETE FROM sistemadicifratura WHERE chiave='"+key+"' AND metodo='"+metodo+"')", st);
     }
     
     
@@ -321,6 +321,20 @@ public class DBManager {
             Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
         }
         return lista;
+    }
+    
+    public static ArrayList<SistemaDiCifratura> getSistemiDiCifratura(){
+        ArrayList<SistemaDiCifratura> list = new ArrayList<SistemaDiCifratura>();
+        SistemaDiCifratura sdc = null;
+        try {
+            ResultSet rs = st.executeQuery("SELECT * FROM sistemadicifratura");
+            while(rs.next()){
+                list.add(new SistemaDiCifratura(rs.getString("chiave"), rs.getString("metodo")));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return list;
     }
     
     public static ArrayList<Integer> getArrayFigli(String figli){
