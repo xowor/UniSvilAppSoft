@@ -306,7 +306,7 @@ public class DBManager {
         return sdc;
     }
     
-    public static ArrayList<SistemaDiCifratura> getSistemiDiCifratura(Studente studente){
+    public static ArrayList<SistemaDiCifratura> getSistemaDiCifratura(Studente studente){
         ArrayList<SistemaDiCifratura> lista = null;
         int idStudente = studente.getId();
         try {

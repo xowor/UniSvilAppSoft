@@ -29,11 +29,11 @@ public class SistemaDiCifratura {
         calcolaMappatura();
     }
     
-    public ArrayList<SistemiDiCifratura> caricaSistemaCifratura(Studente s){
+    public ArrayList<SistemaDiCifratura> caricaSistemaCifratura(Studente s){
         return DBManager.getSistemaDiCifratura(s);
     }
 
-    public SistemiDiCifratura caricaSistemaCifratura(int id){
+    public SistemaDiCifratura caricaSistemaCifratura(int id){
         return DBManager.getSistemaDiCifratura(id);
     }
     
@@ -42,7 +42,7 @@ public class SistemaDiCifratura {
     }
     
     
-    public boolean elimina(){
-        DBManager.eliminaSistemaCifratura(Integer.parseInt(key),met);
+    public void elimina(){
+        DBManager.eliminaSistemaCifratura(Integer.parseInt(this.chiave), this.metodo);
     }
 }
