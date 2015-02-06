@@ -60,6 +60,7 @@ public class AggiungiIpotesiJFrame extends javax.swing.JDialog {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Aggiungi ipotesi");
 
+        messaggioJTextArea.setEditable(false);
         messaggioJTextArea.setColumns(20);
         messaggioJTextArea.setLineWrap(true);
         messaggioJTextArea.setRows(5);
@@ -254,6 +255,7 @@ public class AggiungiIpotesiJFrame extends javax.swing.JDialog {
         if (sostituisciJTextField.getText().length() > 0 && 
                 sostituisciConJTextField.getText().length() > 0){
             this.confermaJButton.setEnabled(true);
+            this.messaggioJTextArea.setText(this.messaggioJTextArea.getText().replace(sostituisciJTextField.getText(), sostituisciConJTextField.getText()));
         } else {
             this.confermaJButton.setEnabled(false);
         }
@@ -263,6 +265,7 @@ public class AggiungiIpotesiJFrame extends javax.swing.JDialog {
         if (sostituisciJTextField.getText().length() > 0 && 
                 sostituisciConJTextField.getText().length() > 0){
             this.confermaJButton.setEnabled(true);
+            this.messaggioJTextArea.setText(this.messaggioJTextArea.getText().replace(sostituisciJTextField.getText(), sostituisciConJTextField.getText()));
         } else {
             this.confermaJButton.setEnabled(false);
         }

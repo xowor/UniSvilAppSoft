@@ -335,7 +335,11 @@ public class MainJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_aggiungiIpotesiJButtonActionPerformed
 
     private void rimuoviIpotesiJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rimuoviIpotesiJButtonActionPerformed
-        // TODO add your handling code here:
+        AlberoIpotesi.NodoIpotesi nodoIpotesi = (AlberoIpotesi.NodoIpotesi) this.jTree1.getLastSelectedPathComponent();
+        ((AlberoIpotesi.NodoIpotesi) nodoIpotesi.getParent()).eliminaIpotesi(nodoIpotesi);
+        
+        DefaultTreeModel model = (DefaultTreeModel)jTree1.getModel();
+        model.reload(); 
     }//GEN-LAST:event_rimuoviIpotesiJButtonActionPerformed
 
     private void mostraAlfabetoJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mostraAlfabetoJButtonActionPerformed

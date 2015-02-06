@@ -97,10 +97,10 @@ public final class AlberoIpotesi extends JTree{
         }
         
         public void eliminaIpotesi(NodoIpotesi nodo){
-            Ipotesi tmp = DBManager.getIpotesi(nodo.ipotesi.getParent(), idSessione, idAlbero);
-            NodoIpotesi temp = new NodoIpotesi(tmp, this);
-            temp.listaFigli.remove(nodo);
-            nodo.ipotesi.rimuoviIpotesi();
+            //Ipotesi tmp = DBManager.getIpotesi(this.ipotesi.getParent(), idSessione, idAlbero);
+            //NodoIpotesi temp = new NodoIpotesi(tmp, this);
+            this.listaFigli.remove(nodo);
+            //nodo.ipotesi.rimuoviIpotesi();
         }
         
         public Ipotesi getIpotesi(){
@@ -137,7 +137,12 @@ public final class AlberoIpotesi extends JTree{
 
         @Override
         public int getIndex(TreeNode node) {
-            throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+            for (NodoIpotesi ip: this.listaFigli){
+                if (ip.getIpotesi() != null){
+                    return ip.getIpotesi().getId();
+                }
+            }
+            return -1;
         }
 
         @Override
