@@ -478,10 +478,10 @@ public class DBManager {
     public static int getIdAlbero(int idSessione, int idAlbero){
         int id = -1;
         try {            
-            ResultSet rs = st.executeQuery("SELECT idAlbero FROM ipotesi WHERE idSessione = "+idSessione+""
-                    + "AND id=0 AND idAlbero="+idAlbero+"");
-            rs.next();
-            id = rs.getInt("idAlbero");            
+            ResultSet rs = st.executeQuery("SELECT idAlbero FROM ipotesi WHERE id = "+idSessione+"");
+            if (rs.next()){
+                id = rs.getInt("idAlbero");   
+            }         
         } catch (SQLException ex) {
             Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
         }

@@ -21,13 +21,15 @@ import javax.swing.DefaultListModel;
 public class GestioneMessaggiJFrame extends javax.swing.JFrame {
     private final DBManager dbManager;
     private final Studente mittente;
+    private Messaggio messaggioRicevuto;
 
     /**
      * Creates new form GestioneMessaggiJFrame
      */
-    public GestioneMessaggiJFrame(Studente mittente, DBManager dbManager) {
+    public GestioneMessaggiJFrame(Studente mittente, DBManager dbManager, Messaggio messaggioRicevuto) {
         this.dbManager = dbManager;
         this.mittente = mittente;
+        this.messaggioRicevuto = messaggioRicevuto;
         initComponents();
     }
 
@@ -59,6 +61,7 @@ public class GestioneMessaggiJFrame extends javax.swing.JFrame {
         riceviJButton = new javax.swing.JButton();
         jScrollPane3 = new javax.swing.JScrollPane();
         ricevutiJList = new javax.swing.JList();
+        analizzaButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Gestione Messaggi");
@@ -210,6 +213,13 @@ public class GestioneMessaggiJFrame extends javax.swing.JFrame {
         });
         jScrollPane3.setViewportView(ricevutiJList);
 
+        analizzaButton.setText("Analizza messaggio");
+        analizzaButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                analizzaButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -221,7 +231,9 @@ public class GestioneMessaggiJFrame extends javax.swing.JFrame {
                         .addComponent(riceviJButton, javax.swing.GroupLayout.DEFAULT_SIZE, 329, Short.MAX_VALUE))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jScrollPane3)))
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(analizzaButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jScrollPane3))))
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
@@ -229,7 +241,10 @@ public class GestioneMessaggiJFrame extends javax.swing.JFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addComponent(riceviJButton)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane3))
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(analizzaButton)
+                .addGap(0, 0, 0))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -266,7 +281,7 @@ public class GestioneMessaggiJFrame extends javax.swing.JFrame {
         ArrayList<Messaggio> messaggi = dbManager.getMessaggi(this.mittente.getId());
         for (Messaggio messaggio: messaggi){
             DefaultListModel model = (DefaultListModel) ricevutiJList.getModel();
-            model.addElement(messaggio.getTesto());
+            model.addElement(messaggio);
         }
     }//GEN-LAST:event_riceviJButtonActionPerformed
 
@@ -289,6 +304,10 @@ public class GestioneMessaggiJFrame extends javax.swing.JFrame {
     private void linguaJTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_linguaJTextFieldActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_linguaJTextFieldActionPerformed
+
+    private void analizzaButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_analizzaButtonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_analizzaButtonActionPerformed
 
 //    /**
 //     * @param args the command line arguments
@@ -326,6 +345,7 @@ public class GestioneMessaggiJFrame extends javax.swing.JFrame {
 //    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton analizzaButton;
     private javax.swing.JComboBox destinatarioJComboBox;
     private javax.swing.JButton inviaJButton;
     private javax.swing.JTextPane inviaJTextPane;
