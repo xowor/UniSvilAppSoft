@@ -72,7 +72,7 @@ public class Studente {
         ArrayList<Studente> studenti = new ArrayList<Studente>();
         try {
             ResultSet rs = DBManager.execute("SELECT * FROM studente");
-            if (rs.next()){
+            while (rs.next()){
                 studenti.add( new Studente(rs.getInt("id"), rs.getString("login"), rs.getString("password"), rs.getString("nome"), rs.getString("cognome")) );
             }
         } catch (SQLException ex) {

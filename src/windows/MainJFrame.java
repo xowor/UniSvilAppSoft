@@ -351,7 +351,7 @@ public class MainJFrame extends javax.swing.JFrame {
 
     private void studentiJComboBoxItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_studentiJComboBoxItemStateChanged
         if (evt.getStateChange() == ItemEvent.SELECTED) {
-            this.studente = dbManager.getStudenteDaNome(studentiJComboBox.getSelectedItem().toString());
+            this.studente = (Studente) studentiJComboBox.getSelectedItem();
             
 //            this.sessione = this.dbManager.getOrInsertSessione(this.studente.getId());
             
