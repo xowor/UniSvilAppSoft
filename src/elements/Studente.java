@@ -1,15 +1,15 @@
 package elements;
 
 public class Studente {
+  public int id;
+  public String nickname;
+  public String password;
   public String nome;
   public String cognome;
-  public int id;
-  public String login;
-  public String pwd;
 
   public Studente(int id, String login, String pwd, String nome, String cognome){
-    this.login = login;
-    this.pwd = pwd;
+    this.nickname = login;
+    this.password = pwd;
     this.nome = nome;
     this.cognome = cognome;
     this.id = id;
@@ -25,11 +25,11 @@ public class Studente {
   public int getId(){
     return this.id;
   }
-  public String getLogin(){
-    return this.login;
+  public String getNickname(){
+    return this.nickname;
   }
   public String getPwd(){
-    return this.pwd;
+    return this.password;
   }
 
   public void setNome(String nome){
@@ -41,15 +41,15 @@ public class Studente {
   public void setId(int id){
     this.id = id;
   }
-  public void setLogin(String login){
-    this.login = login;
+  public void setNickname(String nickname){
+    this.nickname = nickname;
   }
   public void setPwd(String pwd){
-    this.pwd = pwd;
+    this.password = pwd;
   }
   
   @Override
   public String toString(){
-      return this.nome;
+      return this.nickname;
   }
 }
