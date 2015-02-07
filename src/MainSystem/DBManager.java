@@ -145,7 +145,7 @@ public class DBManager {
             "titolo VARCHAR(24) NOT NULL," +
             "idMittente INT NOT NULL," +
             "idDestinatario INT NOT NULL," +
-            "bozza boolean NOT NULL," +
+            "bozza BOOLEAN NOT NULL," +
             "letto BOOLEAN NOT NULL," +
             "PRIMARY KEY(id))");
             
@@ -259,7 +259,7 @@ public class DBManager {
     }
     
 
-    public void aggiungiMessaggio(String testo, String testoCifrato, String lingua, String titolo, String bozza, Boolean letto, int idMitt, int idDest){
+    public void aggiungiMessaggio(String testo, String testoCifrato, String lingua, String titolo, Boolean bozza, Boolean letto, int idMitt, int idDest){
         esegui("INSERT INTO messaggio (testo, testoCifrato, lingua, titolo, idMittente, idDestinatario, bozza, letto) VALUES ('"+testo + "', '" + testoCifrato
                 +"', '"+lingua+"', '"+titolo+"', "+idMitt+", "+idDest+",'"+bozza+"', '"+letto+"')", st);
     }
@@ -289,22 +289,40 @@ public class DBManager {
                 + " AND chiave='"+key+"' AND metodo='"+metodo+"'", st);
     }
     
-    /*
-    Operazione: elencaMessaggiBozza( )
-    Operazione: salvaMessaggioBozza(messaggioModificato)
-    Operazione: eliminaMessaggioBozza(messaggio)
-    Operazione: apriMessaggioBozza(messaggio)
-    */
+    public static void eliminaMessaggioBozza(Messaggio messaggio){
+        esegui("DELETE FROM messaggio WHERE id="+messaggio.getId()+")", st);
+    }
+    
+    public static Messaggio apriMessaggioBozza(Messaggio messaggio){
+        Messaggio mess = null;
+        try {
+            ResultSet rs = st.executeQuery("SELECT * FROM messaggio WHERE id="+messaggio.getId()+" "
+                    + "AND bozza='true'");
+            if(rs.next()){
+                mess = new Messaggio(rs.getString("titolo"), rs.getString("testo"), 
+                                    rs.getString("testoCifrato"), rs.getInt("idMittente"),
+                                    rs.getInt("idDestinatario"), rs.getString("lingua"), messaggio.getId());
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return mess;
+    }
+    
+    public static void salvaMessaggioBozza(int idMessaggio, String messaggioModificato){
+        esegui("UPDATE sistemadicifratura SET testo='"+messaggioModificato+"' AND bozza='true'"
+                + " WHERE id="+idMessaggio+"", st);
+    }
     
     public static ArrayList<Messaggio> elencaMessaggiBozza(int idStudente){
         ArrayList<Messaggio> bozze  = null;
         try {
             ResultSet rs = st.executeQuery("SELECT * FROM messaggio WHERE idMittente="+idStudente+" "
                     + "AND bozza='true'");
-            if(rs.next()){
+            while(rs.next()){
                 Messaggio tmp = new Messaggio(rs.getString("titolo"), rs.getString("testo"), 
                                     rs.getString("testoCifrato"), rs.getInt("idMittente"),
-                                    rs.getInt("idDestinatario"), rs.getString("lingua"));
+                                    rs.getInt("idDestinatario"), rs.getString("lingua"), rs.getInt("id"));
                 bozze.add(tmp);
             }
         } catch (SQLException ex) {
@@ -335,8 +353,6 @@ public class DBManager {
         }
         return ip;
     }
-    
-    
     
     public static SistemaDiCifratura getSistemaDiCifratura(int id){
         SistemaDiCifratura sdc = null;
@@ -560,7 +576,7 @@ public class DBManager {
             ResultSet rs = st.executeQuery("SELECT * FROM messaggio WHERE id = "+idMessaggio+"");
             rs.next();
             messaggio = new Messaggio(rs.getString("titolo"), rs.getString("testo"), rs.getString("testoCifrato"), rs.getInt("mittente"), 
-                    rs.getInt("destinatario"), rs.getString("lingua"));            
+                    rs.getInt("destinatario"), rs.getString("lingua"), rs.getInt("id"));            
         } catch (SQLException ex) {
             Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -574,7 +590,7 @@ public class DBManager {
             rs.next();
             while(rs.next()){
                 Messaggio messaggio = new Messaggio(rs.getString("titolo"), rs.getString("testo"), rs.getString("testoCifrato"), rs.getInt("idMittente"), 
-                    rs.getInt("idDestinatario"), rs.getString("lingua"));  
+                    rs.getInt("idDestinatario"), rs.getString("lingua"), rs.getInt("id"));  
                 messaggi.add(messaggio);
             }   
         } catch (SQLException ex) {
