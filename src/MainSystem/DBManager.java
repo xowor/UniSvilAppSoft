@@ -20,7 +20,7 @@ public class DBManager {
     public void inizializza() {
         this.conn = openConnection();
 
-        this.st=openStatement(conn);
+        this.st = openStatement(conn);
         //creaTabelle();
         //creaDati();
         //closeStatement(st);
@@ -32,7 +32,7 @@ public class DBManager {
     * @param conn indica una connessione disponibile per creare uno Statement;
     * @return uno Statement aperto;
     */
-    public Statement openStatement(Connection conn) {
+    public static Statement openStatement(Connection conn) {
         Statement st = null;
         try {
             st = conn.createStatement();
@@ -75,11 +75,11 @@ public class DBManager {
     }
     
     /**
-    * Esegue una query SQL ritornando un booleano;
+    * Esegue una execute SQL ritornando un booleano;
     *
-    * @param sql indica il testo di una query SQL;
+    * @param sql indica il testo di una execute SQL;
     * @param st indica lo Statement creato per l'interazione con il database;
-    * @return "true" se la query ha avuto successo;
+    * @return "true" se la execute ha avuto successo;
     */
     public static boolean esegui(String sql, Statement st) {
         boolean tmp = false;
@@ -92,15 +92,16 @@ public class DBManager {
     }
     
     /**
-    * Esegue una query SQL ritornando un ResultSet;
+    * Esegue una execute SQL ritornando un ResultSet;
     *
-    * @param sql indica il testo di una query SQL;
+    * @param sql indica il testo di una execute SQL;
     * @param st indica lo Statement creato per l'interazione con il database;
-    * @return il resultSet della query eseguIT_it;
+    * @return il resultSet della execute eseguIT_it;
     */
-    public ResultSet query(String sql, Statement st) {
+    public static ResultSet execute(String sql) {
         try{
-         return st.executeQuery(sql);
+            Statement statement = openStatement(conn);
+         return statement.executeQuery(sql);
         }catch(SQLException e){return null;}
     }
     

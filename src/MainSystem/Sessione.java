@@ -43,7 +43,7 @@ public class Sessione {
     }
     
     public void setAlberoIpotesi(String testo){
-        this.alberoIpotesi = new AlberoIpotesi(this.idSessione, this.idAlbero, messaggioOriginaleCifrato.testoCifrato);
+        //this.alberoIpotesi = new AlberoIpotesi(this.idSessione, this.idAlbero, messaggioOriginaleCifrato.testoCifrato);
     }
     
 //    public void setSistemaCifratura(Studente id){
