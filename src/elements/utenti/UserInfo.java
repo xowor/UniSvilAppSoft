@@ -5,6 +5,12 @@
  */
 package elements.utenti;
 
+import MainSystem.DBManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author luca
@@ -30,5 +36,18 @@ public class UserInfo {
     
     public String getCognome(){
         return this.cognome;
+    }
+    
+    public static UserInfo getUserInfo(int idStudente){
+        UserInfo info = null;
+        try {
+           ResultSet rs = DBManager.execute("SELECT * FROM studente WHERE id = '" + idStudente + "'");
+           if (rs.next()){
+              info = new UserInfo(idStudente, rs.getString("nome"), rs.getString("cognome"));
+           }
+        } catch (SQLException ex) {
+           Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return info;
     }
 }
