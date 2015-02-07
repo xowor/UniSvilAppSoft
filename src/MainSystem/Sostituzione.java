@@ -5,7 +5,7 @@
  */
 package MainSystem;
 
-import Elements.Messaggio;
+import Elements.messaggi.Messaggio;
 
 /**
  *

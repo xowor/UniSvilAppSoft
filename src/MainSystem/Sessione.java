@@ -1,5 +1,6 @@
 package MainSystem;
 
+import Elements.messaggi.Messaggio;
 import SistemaSupporto.Supporto;
 import Elements.*;
 import SistemaCifratura.SistemaDiCifratura;

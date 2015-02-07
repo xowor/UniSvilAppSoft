@@ -1,4 +1,5 @@
 package windows;
+import Elements.messaggi.Messaggio;
 import MainSystem.DBManager;
 import Elements.*;
 import MainSystem.AlberoIpotesi;

@@ -1,6 +1,6 @@
 package MainSystem;
 import Elements.Frequenze;
-import Elements.Messaggio;
+import Elements.messaggi.Messaggio;
 import Elements.Studente;
 import SistemaCifratura.SistemaDiCifratura;
 import javax.management.Query;

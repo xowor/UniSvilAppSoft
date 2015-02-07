@@ -6,7 +6,7 @@
 package windows;
 
 import Elements.Alfabeto;
-import Elements.Messaggio;
+import Elements.messaggi.Messaggio;
 import MainSystem.DBManager;
 import MainSystem.Sostituzione;
 import java.util.Set;
