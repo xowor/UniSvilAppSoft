@@ -201,6 +201,7 @@ public class SistemiCifraturaJFrame extends javax.swing.JFrame {
         SistemaDiCifratura sistema = (SistemaDiCifratura) this.jList1.getSelectedValue();
         if (sistema != null){
             sistema.elimina();
+            caricaSistemi();
         }
     }
     

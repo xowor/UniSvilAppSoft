@@ -77,7 +77,7 @@ public class SistemaDiCifratura {
     }
     
     public void elimina(){
-        DBManager.execute("DELETE FROM sistemadicifratura WHERE chiave='" + this.chiave + "' AND metodo='" + this.metodo + "')");
+        DBManager.execute("DELETE FROM sistemadicifratura WHERE chiave='" + this.chiave + "' AND metodo='" + this.metodo + "'");
     }
     
     public String getChiave(){
