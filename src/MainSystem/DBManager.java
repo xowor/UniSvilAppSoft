@@ -145,7 +145,7 @@ public class DBManager {
             "titolo VARCHAR(24) NOT NULL," +
             "idMittente INT NOT NULL," +
             "idDestinatario INT NOT NULL," +
-            "bozza LONG VARCHAR NOT NULL," +
+            "bozza boolean NOT NULL," +
             "letto BOOLEAN NOT NULL," +
             "PRIMARY KEY(id))");
             
@@ -169,9 +169,13 @@ public class DBManager {
             
             st.execute( "CREATE TABLE sistemaDiCifratura(" +
             "id INT NOT NULL GENERATED ALWAYS AS IDENTITY(START WITH 1, INCREMENT BY 1)," +
-            "idStudente INT NOT NULL," + 
+            "idStudente INT NOT NULL," +            // idMittente
+            "idDestinatario INT NOT NULL," +
             "chiave VARCHAR(24) NOT NULL," +
             "metodo VARCHAR(24) NOT NULL," +
+            "accettazione VARCHAR(24) NOT NULL," +  // valore "proposta" --> il mittente ha inviato la proposta al destinatario
+                                                    // valore "accettato" --> destinatario ha accettato
+                                                    // valore "rifiutato" --> destinatario ha rifiutato
             "PRIMARY KEY(id))");
             
             st.execute( "CREATE TABLE ipotesi(" +
@@ -259,8 +263,7 @@ public class DBManager {
         esegui("INSERT INTO messaggio (testo, testoCifrato, lingua, titolo, idMittente, idDestinatario, bozza, letto) VALUES ('"+testo + "', '" + testoCifrato
                 +"', '"+lingua+"', '"+titolo+"', "+idMitt+", "+idDest+",'"+bozza+"', '"+letto+"')", st);
     }
-    
-    
+        
     public static void aggiungiSistemaCifratura(Studente studente, String key, String metodo){
         esegui("INSERT INTO sistemadicifratura (idStudente, chiave, metodo) VALUES ("+ studente.getId() +", '"+key + "', '"+metodo+"')", st);
     }
@@ -269,6 +272,46 @@ public class DBManager {
         esegui("DELETE FROM sistemadicifratura WHERE chiave='"+key+"' AND metodo='"+metodo+"')", st);
     }
     
+    public static void setProposta(int idMittente, int idDestinatario, String key, String metodo){
+        esegui("INSERT INTO sistemadicifratura (idStudente, idDestinatario, chiave, metodo, accettazione) "
+                + "VALUES ("+idMittente+", "+idDestinatario+", '"+key+"', '"+metodo+"', 'proposta')", st);
+    }
+    
+    public static void setAccettaProposta(int idMittente, int idDestinatario, String key, String metodo){
+        esegui("UPDATE sistemadicifratura SET accettazione='accettato'"
+                + " WHERE idStudente="+idMittente+" AND idDestinatario="+idDestinatario+""
+                + " AND chiave='"+key+"' AND metodo='"+metodo+"'", st);
+    }
+    
+    public static void setRifiutaProposta(int idMittente, int idDestinatario, String key, String metodo){
+        esegui("UPDATE sistemadicifratura SET accettazione='rifiutato'"
+                + " WHERE idStudente="+idMittente+" AND idDestinatario="+idDestinatario+""
+                + " AND chiave='"+key+"' AND metodo='"+metodo+"'", st);
+    }
+    
+    /*
+    Operazione: elencaMessaggiBozza( )
+    Operazione: salvaMessaggioBozza(messaggioModificato)
+    Operazione: eliminaMessaggioBozza(messaggio)
+    Operazione: apriMessaggioBozza(messaggio)
+    */
+    
+    public static ArrayList<Messaggio> elencaMessaggiBozza(int idStudente){
+        ArrayList<Messaggio> bozze  = null;
+        try {
+            ResultSet rs = st.executeQuery("SELECT * FROM messaggio WHERE idMittente="+idStudente+" "
+                    + "AND bozza='true'");
+            if(rs.next()){
+                Messaggio tmp = new Messaggio(rs.getString("titolo"), rs.getString("testo"), 
+                                    rs.getString("testoCifrato"), rs.getInt("idMittente"),
+                                    rs.getInt("idDestinatario"), rs.getString("lingua"));
+                bozze.add(tmp);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return bozze;
+    }
     
     public void aggiungiFrequenza(String lettera, String lingua, int frequenza, Statement st){
         esegui("INSERT INTO frequenzaLingua (lettera, lingua, frequenza) VALUES ('"+lettera+"', '"+lingua+"', "+frequenza+")", st);
@@ -322,7 +365,7 @@ public class DBManager {
         }
         return lista;
     }
-    
+
 //    public static ArrayList<SistemaDiCifratura> getSistemiDiCifratura(){
 //        ArrayList<SistemaDiCifratura> list = new ArrayList<SistemaDiCifratura>();
 //        SistemaDiCifratura sdc = null;

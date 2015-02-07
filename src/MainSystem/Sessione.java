@@ -38,7 +38,6 @@ public class Sessione {
         return testo.replace(pre, post);
     }
     
-    // TODO
     public void setSupporto(){
         this.strumentoSupporto = null;
     }
