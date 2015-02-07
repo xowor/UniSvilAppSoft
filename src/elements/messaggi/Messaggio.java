@@ -2,6 +2,7 @@ package elements.messaggi;
 
 import SistemaCifratura.SistemaDiCifratura;
 import elements.Studente;
+import elements.utenti.UserInfo;
 import java.util.List;
 
 public class Messaggio implements MessaggioMittente, MessaggioDestinatario{
@@ -14,8 +15,8 @@ public class Messaggio implements MessaggioMittente, MessaggioDestinatario{
     //private String oggetto;
     private boolean letto;
     private SistemaDiCifratura sistemaDiCifratura;
-//    private int idMitt;
-//    private int idDest;
+    private UserInfo mittente;
+    private UserInfo destinatario;
 //    private String descMitt;
 //    public String descDest;
 
@@ -24,11 +25,11 @@ public class Messaggio implements MessaggioMittente, MessaggioDestinatario{
         this.testo = testo;
     }
     
-    public Messaggio(String titolo, String testo, String testoCifrato, int mitt, int dest, String lingua){
+    public Messaggio(String titolo, String testo, String testoCifrato, UserInfo mitt, UserInfo dest, String lingua){
         this.titolo = titolo;
         this.testo = testo;
-//        this.idMitt = mitt;
-//        this.idDest = dest;
+        this.mittente = mitt;
+        this.destinatario = dest;
         this.lingua = lingua;
         this.testoCifrato = testoCifrato;
         this.sistemaDiCifratura = null;

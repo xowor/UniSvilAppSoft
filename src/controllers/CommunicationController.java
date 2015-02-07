@@ -6,10 +6,10 @@
 package controllers;
 
 import MainSystem.Proposta;
-import MainSystem.UserInfo;
 import SistemaCifratura.SistemaDiCifratura;
 import elements.Studente;
 import elements.messaggi.Messaggio;
+import elements.utenti.UserInfo;
 import java.util.List;
 
 /**
