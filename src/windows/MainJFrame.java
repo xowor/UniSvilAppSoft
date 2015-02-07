@@ -366,7 +366,7 @@ public class MainJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_creaDatiJButtonActionPerformed
 
     private void gestioneMessaggiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_gestioneMessaggiActionPerformed
-        Messaggio messaggioRicevuto = new Messaggio(null);
+        Messaggio messaggioRicevuto = new Messaggio();
         windows.GestioneMessaggiJFrame frame = new windows.GestioneMessaggiJFrame(this.studente, this.dbManager, messaggioRicevuto);
         frame.addWindowListener(new WindowAdapter() {
             @Override

@@ -17,9 +17,9 @@ import java.util.logging.Logger;
 
 public class CommunicationController {
     
-    public void aggiungiMessaggio(String testo, String testoCifrato, String lingua, String titolo, Boolean bozza, Boolean letto, int idMitt, int idDest){
-        esegui("INSERT INTO messaggio (testo, testoCifrato, lingua, titolo, idMittente, idDestinatario, bozza, letto) VALUES ('"+testo + "', '" + testoCifrato
-                +"', '"+lingua+"', '"+titolo+"', "+idMitt+", "+idDest+",'"+bozza+"', '"+letto+"')", st);
+    public static void send(Messaggio messaggio){
+        esegui("INSERT INTO messaggio (testo, testoCifrato, lingua, titolo, idMittente, idDestinatario, bozza, letto) VALUES ('"+messaggio.getTesto() + "', '" + messaggio.getTestoCifrato()
+                +"', '"+ messaggio.getLingua() + "', '"+ messaggio.getTitolo()+"', "+messaggio.getMittente().getId()+", "+messaggio.getDestinatario().getId()+",'false', 'false')", st);
     }
     
     public static Messaggio apriMessaggioBozza(Messaggio messaggio){
@@ -30,9 +30,7 @@ public class CommunicationController {
             if(rs.next()){
                 UserInfo mittente = UserInfo.getUserInfo(rs.getInt("idMittente"));
                 UserInfo destinatario = UserInfo.getUserInfo(rs.getInt("idDestinatario"));
-                mess = new Messaggio(rs.getString("titolo"), rs.getString("testo"), 
-                                    rs.getString("testoCifrato"), mittente,
-                                    destinatario, rs.getString("lingua"), messaggio.getId());
+                mess = new Messaggio(rs);
             }
         } catch (SQLException ex) {
             Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
@@ -48,9 +46,7 @@ public class CommunicationController {
             while(rs.next()){
                 UserInfo mittente = UserInfo.getUserInfo(rs.getInt("idMittente"));
                 UserInfo destinatario = UserInfo.getUserInfo(rs.getInt("idDestinatario"));
-                Messaggio tmp = new Messaggio(rs.getString("titolo"), rs.getString("testo"), 
-                                    rs.getString("testoCifrato"), mittente,
-                                    destinatario, rs.getString("lingua"), rs.getInt("id"));
+                Messaggio tmp = new Messaggio(rs);
                 bozze.add(tmp);
             }
         } catch (SQLException ex) {
@@ -67,9 +63,7 @@ public class CommunicationController {
             while(rs.next()){
                 UserInfo mittente = UserInfo.getUserInfo(idMittente);
                 UserInfo destinatario = UserInfo.getUserInfo(rs.getInt("idDestinatario"));
-                Messaggio tmp = new Messaggio(rs.getString("titolo"), rs.getString("testo"), 
-                                    rs.getString("testoCifrato"), mittente,
-                                    destinatario, rs.getString("lingua"), rs.getInt("id"));
+                Messaggio tmp = new Messaggio(rs);
                 inviati.add(tmp);
             }
         } catch (SQLException ex) {
@@ -99,8 +93,7 @@ public class CommunicationController {
             while(rs.next()){
                 UserInfo mittente = UserInfo.getUserInfo(rs.getInt("idMittente"));
                 UserInfo destinatario = UserInfo.getUserInfo(rs.getInt("idDestinatario"));
-                Messaggio messaggio = new Messaggio(rs.getString("titolo"), rs.getString("testo"), rs.getString("testoCifrato"), mittente, 
-                    destinatario, rs.getString("lingua"), rs.getInt("id"));  
+                Messaggio messaggio = new Messaggio(rs);  
                 messaggi.add(messaggio);
             }   
         } catch (SQLException ex) {
@@ -117,8 +110,7 @@ public class CommunicationController {
             rs.next();
             UserInfo mittente = UserInfo.getUserInfo(rs.getInt("idMittene"));
             UserInfo destinatario = UserInfo.getUserInfo(rs.getInt("idDestinatario"));
-            messaggio = new Messaggio(rs.getString("titolo"), rs.getString("testo"), rs.getString("testoCifrato"), mittente, 
-                    destinatario, rs.getString("lingua"), rs.getInt("id"));            
+            messaggio = new Messaggio(rs);            
         } catch (SQLException ex) {
             Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
         }

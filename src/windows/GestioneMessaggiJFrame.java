@@ -14,6 +14,7 @@ import SistemaCifratura.Mappatura;
 import SistemaCifratura.SistemaDiCifratura;
 import controllers.CommunicationController;
 import elements.messaggi.Proposta;
+import elements.utenti.UserInfo;
 import java.util.ArrayList;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
@@ -84,7 +85,7 @@ public class GestioneMessaggiJFrame extends javax.swing.JFrame {
         inviaJButton = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         inviaJTextPane = new javax.swing.JTextPane();
-        jTextField1 = new javax.swing.JTextField();
+        titoloJTextField = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         studentiJComboBox = new javax.swing.JComboBox();
@@ -219,8 +220,8 @@ public class GestioneMessaggiJFrame extends javax.swing.JFrame {
 
         jScrollPane2.setViewportView(inviaJTextPane);
 
-        jTextField1.setText("Titolo");
-        jTextField1.setToolTipText("Titolo");
+        titoloJTextField.setText("Titolo");
+        titoloJTextField.setToolTipText("Titolo");
 
         jLabel1.setText("Titolo:");
 
@@ -236,7 +237,7 @@ public class GestioneMessaggiJFrame extends javax.swing.JFrame {
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 380, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(titoloJTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 380, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         jPanel4Layout.setVerticalGroup(
@@ -244,7 +245,7 @@ public class GestioneMessaggiJFrame extends javax.swing.JFrame {
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(titoloJTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane2)
@@ -265,7 +266,6 @@ public class GestioneMessaggiJFrame extends javax.swing.JFrame {
 
         jLabel4.setText("Lingua");
 
-        linguaJTextField.setEditable(false);
         linguaJTextField.setText("IT_it");
         linguaJTextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -417,6 +417,14 @@ public class GestioneMessaggiJFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void inviaJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inviaJButtonActionPerformed
+        Studente destinatario = (Studente) this.studentiJComboBox.getSelectedItem();
+        String testo = this.inviaJTextPane.getText();
+        String testoCifrato = this.inviaJTextPane.getText(); //DA CAMBIARE
+        String lingua = this.linguaJTextField.getText();
+        String titolo = this.titoloJTextField.getText();
+        
+        Messaggio messaggio = new Messaggio(titolo, testo, testoCifrato, UserInfo.getUserInfo(this.studente.getId()), UserInfo.getUserInfo(destinatario.getId()), lingua);
+        CommunicationController.send(messaggio);
 //        int idDest = dbManager.getStudenteDaNome(this.studentiJComboBox.getSelectedItem().toString()).getId();
 //        
 //        String testo = this.inviaJTextPane.getText();//Cifratore.cifra(CalcolatoreCesare.cifraCesare("aaa"), this.inviaJTextPane.getText());
@@ -571,7 +579,6 @@ public class GestioneMessaggiJFrame extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField linguaJTextField;
     private javax.swing.JButton proponiJButton;
     private javax.swing.JComboBox propostaSistemiJComboBox;
@@ -581,6 +588,7 @@ public class GestioneMessaggiJFrame extends javax.swing.JFrame {
     private javax.swing.JList ricevutiJList;
     private javax.swing.JComboBox sistemiJComboBox;
     private javax.swing.JComboBox studentiJComboBox;
+    private javax.swing.JTextField titoloJTextField;
     // End of variables declaration//GEN-END:variables
 
 }

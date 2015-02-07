@@ -3,7 +3,11 @@ package elements.messaggi;
 import SistemaCifratura.SistemaDiCifratura;
 import elements.Studente;
 import elements.utenti.UserInfo;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class Messaggio implements MessaggioMittente, MessaggioDestinatario{
     private int id;
@@ -21,11 +25,23 @@ public class Messaggio implements MessaggioMittente, MessaggioDestinatario{
 //    public String descDest;
 
 
-    public Messaggio(String testo){
-        this.testo = testo;
+    public Messaggio(ResultSet rs){
+        try {
+            this.titolo = rs.getString("titolo");
+            this.testo = rs.getString("testo");
+            this.testoCifrato = rs.getString("testoCifrato");
+            this.mittente = UserInfo.getUserInfo(rs.getInt("idMittente"));
+            this.destinatario = UserInfo.getUserInfo(rs.getInt("idDestinatario"));
+            this.lingua = rs.getString("lingua");
+            this.bozza = rs.getBoolean("bozza");
+            this.letto = rs.getBoolean("letto");
+            this.id = rs.getInt("id");
+        } catch (SQLException ex) {
+            Logger.getLogger(Messaggio.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
-    public Messaggio(String titolo, String testo, String testoCifrato, UserInfo mitt, UserInfo dest, String lingua, int id){
+    public Messaggio(String titolo, String testo, String testoCifrato, UserInfo mitt, UserInfo dest, String lingua){
         this.titolo = titolo;
         this.testo = testo;
         this.mittente = mitt;
@@ -33,7 +49,9 @@ public class Messaggio implements MessaggioMittente, MessaggioDestinatario{
         this.lingua = lingua;
         this.testoCifrato = testoCifrato;
         this.sistemaDiCifratura = null;
-        this.id = id;
+    }
+    
+    public Messaggio(){
     }
     
 
@@ -106,22 +124,30 @@ public class Messaggio implements MessaggioMittente, MessaggioDestinatario{
 
     @Override
     public boolean isBozza() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return this.bozza;
     }
 
     @Override
     public String getLingua() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return this.lingua;
     }
 
     @Override
     public String getTitolo() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return this.titolo;
     }
 
     @Override
     public boolean isLetto() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return this.letto;
+    }
+    
+    public UserInfo getMittente(){
+        return this.mittente;
+    }
+    
+    public UserInfo getDestinatario(){
+        return this.destinatario;
     }
 
 }
