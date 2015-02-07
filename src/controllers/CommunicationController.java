@@ -5,7 +5,7 @@
  */
 package controllers;
 
-import MainSystem.Proposta;
+import elements.messaggi.Proposta;
 import SistemaCifratura.SistemaDiCifratura;
 import elements.Studente;
 import elements.messaggi.Messaggio;
