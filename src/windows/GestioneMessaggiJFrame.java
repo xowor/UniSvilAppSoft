@@ -92,7 +92,7 @@ public class GestioneMessaggiJFrame extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         linguaJTextField = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
-        jComboBox2 = new javax.swing.JComboBox();
+        sistemiJComboBox = new javax.swing.JComboBox();
         jPanel3 = new javax.swing.JPanel();
         riceviJButton = new javax.swing.JButton();
         jScrollPane3 = new javax.swing.JScrollPane();
@@ -273,12 +273,12 @@ public class GestioneMessaggiJFrame extends javax.swing.JFrame {
             }
         });
 
-        jLabel5.setText("Sistema di cifratura");
+        jLabel5.setText("Sistema di cifratura (accettato)");
 
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jComboBox2.addActionListener(new java.awt.event.ActionListener() {
+        sistemiJComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        sistemiJComboBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBox2ActionPerformed(evt);
+                sistemiJComboBoxActionPerformed(evt);
             }
         });
 
@@ -289,7 +289,7 @@ public class GestioneMessaggiJFrame extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jComboBox2, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(sistemiJComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(linguaJTextField)
                     .addComponent(studentiJComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
@@ -297,7 +297,7 @@ public class GestioneMessaggiJFrame extends javax.swing.JFrame {
                             .addComponent(jLabel4)
                             .addComponent(jLabel3)
                             .addComponent(jLabel5))
-                        .addGap(0, 215, Short.MAX_VALUE)))
+                        .addGap(0, 140, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -314,7 +314,7 @@ public class GestioneMessaggiJFrame extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(sistemiJComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -454,18 +454,23 @@ public class GestioneMessaggiJFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_ricevutiJListValueChanged
 
-    private void jComboBox2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox2ActionPerformed
+    private void sistemiJComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sistemiJComboBoxActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jComboBox2ActionPerformed
+    }//GEN-LAST:event_sistemiJComboBoxActionPerformed
 
     private void accettaPropostaJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_accettaPropostaJButtonActionPerformed
-        // TODO add your handling code here:
+        Proposta proposta = (Proposta) this.proposteJList.getSelectedValue();
+        if (proposta != null){
+            CommunicationController.setAccettaProposta(proposta.getId());
+            caricaProposte();
+        }
     }//GEN-LAST:event_accettaPropostaJButtonActionPerformed
 
     private void proponiJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_proponiJButtonActionPerformed
         Studente destinatario = (Studente) this.propostaStudentiJComboBox.getSelectedItem();
         SistemaDiCifratura sistema = (SistemaDiCifratura) this.propostaSistemiJComboBox.getSelectedItem();
         CommunicationController.inviaProposta(sistema, this.studente, destinatario);
+        this.caricaProposte();
     }//GEN-LAST:event_proponiJButtonActionPerformed
 
     
@@ -496,6 +501,15 @@ public class GestioneMessaggiJFrame extends javax.swing.JFrame {
             model.addElement(proposta);
         }
         this.proposteJList.setModel(model);
+        
+        this.sistemiJComboBox.removeAllItems();
+        proposte = CommunicationController.getProposteAccettate(this.studente);
+        for (Proposta proposta : proposte){
+            SistemaDiCifratura sistema = proposta.getSistemaDiCifratura();
+            if (sistema != null){
+                this.sistemiJComboBox.addItem(sistema);
+            }
+        }
     }
     
     
@@ -540,7 +554,6 @@ public class GestioneMessaggiJFrame extends javax.swing.JFrame {
     private javax.swing.JButton analizzaButton;
     private javax.swing.JButton inviaJButton;
     private javax.swing.JTextPane inviaJTextPane;
-    private javax.swing.JComboBox jComboBox2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -566,6 +579,7 @@ public class GestioneMessaggiJFrame extends javax.swing.JFrame {
     private javax.swing.JList proposteJList;
     private javax.swing.JButton riceviJButton;
     private javax.swing.JList ricevutiJList;
+    private javax.swing.JComboBox sistemiJComboBox;
     private javax.swing.JComboBox studentiJComboBox;
     // End of variables declaration//GEN-END:variables
 

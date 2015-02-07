@@ -131,10 +131,8 @@ public class CommunicationController {
                 + " WHERE id="+idMessaggio+"", st);
     }
     
-    public static void setAccettaProposta(int idMittente, int idDestinatario, String key, String metodo){
-        esegui("UPDATE sistemadicifratura SET accettazione='accettato'"
-                + " WHERE idStudente="+idMittente+" AND idDestinatario="+idDestinatario+""
-                + " AND chiave='"+key+"' AND metodo='"+metodo+"'", st);
+    public static void setAccettaProposta(int id){
+        DBManager.execute("UPDATE proposta SET stato='Accettata' WHERE id=" + id);
     }
     
     public static void inviaProposta(SistemaDiCifratura sistema, Studente mittente, Studente destinatario){
@@ -145,7 +143,20 @@ public class CommunicationController {
     public static ArrayList<Proposta> getProposte(Studente studente){
         ArrayList<Proposta> proposte = new ArrayList();
         try {           
-            ResultSet rs = st.executeQuery("SELECT * FROM proposta WHERE idDestinatario = " + studente.getId() + "");
+            ResultSet rs = st.executeQuery("SELECT * FROM proposta WHERE idDestinatario = " + studente.getId() + " AND stato = 'In attesa'");
+            while(rs.next()){
+                proposte.add(new Proposta(rs));
+            }   
+        } catch (SQLException ex) {
+            Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return proposte;
+    }
+    
+    public static ArrayList<Proposta> getProposteAccettate(Studente studente){
+        ArrayList<Proposta> proposte = new ArrayList();
+        try {           
+            ResultSet rs = st.executeQuery("SELECT * FROM proposta WHERE idDestinatario = " + studente.getId() + " AND stato = 'Accettata'");
             while(rs.next()){
                 proposte.add(new Proposta(rs));
             }   

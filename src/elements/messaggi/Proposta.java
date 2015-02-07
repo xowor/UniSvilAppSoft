@@ -40,6 +40,9 @@ public class Proposta {
     public String toString(){
         String name = Studente.getStudente(idMittente).getNickname();
         SistemaDiCifratura s = SistemaDiCifratura.load(this.sistemaDiCifratura);
+        if (s == null){
+            return name + ": (sistema di cifratura cancellato)";
+        }
         return name + ": " + s.getMetodo();
     }
 
@@ -54,4 +57,12 @@ public class Proposta {
 //    public void rifiuta(){
 //        this.stato = "rifiutata";
 //    }
+
+    public int getId() {
+        return this.id;
+    }
+
+    public SistemaDiCifratura getSistemaDiCifratura() {
+        return SistemaDiCifratura.load(this.sistemaDiCifratura);
+    }
 }
