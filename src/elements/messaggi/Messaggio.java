@@ -25,7 +25,7 @@ public class Messaggio implements MessaggioMittente, MessaggioDestinatario{
         this.testo = testo;
     }
     
-    public Messaggio(String titolo, String testo, String testoCifrato, UserInfo mitt, UserInfo dest, String lingua){
+    public Messaggio(String titolo, String testo, String testoCifrato, UserInfo mitt, UserInfo dest, String lingua, int id){
         this.titolo = titolo;
         this.testo = testo;
         this.mittente = mitt;
