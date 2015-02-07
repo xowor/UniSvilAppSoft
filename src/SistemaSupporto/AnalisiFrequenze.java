@@ -5,7 +5,7 @@ import elements.Frequenze;
 import elements.messaggi.Messaggio;
 import java.util.HashMap;
 
-public class AnalisiFrequenze extends Supporto{
+public class AnalisiFrequenze implements Supporto{
     
     public static Frequenze calcolaFrequenze(String testo, Alfabeto alfabeto){
         HashMap<String,Integer> map = new HashMap();
