@@ -30,7 +30,7 @@ public class SistemaDiCifratura {
     }
     
     public ArrayList<SistemaDiCifratura> caricaSistemaCifratura(Studente s){
-        return DBManager.getSistemaDiCifratura(s);
+        return DBManager.getSistemiDiCifratura(s);
     }
 
     public SistemaDiCifratura caricaSistemaCifratura(int id){

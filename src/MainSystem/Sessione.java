@@ -37,7 +37,6 @@ public class Sessione {
         return testo.replace(pre, post);
     }
     
-    // TODO
     public void setSupporto(){
         this.strumentoSupporto = null;
     }
@@ -47,7 +46,7 @@ public class Sessione {
     }
     
     public void setSistemaCifratura(Studente id){
-        this.sistemaCifratura = DBManager.getSistemaDiCifratura(id);
+        this.sistemaCifratura = DBManager.getSistemiDiCifratura(id);
     }
     
     public Studente getStudente(){
