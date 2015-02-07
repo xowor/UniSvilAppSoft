@@ -2,13 +2,15 @@ package SistemaCifratura;
 
 import elements.Studente;
 import MainSystem.DBManager;
+import elements.utenti.UserInfo;
 import java.util.ArrayList;
 
 
 public class SistemaDiCifratura {
-    public int id;
-    public String chiave;
-    public String metodo;
+    private int id;
+    private String chiave;
+    private String metodo;
+    private UserInfo creatore;
     CalcolatoreMappe calcola;
     Mappatura mappatura;
 
