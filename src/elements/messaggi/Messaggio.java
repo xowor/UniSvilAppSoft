@@ -119,7 +119,7 @@ public class Messaggio implements MessaggioMittente, MessaggioDestinatario{
     
     @Override
     public String toString(){
-        return this.testoCifrato;
+        return this.mittente.getNome() + ": " + this.titolo;
     }
 
     @Override

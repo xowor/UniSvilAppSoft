@@ -72,6 +72,21 @@ public class CommunicationController {
         return inviati;
     }
     
+    public static ArrayList<Messaggio> elencaMessaggiRicevuti(Studente studente){
+        ArrayList<Messaggio> messaggi = new ArrayList<Messaggio>();
+        try {
+            ResultSet rs = st.executeQuery("SELECT * FROM messaggio WHERE idDestinatario="+studente.getId()+" "
+                    + "AND bozza='false'");
+            while(rs.next()){
+                Messaggio tmp = new Messaggio(rs);
+                messaggi.add(tmp);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return messaggi;
+    }
+    
     public static void eliminaMessaggioBozza(Messaggio messaggio){
         esegui("DELETE FROM messaggio WHERE id="+messaggio.getId()+")", st);
     }

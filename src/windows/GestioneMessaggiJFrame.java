@@ -433,12 +433,12 @@ public class GestioneMessaggiJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_inviaJButtonActionPerformed
 
     private void riceviJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_riceviJButtonActionPerformed
-//        ArrayList<Messaggio> messaggi = dbManager.getMessaggi(this.studente.getId());
-//        DefaultListModel model = new DefaultListModel();
-//        for (Messaggio messaggio: messaggi){
-//            model.addElement(messaggio);
-//        }
-//        this.ricevutiJList.setModel(model);
+        ArrayList<Messaggio> messaggi = CommunicationController.elencaMessaggiRicevuti(this.studente);
+        DefaultListModel model = new DefaultListModel();
+        for (Messaggio messaggio: messaggi){
+            model.addElement(messaggio);
+        }
+        this.ricevutiJList.setModel(model);
     }//GEN-LAST:event_riceviJButtonActionPerformed
 
     private void studentiJComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_studentiJComboBoxActionPerformed
