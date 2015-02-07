@@ -29,7 +29,7 @@ public class Sessione {
         this.idSessione = idSes;
         this.idAlbero = idAlb;    
         this.alberoIpotesi = DBManager.getAlberoIpotesi(idSes);
-        this.messaggioOriginaleCifrato = DBManager.getMessaggio(idMessaggioCifrato);
+        this.messaggioOriginaleCifrato = CommunicationController.getMessaggio(idMessaggioCifrato);
     }
     
     // pre: cosa sostituire
