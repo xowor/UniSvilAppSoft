@@ -190,10 +190,10 @@ public class SistemiCifraturaJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_metodoJComboBoxItemStateChanged
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        SistemaDiCifratura sistema = (SistemaDiCifratura) this.jList1.getSelectedValue();
-        if (sistema != null){
-            this.dbManager.eliminaSistemaCifratura(sistema.chiave, sistema.metodo);
-        }
+//        SistemaDiCifratura sistema = (SistemaDiCifratura) this.jList1.getSelectedValue();
+//        if (sistema != null){
+//            this.dbManager.eliminaSistemaCifratura(sistema.chiave, sistema.metodo);
+//        }
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void caricaSistemi() {

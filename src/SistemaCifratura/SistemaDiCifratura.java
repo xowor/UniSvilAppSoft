@@ -3,7 +3,11 @@ package SistemaCifratura;
 import elements.Studente;
 import MainSystem.DBManager;
 import elements.utenti.UserInfo;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 
 public class SistemaDiCifratura {
@@ -31,8 +35,18 @@ public class SistemaDiCifratura {
 //        calcolaMappatura();
     }
     
-    public ArrayList<SistemaDiCifratura> caricaSistemaCifratura(Studente s){
-        return DBManager.getSistemiDiCifratura(s);
+    public static ArrayList<SistemaDiCifratura> caricaSistemaCifratura(Studente studente){
+        ArrayList<SistemaDiCifratura> lista = new ArrayList<SistemaDiCifratura>();
+        int idStudente = studente.getId();
+        try {
+            ResultSet rs = DBManager.execute("SELECT * FROM sistemaDiCifratura WHERE idStudente="+idStudente+"");
+            while(rs.next()){
+                lista.add( new SistemaDiCifratura(rs.getString("chiave"), rs.getString("metodo")) );
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return lista;
     }
 
     public SistemaDiCifratura caricaSistemaCifratura(int id){

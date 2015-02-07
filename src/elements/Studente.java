@@ -1,5 +1,12 @@
 package elements;
 
+import MainSystem.DBManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 public class Studente {
   public int id;
   public String nickname;
@@ -47,6 +54,34 @@ public class Studente {
   public void setPwd(String pwd){
     this.password = pwd;
   }
+  
+    public static Studente getStudente(int idStudente){
+        Studente studente = null;
+        try {
+            ResultSet rs = DBManager.execute("SELECT * FROM studente WHERE id = '" + idStudente + "'");
+            if (rs.next()){
+                studente = new Studente(idStudente, rs.getString("login"), rs.getString("password"), rs.getString("nome"), rs.getString("cognome"));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return studente;
+    }
+  
+    public static ArrayList<Studente> getStudenti(){
+        ArrayList<Studente> studenti = new ArrayList<Studente>();
+        try {
+            ResultSet rs = DBManager.execute("SELECT * FROM studente");
+            if (rs.next()){
+                studenti.add( new Studente(rs.getInt("id"), rs.getString("login"), rs.getString("password"), rs.getString("nome"), rs.getString("cognome")) );
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return studenti;
+    }
+  
+  
   
   @Override
   public String toString(){

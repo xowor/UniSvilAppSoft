@@ -353,10 +353,10 @@ public class MainJFrame extends javax.swing.JFrame {
         if (evt.getStateChange() == ItemEvent.SELECTED) {
             this.studente = dbManager.getStudenteDaNome(studentiJComboBox.getSelectedItem().toString());
             
-            this.sessione = this.dbManager.getOrInsertSessione(this.studente.getId());
+//            this.sessione = this.dbManager.getOrInsertSessione(this.studente.getId());
             
             
-            System.out.println(this.sessione.getId());
+            //System.out.println(this.sessione.getId());
         }
     }//GEN-LAST:event_studentiJComboBoxItemStateChanged
 
@@ -403,7 +403,7 @@ public class MainJFrame extends javax.swing.JFrame {
     }
     
     public void mostraStudenti(){
-        this.studenti = this.dbManager.getStudenti();
+        this.studenti = Studente.getStudenti();
         for (Studente studente : this.studenti){
             this.studentiJComboBox.addItem(studente);
         }

@@ -4,6 +4,7 @@ import elements.Studente;
 import elements.messaggi.Messaggio;
 import SistemaSupporto.Supporto;
 import SistemaCifratura.SistemaDiCifratura;
+import controllers.CommunicationController;
 import java.util.ArrayList;
 
 public class Sessione {
