@@ -54,10 +54,38 @@ public class CommunicationController {
         return bozze;
     }
     
+    public static ArrayList<Messaggio> elencaMessaggiInviati(int idMittente){
+        ArrayList<Messaggio> inviati = null;
+        try {
+            ResultSet rs = st.executeQuery("SELECT * FROM messaggio WHERE idMittente="+idMittente+" "
+                    + "AND bozza='false'");
+            while(rs.next()){
+                UserInfo mittente = getUserInfo(idMittente);
+                UserInfo destinatario = getUserInfo(rs.getInt("idDestinatario"));
+                Messaggio tmp = new Messaggio(rs.getString("titolo"), rs.getString("testo"), 
+                                    rs.getString("testoCifrato"), mittente,
+                                    destinatario, rs.getString("lingua"), rs.getInt("id"));
+                inviati.add(tmp);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return inviati;
+    }
+    
     public static void eliminaMessaggioBozza(Messaggio messaggio){
         esegui("DELETE FROM messaggio WHERE id="+messaggio.getId()+")", st);
     }
     
+    public static void eliminaMessaggioInviato(Messaggio messaggio){
+        esegui("DELETE FROM messaggio WHERE id="+messaggio.getId()+")", st);
+    }
+    
+    public static void eliminaMessaggioRicevuto(Messaggio messaggio){
+        esegui("DELETE FROM messaggio WHERE id="+messaggio.getId()+")", st);
+    }
+    
+    // new name: elencaMessaggiRicevuti
     public static ArrayList<Messaggio> getMessaggi(int idDestinatario){
         ArrayList<Messaggio> messaggi = new ArrayList();
         try {           
@@ -76,10 +104,11 @@ public class CommunicationController {
         return messaggi;
     }
     
+    // new name:visualizzaMessaggioInviato
     public static Messaggio getMessaggio(int idMessaggio){
         Messaggio messaggio = null;
         try {            
-            ResultSet rs = st.executeQuery("SELECT * FROM messaggio WHERE id = "+idMessaggio+"");
+            ResultSet rs = st.executeQuery("SELECT * FROM messaggio WHERE id = "+idMessaggio+" AND bozza='false'");
             rs.next();
             UserInfo mittente = getUserInfo(rs.getInt("idMittene"));
             UserInfo destinatario = getUserInfo(rs.getInt("idDestinatario"));
@@ -125,4 +154,5 @@ public class CommunicationController {
                 + " WHERE idStudente="+idMittente+" AND idDestinatario="+idDestinatario+""
                 + " AND chiave='"+key+"' AND metodo='"+metodo+"'", st);
     }
+    
 }
