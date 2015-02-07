@@ -1,6 +1,6 @@
 package SistemaCifratura;
 
-import Elements.Studente;
+import elements.Studente;
 import MainSystem.DBManager;
 import java.util.ArrayList;
 

@@ -1,7 +1,8 @@
 package windows;
-import Elements.messaggi.Messaggio;
+import elements.Alfabeto;
+import elements.Studente;
+import elements.messaggi.Messaggio;
 import MainSystem.DBManager;
-import Elements.*;
 import MainSystem.AlberoIpotesi;
 import MainSystem.Ipotesi;
 import MainSystem.Sessione;

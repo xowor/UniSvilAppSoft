@@ -5,8 +5,8 @@
  */
 package windows;
 
-import Elements.messaggi.Messaggio;
-import Elements.Studente;
+import elements.messaggi.Messaggio;
+import elements.Studente;
 import MainSystem.DBManager;
 import SistemaCifratura.CalcolatoreCesare;
 import SistemaCifratura.Cifratore;

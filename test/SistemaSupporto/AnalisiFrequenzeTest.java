@@ -5,8 +5,8 @@
  */
 package SistemaSupporto;
 
-import Elements.Alfabeto;
-import Elements.Frequenze;
+import elements.Alfabeto;
+import elements.Frequenze;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;

@@ -5,8 +5,8 @@
  */
 package windows;
 
-import Elements.Alfabeto;
-import Elements.messaggi.Messaggio;
+import elements.Alfabeto;
+import elements.messaggi.Messaggio;
 import MainSystem.DBManager;
 import MainSystem.Sostituzione;
 import java.util.Set;

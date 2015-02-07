@@ -1,6 +1,6 @@
-package Elements.messaggi;
+package elements.messaggi;
 
-import Elements.Studente;
+import elements.Studente;
 import java.util.List;
 
 public class Messaggio implements MessaggioMittente, MessaggioDestinatario{

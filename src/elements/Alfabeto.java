@@ -1,4 +1,4 @@
-package Elements;
+package elements;
 
 import MainSystem.DBManager;
 import java.util.ArrayList;

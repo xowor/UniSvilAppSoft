@@ -3,12 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Elements.messaggi;
+package elements.messaggi;
 
 /**
  *
  * @author luca
  */
-public interface MessaggioDestinatario extends MessaggioAstratto {
-    public boolean isLetto();
+public interface MessaggioMittente extends MessaggioAstratto {
+    public boolean isBozza();
+    public void cifra();
 }
