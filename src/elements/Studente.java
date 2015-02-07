@@ -58,7 +58,7 @@ public class Studente {
     public static Studente getStudente(int idStudente){
         Studente studente = null;
         try {
-            ResultSet rs = DBManager.execute("SELECT * FROM studente WHERE id = '" + idStudente + "'");
+            ResultSet rs = DBManager.execute("SELECT * FROM studente WHERE id = " + idStudente + "");
             if (rs.next()){
                 studente = new Studente(idStudente, rs.getString("login"), rs.getString("password"), rs.getString("nome"), rs.getString("cognome"));
             }

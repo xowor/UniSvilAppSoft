@@ -3,6 +3,7 @@ import elements.Frequenze;
 import elements.messaggi.Messaggio;
 import elements.Studente;
 import SistemaCifratura.SistemaDiCifratura;
+import elements.utenti.UserInfo;
 import javax.management.Query;
 import java.sql.*;
 import java.util.ArrayList;
@@ -101,8 +102,17 @@ public class DBManager {
     public static ResultSet execute(String sql) {
         try{
             Statement statement = openStatement(conn);
-         return statement.executeQuery(sql);
-        }catch(SQLException e){return null;}
+            if (sql.contains("INSERT") || sql.contains("UPDATE") || sql.contains("DELETE")){
+                statement.executeUpdate(sql);
+                return null;
+            } else {
+                ResultSet rs = statement.executeQuery(sql);
+                return rs;
+            }
+          }catch(SQLException ex){
+            Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
     }
     
     /**
@@ -164,17 +174,20 @@ public class DBManager {
             
             st.execute( "CREATE TABLE proposta(" +
             "id INT NOT NULL GENERATED ALWAYS AS IDENTITY(START WITH 1, INCREMENT BY 1)," +
+            "sistemaDiCifratura INT NOT NULL," +
             "stato VARCHAR(24) NOT NULL," +
             "notificata BOOLEAN NOT NULL," +
+            "idMittente INT NOT NULL," +
+            "idDestinatario INT NOT NULL," +
             "PRIMARY KEY(id))");
             
             st.execute( "CREATE TABLE sistemaDiCifratura(" +
             "id INT NOT NULL GENERATED ALWAYS AS IDENTITY(START WITH 1, INCREMENT BY 1)," +
             "idStudente INT NOT NULL," +            // idMittente
-            "idDestinatario INT NOT NULL," +
+            //"idDestinatario INT NOT NULL," +
             "chiave VARCHAR(24) NOT NULL," +
             "metodo VARCHAR(24) NOT NULL," +
-            "accettazione VARCHAR(24) NOT NULL," +  // valore "proposta" --> il mittente ha inviato la proposta al destinatario
+            //"accettazione VARCHAR(24) NOT NULL," +  // valore "proposta" --> il mittente ha inviato la proposta al destinatario
                                                     // valore "accettato" --> destinatario ha accettato
                                                     // valore "rifiutato" --> destinatario ha rifiutato
             "PRIMARY KEY(id))");
@@ -296,7 +309,7 @@ public class DBManager {
         try {
             ResultSet rs = st.executeQuery("SELECT * FROM sistemadicifratura WHERE id="+id+"");
             if(rs.next()){
-                sdc = new SistemaDiCifratura(rs.getString("chiave"), rs.getString("metodo"));
+                sdc = new SistemaDiCifratura(rs.getString("chiave"), rs.getString("metodo"), UserInfo.getUserInfo(rs.getInt("idStudente")));
             }
         } catch (SQLException ex) {
             Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
@@ -310,7 +323,7 @@ public class DBManager {
         try {
             ResultSet rs = st.executeQuery("SELECT * FROM sistemaDiCifratura WHERE idStudente="+idStudente+"");
             while(rs.next()){
-                SistemaDiCifratura tmp = new SistemaDiCifratura(rs.getString("chiave"), rs.getString("metodo"));
+                SistemaDiCifratura tmp = new SistemaDiCifratura(rs.getString("chiave"), rs.getString("metodo"), UserInfo.getUserInfo(rs.getInt("idStudente")));
                 lista.add(tmp);
             }
         } catch (SQLException ex) {

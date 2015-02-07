@@ -8,6 +8,7 @@ package windows;
 import elements.Studente;
 import MainSystem.DBManager;
 import SistemaCifratura.SistemaDiCifratura;
+import elements.utenti.UserInfo;
 import java.awt.event.ItemEvent;
 import java.util.ArrayList;
 import javax.swing.DefaultListModel;
@@ -42,13 +43,13 @@ public class SistemiCifraturaJFrame extends javax.swing.JFrame {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         jList1 = new javax.swing.JList();
-        jButton2 = new javax.swing.JButton();
+        eliminaJButton = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         metodoJComboBox = new javax.swing.JComboBox();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         chiaveJTextField = new javax.swing.JTextField();
-        jButton3 = new javax.swing.JButton();
+        aggiungiSistemaButton = new javax.swing.JButton();
         chiaveJSpinner = new javax.swing.JSpinner();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -61,10 +62,10 @@ public class SistemiCifraturaJFrame extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(jList1);
 
-        jButton2.setText("Elimina sistema");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        eliminaJButton.setText("Elimina sistema");
+        eliminaJButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                eliminaJButtonActionPerformed(evt);
             }
         });
 
@@ -92,10 +93,10 @@ public class SistemiCifraturaJFrame extends javax.swing.JFrame {
             }
         });
 
-        jButton3.setText("Aggiungi sistema");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        aggiungiSistemaButton.setText("Aggiungi sistema");
+        aggiungiSistemaButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                aggiungiSistemaButtonActionPerformed(evt);
             }
         });
 
@@ -115,7 +116,7 @@ public class SistemiCifraturaJFrame extends javax.swing.JFrame {
                         .addComponent(chiaveJSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(chiaveJTextField))))
-            .addComponent(jButton3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(aggiungiSistemaButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -130,7 +131,7 @@ public class SistemiCifraturaJFrame extends javax.swing.JFrame {
                     .addComponent(chiaveJTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(chiaveJSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(jButton3)
+                .addComponent(aggiungiSistemaButton)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -141,7 +142,7 @@ public class SistemiCifraturaJFrame extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addComponent(jScrollPane1)
-                    .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE))
+                    .addComponent(eliminaJButton, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -150,7 +151,7 @@ public class SistemiCifraturaJFrame extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 269, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton2)
+                .addComponent(eliminaJButton)
                 .addGap(0, 0, Short.MAX_VALUE))
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
@@ -158,16 +159,9 @@ public class SistemiCifraturaJFrame extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        String chiave;
-            if (metodoJComboBox.getSelectedItem().toString() == "Cesare"){
-                chiave = String.valueOf(this.chiaveJSpinner.getValue());
-            } else {
-                chiave = this.chiaveJTextField.getText();
-            }
-        this.dbManager.salvaSistemaCifratura(this.studente, chiave , this.metodoJComboBox.getSelectedItem().toString());
-        caricaSistemi();
-    }//GEN-LAST:event_jButton3ActionPerformed
+    private void aggiungiSistemaButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aggiungiSistemaButtonActionPerformed
+        aggiungiSistema();
+    }//GEN-LAST:event_aggiungiSistemaButtonActionPerformed
 
     private void metodoJComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_metodoJComboBoxActionPerformed
         // TODO add your handling code here:
@@ -189,12 +183,9 @@ public class SistemiCifraturaJFrame extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_metodoJComboBoxItemStateChanged
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-//        SistemaDiCifratura sistema = (SistemaDiCifratura) this.jList1.getSelectedValue();
-//        if (sistema != null){
-//            this.dbManager.eliminaSistemaCifratura(sistema.chiave, sistema.metodo);
-//        }
-    }//GEN-LAST:event_jButton2ActionPerformed
+    private void eliminaJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eliminaJButtonActionPerformed
+        this.eliminaSistema();
+    }//GEN-LAST:event_eliminaJButtonActionPerformed
 
     private void caricaSistemi() {
         ArrayList<SistemaDiCifratura> sistemi = this.dbManager.elencaSistemiCifratura(this.studente);
@@ -203,6 +194,27 @@ public class SistemiCifraturaJFrame extends javax.swing.JFrame {
             m.addElement(sistema);
         }
         this.jList1.setModel(m);
+    }
+    
+    
+    private void eliminaSistema() {
+        SistemaDiCifratura sistema = (SistemaDiCifratura) this.jList1.getSelectedValue();
+        if (sistema != null){
+            sistema.elimina();
+        }
+    }
+    
+    private void aggiungiSistema() {
+        String chiave;
+            if (metodoJComboBox.getSelectedItem().toString() == "Cesare"){
+                chiave = String.valueOf(this.chiaveJSpinner.getValue());
+            } else {
+                chiave = this.chiaveJTextField.getText();
+            }
+        SistemaDiCifratura sistema = new SistemaDiCifratura(chiave, this.metodoJComboBox.getSelectedItem().toString(), UserInfo.getUserInfo(this.studente.getId()));
+        sistema.salva();
+        //this.dbManager.salvaSistemaCifratura(this.studente, chiave , this.metodoJComboBox.getSelectedItem().toString());
+        caricaSistemi();
     }
     
 //    /**
@@ -241,10 +253,10 @@ public class SistemiCifraturaJFrame extends javax.swing.JFrame {
 //    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton aggiungiSistemaButton;
     private javax.swing.JSpinner chiaveJSpinner;
     private javax.swing.JTextField chiaveJTextField;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
+    private javax.swing.JButton eliminaJButton;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JList jList1;

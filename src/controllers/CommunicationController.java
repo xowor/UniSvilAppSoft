@@ -4,7 +4,10 @@ package controllers;
 import MainSystem.DBManager;
 import static MainSystem.DBManager.esegui;
 import static MainSystem.DBManager.st;
+import SistemaCifratura.SistemaDiCifratura;
+import elements.Studente;
 import elements.messaggi.Messaggio;
+import elements.messaggi.Proposta;
 import elements.utenti.UserInfo;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -134,9 +137,22 @@ public class CommunicationController {
                 + " AND chiave='"+key+"' AND metodo='"+metodo+"'", st);
     }
     
-    public static void setProposta(int idMittente, int idDestinatario, String key, String metodo){
-        esegui("INSERT INTO sistemadicifratura (idStudente, idDestinatario, chiave, metodo, accettazione) "
-                + "VALUES ("+idMittente+", "+idDestinatario+", '"+key+"', '"+metodo+"', 'proposta')", st);
+    public static void inviaProposta(SistemaDiCifratura sistema, Studente mittente, Studente destinatario){
+        DBManager.execute("INSERT INTO proposta (sistemaDiCifratura, stato, notificata, idMittente, idDestinatario) "
+                + "VALUES (" + sistema.getId() + ", 'In attesa', 'false', " + mittente.getId() + ", " + destinatario.getId() + ")");
+    }
+    
+    public static ArrayList<Proposta> getProposte(Studente studente){
+        ArrayList<Proposta> proposte = new ArrayList();
+        try {           
+            ResultSet rs = st.executeQuery("SELECT * FROM proposta WHERE idDestinatario = " + studente.getId() + "");
+            while(rs.next()){
+                proposte.add(new Proposta(rs));
+            }   
+        } catch (SQLException ex) {
+            Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return proposte;
     }
     
     public static void setRifiutaProposta(int idMittente, int idDestinatario, String key, String metodo){

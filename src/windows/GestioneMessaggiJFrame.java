@@ -12,6 +12,8 @@ import SistemaCifratura.CalcolatoreCesare;
 import SistemaCifratura.Cifratore;
 import SistemaCifratura.Mappatura;
 import SistemaCifratura.SistemaDiCifratura;
+import controllers.CommunicationController;
+import elements.messaggi.Proposta;
 import java.util.ArrayList;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
@@ -25,7 +27,8 @@ public class GestioneMessaggiJFrame extends javax.swing.JFrame {
     private final DBManager dbManager;
     private final Studente studente;
     private Messaggio messaggioRicevuto;
-    private final ArrayList<Studente> studenti;
+    private ArrayList<Studente> studenti;
+    private ArrayList<SistemaDiCifratura> sistemiDiCifratura;
 
     /**
      * Creates new form GestioneMessaggiJFrame
@@ -36,20 +39,23 @@ public class GestioneMessaggiJFrame extends javax.swing.JFrame {
         this.messaggioRicevuto = messaggioRicevuto;
         initComponents();
         
-        this.studenti = this.dbManager.getStudenti();
-        for (Studente stud : this.studenti){
-            this.studentiJComboBox.addItem(stud);
-        }
-        
-        ArrayList<SistemaDiCifratura> sistemi = this.dbManager.elencaSistemiCifratura(this.studente);
-        DefaultComboBoxModel m = new DefaultComboBoxModel();
-        DefaultComboBoxModel m2 = new DefaultComboBoxModel();
-        for (SistemaDiCifratura sistema: sistemi){
-            m.addElement(sistema);
-            m2.addElement(sistema);
-        }
-        this.jComboBox1.setModel(m);
-        this.jComboBox2.setModel(m2);
+//        this.studenti = this.dbManager.getStudenti();
+//        for (Studente stud : this.studenti){
+//            this.studentiJComboBox.addItem(stud);
+//        }
+//        
+//        ArrayList<SistemaDiCifratura> sistemi = this.dbManager.elencaSistemiCifratura(this.studente);
+//        DefaultComboBoxModel m = new DefaultComboBoxModel();
+//        DefaultComboBoxModel m2 = new DefaultComboBoxModel();
+//        for (SistemaDiCifratura sistema: sistemi){
+//            m.addElement(sistema);
+//            m2.addElement(sistema);
+//        }
+//        this.propostaSistemiJComboBox.setModel(m);
+//        this.jComboBox2.setModel(m2);
+        this.caricaSistemi();
+        this.caricaStudenti();
+        this.caricaProposte();
     }
 
     /**
@@ -63,8 +69,16 @@ public class GestioneMessaggiJFrame extends javax.swing.JFrame {
 
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel5 = new javax.swing.JPanel();
-        jComboBox1 = new javax.swing.JComboBox();
-        jButton1 = new javax.swing.JButton();
+        jPanel6 = new javax.swing.JPanel();
+        jLabel2 = new javax.swing.JLabel();
+        propostaSistemiJComboBox = new javax.swing.JComboBox();
+        jLabel6 = new javax.swing.JLabel();
+        propostaStudentiJComboBox = new javax.swing.JComboBox();
+        proponiJButton = new javax.swing.JButton();
+        jPanel7 = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        proposteJList = new javax.swing.JList();
+        accettaPropostaJButton = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
         inviaJButton = new javax.swing.JButton();
@@ -88,35 +102,108 @@ public class GestioneMessaggiJFrame extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Gestione Messaggi");
 
-        jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder("Proponi sistema di cifratura"));
+        jTabbedPane1.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+
+        jPanel5.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         jPanel5.setToolTipText("");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+        jPanel6.setBorder(javax.swing.BorderFactory.createTitledBorder("Proponi"));
+
+        jLabel2.setText("Sistema:");
+
+        propostaSistemiJComboBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBox1ActionPerformed(evt);
+                propostaSistemiJComboBoxActionPerformed(evt);
             }
         });
 
-        jButton1.setText("Proponi");
+        jLabel6.setText("Studente");
+
+        proponiJButton.setText("Proponi");
+        proponiJButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                proponiJButtonActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
+        jPanel6.setLayout(jPanel6Layout);
+        jPanel6Layout.setHorizontalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(propostaSistemiJComboBox, 0, 297, Short.MAX_VALUE)
+                    .addGroup(jPanel6Layout.createSequentialGroup()
+                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel6))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(propostaStudentiJComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(proponiJButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
+        );
+        jPanel6Layout.setVerticalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(propostaSistemiJComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel6)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(propostaStudentiJComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(proponiJButton)
+                .addContainerGap())
+        );
+
+        jPanel7.setBorder(javax.swing.BorderFactory.createTitledBorder("Proposte"));
+
+        jScrollPane1.setViewportView(proposteJList);
+
+        accettaPropostaJButton.setText("Accetta");
+        accettaPropostaJButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                accettaPropostaJButtonActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
+        jPanel7.setLayout(jPanel7Layout);
+        jPanel7Layout.setHorizontalGroup(
+            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel7Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1)
+                    .addComponent(accettaPropostaJButton, javax.swing.GroupLayout.DEFAULT_SIZE, 491, Short.MAX_VALUE))
+                .addContainerGap())
+        );
+        jPanel7Layout.setVerticalGroup(
+            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel7Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 255, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(accettaPropostaJButton)
+                .addContainerGap())
+        );
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
-                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton1)
-                .addGap(0, 705, Short.MAX_VALUE))
+                .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel5Layout.createSequentialGroup()
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1))
-                .addGap(0, 297, Short.MAX_VALUE))
+            .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         jTabbedPane1.addTab("Proposte", jPanel5);
@@ -210,7 +297,7 @@ public class GestioneMessaggiJFrame extends javax.swing.JFrame {
                             .addComponent(jLabel4)
                             .addComponent(jLabel3)
                             .addComponent(jLabel5))
-                        .addGap(0, 442, Short.MAX_VALUE)))
+                        .addGap(0, 215, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -289,7 +376,7 @@ public class GestioneMessaggiJFrame extends javax.swing.JFrame {
                         .addComponent(riceviJButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 1057, Short.MAX_VALUE))
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 830, Short.MAX_VALUE))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(analizzaButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
@@ -298,9 +385,10 @@ public class GestioneMessaggiJFrame extends javax.swing.JFrame {
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
                 .addComponent(riceviJButton)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 244, Short.MAX_VALUE)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 222, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(analizzaButton)
                 .addContainerGap())
@@ -319,10 +407,10 @@ public class GestioneMessaggiJFrame extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 385, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(35, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 373, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         pack();
@@ -349,9 +437,9 @@ public class GestioneMessaggiJFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_studentiJComboBoxActionPerformed
 
-    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+    private void propostaSistemiJComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_propostaSistemiJComboBoxActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jComboBox1ActionPerformed
+    }//GEN-LAST:event_propostaSistemiJComboBoxActionPerformed
 
     private void linguaJTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_linguaJTextFieldActionPerformed
         // TODO add your handling code here:
@@ -370,11 +458,48 @@ public class GestioneMessaggiJFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jComboBox2ActionPerformed
 
+    private void accettaPropostaJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_accettaPropostaJButtonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_accettaPropostaJButtonActionPerformed
+
+    private void proponiJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_proponiJButtonActionPerformed
+        Studente destinatario = (Studente) this.propostaStudentiJComboBox.getSelectedItem();
+        SistemaDiCifratura sistema = (SistemaDiCifratura) this.propostaSistemiJComboBox.getSelectedItem();
+        CommunicationController.inviaProposta(sistema, this.studente, destinatario);
+    }//GEN-LAST:event_proponiJButtonActionPerformed
+
     
     
     Messaggio getMessaggioRicevuto() {
         return this.messaggioRicevuto;
     }
+    
+    private void caricaStudenti(){
+        this.studenti = Studente.getStudenti();
+        for (Studente studente : this.studenti){
+            this.studentiJComboBox.addItem(studente);
+            this.propostaStudentiJComboBox.addItem(studente);
+        }
+    }
+    
+    private void caricaSistemi(){
+        this.sistemiDiCifratura = SistemaDiCifratura.caricaSistemiCifratura(this.studente);
+        for (SistemaDiCifratura sistemaDiCifratura : this.sistemiDiCifratura){
+            this.propostaSistemiJComboBox.addItem(sistemaDiCifratura);
+        }
+    }
+    
+    private void caricaProposte(){
+        ArrayList<Proposta> proposte = CommunicationController.getProposte(this.studente);
+        DefaultListModel model = new DefaultListModel();
+        for (Proposta proposta : proposte){
+            model.addElement(proposta);
+        }
+        this.proposteJList.setModel(model);
+    }
+    
+    
+    
 //    /**
 //     * @param args the command line arguments
 //     */
@@ -411,26 +536,34 @@ public class GestioneMessaggiJFrame extends javax.swing.JFrame {
 //    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton accettaPropostaJButton;
     private javax.swing.JButton analizzaButton;
     private javax.swing.JButton inviaJButton;
     private javax.swing.JTextPane inviaJTextPane;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JComboBox jComboBox1;
     private javax.swing.JComboBox jComboBox2;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
+    private javax.swing.JPanel jPanel6;
+    private javax.swing.JPanel jPanel7;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField linguaJTextField;
+    private javax.swing.JButton proponiJButton;
+    private javax.swing.JComboBox propostaSistemiJComboBox;
+    private javax.swing.JComboBox propostaStudentiJComboBox;
+    private javax.swing.JList proposteJList;
     private javax.swing.JButton riceviJButton;
     private javax.swing.JList ricevutiJList;
     private javax.swing.JComboBox studentiJComboBox;

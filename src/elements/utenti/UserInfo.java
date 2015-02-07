@@ -41,7 +41,7 @@ public class UserInfo {
     public static UserInfo getUserInfo(int idStudente){
         UserInfo info = null;
         try {
-           ResultSet rs = DBManager.execute("SELECT * FROM studente WHERE id = '" + idStudente + "'");
+           ResultSet rs = DBManager.execute("SELECT * FROM studente WHERE id = " + idStudente);
            if (rs.next()){
               info = new UserInfo(idStudente, rs.getString("nome"), rs.getString("cognome"));
            }
