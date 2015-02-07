@@ -24,7 +24,7 @@ public class SistemaDiCifratura {
         this.metodo = met;
 //        this.calcola = CalcolatoreMappe.create(met);
 //        calcolaMappatura();
-//        DBManager.aggiungiSistemaCifratura(studente,key,met);
+//        DBManager.salvaSistemaCifratura(studente,key,met);
     }
     
     public SistemaDiCifratura(int id, String key, String met){
@@ -50,7 +50,7 @@ public class SistemaDiCifratura {
     }
 
     public SistemaDiCifratura caricaSistemaCifratura(int id){
-        return DBManager.getSistemaDiCifratura(id);
+        return DBManager.visualizzaSistemaCifratura(id);
     }
     
     public void calcolaMappatura(){

@@ -259,9 +259,8 @@ public class DBManager {
         aggiungiStudente("admin", "admin", "admin", "admin", st);   
     }
     
-
-    // new name: salvaSistemaCifratura    
-    public static void aggiungiSistemaCifratura(Studente studente, String key, String metodo){
+  
+    public static void salvaSistemaCifratura(Studente studente, String key, String metodo){
         esegui("INSERT INTO sistemadicifratura (idStudente, chiave, metodo) VALUES ("+ studente.getId() +", '"+key + "', '"+metodo+"')", st);
     }
     
@@ -292,8 +291,7 @@ public class DBManager {
         return ip;
     }
     
-    // new name: visualizzaSistemaCifratura
-    public static SistemaDiCifratura getSistemaDiCifratura(int id){
+    public static SistemaDiCifratura visualizzaSistemaCifratura(int id){
         SistemaDiCifratura sdc = null;
         try {
             ResultSet rs = st.executeQuery("SELECT * FROM sistemadicifratura WHERE id="+id+"");
@@ -306,8 +304,7 @@ public class DBManager {
         return sdc;
     }
     
-    // new name: elencaSistemiCifratura
-    public static ArrayList<SistemaDiCifratura> getSistemiDiCifratura(Studente studente){
+    public static ArrayList<SistemaDiCifratura> elencaSistemiCifratura(Studente studente){
         ArrayList<SistemaDiCifratura> lista = new ArrayList<SistemaDiCifratura>();
         int idStudente = studente.getId();
         try {
@@ -322,7 +319,7 @@ public class DBManager {
         return lista;
     }
 
-//    public static ArrayList<SistemaDiCifratura> getSistemiDiCifratura(){
+//    public static ArrayList<SistemaDiCifratura> elencaSistemiCifratura(){
 //        ArrayList<SistemaDiCifratura> list = new ArrayList<SistemaDiCifratura>();
 //        SistemaDiCifratura sdc = null;
 //        try {
