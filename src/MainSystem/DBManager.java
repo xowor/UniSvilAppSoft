@@ -1,7 +1,7 @@
 package MainSystem;
-import Elements.Frequenze;
-import Elements.Messaggio;
-import Elements.Studente;
+import elements.Frequenze;
+import elements.messaggi.Messaggio;
+import elements.Studente;
 import SistemaCifratura.SistemaDiCifratura;
 import javax.management.Query;
 import java.sql.*;
@@ -263,9 +263,9 @@ public class DBManager {
         esegui("INSERT INTO messaggio (testo, testoCifrato, lingua, titolo, idMittente, idDestinatario, bozza, letto) VALUES ('"+testo + "', '" + testoCifrato
                 +"', '"+lingua+"', '"+titolo+"', "+idMitt+", "+idDest+",'"+bozza+"', '"+letto+"')", st);
     }
-    
-    public static void aggiungiSistemaCifratura(String key, String metodo){
-        esegui("INSERT INTO sistemadicifratura (chiave, metodo) VALUES ('"+key + "', '"+metodo+"')", st);
+        
+    public static void aggiungiSistemaCifratura(Studente studente, String key, String metodo){
+        esegui("INSERT INTO sistemadicifratura (idStudente, chiave, metodo) VALUES ("+ studente.getId() +", '"+key + "', '"+metodo+"')", st);
     }
     
     public static void eliminaSistemaCifratura(String key, String metodo){
@@ -352,7 +352,7 @@ public class DBManager {
     }
     
     public static ArrayList<SistemaDiCifratura> getSistemiDiCifratura(Studente studente){
-        ArrayList<SistemaDiCifratura> lista = null;
+        ArrayList<SistemaDiCifratura> lista = new ArrayList<SistemaDiCifratura>();
         int idStudente = studente.getId();
         try {
             ResultSet rs = st.executeQuery("SELECT * FROM sistemaDiCifratura WHERE idStudente="+idStudente+"");
@@ -365,19 +365,20 @@ public class DBManager {
         }
         return lista;
     }
-    
-    public static ArrayList<SistemaDiCifratura> getSistemiDiCifratura(){
-        ArrayList<SistemaDiCifratura> list = new ArrayList<SistemaDiCifratura>();
-        try {
-            ResultSet rs = st.executeQuery("SELECT * FROM sistemadicifratura");
-            while(rs.next()){
-                list.add(new SistemaDiCifratura(rs.getString("chiave"), rs.getString("metodo")));
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return list;
-    }
+
+//    public static ArrayList<SistemaDiCifratura> getSistemiDiCifratura(){
+//        ArrayList<SistemaDiCifratura> list = new ArrayList<SistemaDiCifratura>();
+//        SistemaDiCifratura sdc = null;
+//        try {
+//            ResultSet rs = st.executeQuery("SELECT * FROM sistemadicifratura");
+//            while(rs.next()){
+//                list.add(new SistemaDiCifratura(rs.getString("chiave"), rs.getString("metodo")));
+//            }
+//        } catch (SQLException ex) {
+//            Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+//        return list;
+//    }
     
     public static ArrayList<Integer> getArrayFigli(String figli){
         ArrayList<Integer> arrayFigli = new ArrayList<>();

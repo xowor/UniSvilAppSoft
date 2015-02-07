@@ -1,14 +1,16 @@
-package Elements;
+package elements.messaggi;
 
+import elements.Studente;
 import java.util.List;
 
-public class Messaggio {
+public class Messaggio implements MessaggioMittente, MessaggioDestinatario{
     public int id;
     public String testo;
     public String testoCifrato;
     public String lingua;
-    public String oggetto;
+    public String titolo;
     public boolean bozza;
+    //public String oggetto;
     public boolean letto;
     public int idMitt;
     public int idDest;
@@ -21,7 +23,7 @@ public class Messaggio {
     }
     
     public Messaggio(String titolo, String testo, String testoCifrato, int mitt, int dest, String lingua){
-        this.oggetto = titolo;
+        this.titolo = titolo;
         this.testo = testo;
         this.idMitt = mitt;
         this.idDest = dest;
@@ -46,25 +48,25 @@ public class Messaggio {
         this.testoCifrato = testoCifrato ;
     }
     
-    public void setLetto(boolean b){
-        this.letto = b ;
+    public void setLetto(boolean letto){
+        this.letto = letto ;
     }
 
-    public Messaggio load(String id){
+    public static Messaggio load(String id){
         return null;
     }
 
-    public List<Messaggio> caricaBozze(Studente stud){
-
-        return null;
-    }
-
-    public List<Messaggio> caricaInviati(Studente stud){
+    public static List<Messaggio> caricaBozze(Studente stud){
 
         return null;
     }
 
-    public List<Messaggio> caricaRicevuti(Studente stud){
+    public  static List<Messaggio> caricaInviati(Studente stud){
+
+        return null;
+    }
+
+    public static List<Messaggio> caricaRicevuti(Studente stud){
 
         return null;
     }
@@ -91,6 +93,26 @@ public class Messaggio {
     @Override
     public String toString(){
         return this.testoCifrato;
+    }
+
+    @Override
+    public boolean isBozza() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public String getLingua() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public String getTitolo() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public boolean isLetto() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }

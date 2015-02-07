@@ -1,8 +1,8 @@
 package SistemaSupporto;
 
-import Elements.Alfabeto;
-import Elements.Frequenze;
-import Elements.Messaggio;
+import elements.Alfabeto;
+import elements.Frequenze;
+import elements.messaggi.Messaggio;
 import java.util.HashMap;
 
 public class AnalisiFrequenze extends Supporto{

@@ -1,6 +1,6 @@
 package SistemaCifratura;
 
-import Elements.Studente;
+import elements.Studente;
 import MainSystem.DBManager;
 import java.util.ArrayList;
 
@@ -16,17 +16,17 @@ public class SistemaDiCifratura {
     public SistemaDiCifratura(String key, String met){
         this.chiave = key;
         this.metodo = met;
-        this.calcola = CalcolatoreMappe.create(met);
-        calcolaMappatura();
-        DBManager.aggiungiSistemaCifratura(key,met);
+//        this.calcola = CalcolatoreMappe.create(met);
+//        calcolaMappatura();
+//        DBManager.aggiungiSistemaCifratura(studente,key,met);
     }
     
     public SistemaDiCifratura(int id, String key, String met){
         this.id = id;
         this.chiave = key;
         this.metodo = met;
-        this.calcola = CalcolatoreMappe.create(met);
-        calcolaMappatura();
+//        this.calcola = CalcolatoreMappe.create(met);
+//        calcolaMappatura();
     }
     
     public ArrayList<SistemaDiCifratura> caricaSistemaCifratura(Studente s){
