@@ -29,7 +29,7 @@ public class Sessione {
         this.idSessione = idSes;
         this.idAlbero = idAlb;    
         this.alberoIpotesi = DBManager.getAlberoIpotesi(idSes);
-        this.messaggioOriginaleCifrato = CommunicationController.getMessaggio(idMessaggioCifrato);
+        this.messaggioOriginaleCifrato = CommunicationController.visualizzaMessaggioInviato(idMessaggioCifrato);
     }
     
     // pre: cosa sostituire
@@ -46,8 +46,14 @@ public class Sessione {
         this.alberoIpotesi = new AlberoIpotesi(this.idSessione, this.idAlbero, this.messaggioOriginaleCifrato.getTestoCifrato()); 
     }
     
+    public static boolean verificaSoluzione(Messaggio messaggio, String soluzioneSpia){
+        if(messaggio.getTesto().equals(soluzioneSpia))
+            return true;
+        return false;
+    }
+    
 //    public void setSistemaCifratura(Studente id){
-//        this.sistemaCifratura = DBManager.getSistemiDiCifratura(id);
+//        this.sistemaCifratura = DBManager.elencaSistemiCifratura(id);
 //    }
     
     public Studente getStudente(){

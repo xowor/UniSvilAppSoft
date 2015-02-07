@@ -165,7 +165,7 @@ public class SistemiCifraturaJFrame extends javax.swing.JFrame {
             } else {
                 chiave = this.chiaveJTextField.getText();
             }
-        this.dbManager.aggiungiSistemaCifratura(this.studente, chiave , this.metodoJComboBox.getSelectedItem().toString());
+        this.dbManager.salvaSistemaCifratura(this.studente, chiave , this.metodoJComboBox.getSelectedItem().toString());
         caricaSistemi();
     }//GEN-LAST:event_jButton3ActionPerformed
 
@@ -197,7 +197,7 @@ public class SistemiCifraturaJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void caricaSistemi() {
-        ArrayList<SistemaDiCifratura> sistemi = this.dbManager.getSistemiDiCifratura(this.studente);
+        ArrayList<SistemaDiCifratura> sistemi = this.dbManager.elencaSistemiCifratura(this.studente);
         DefaultListModel m = new DefaultListModel();
         for (SistemaDiCifratura sistema: sistemi){
             m.addElement(sistema);

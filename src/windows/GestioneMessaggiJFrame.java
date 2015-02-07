@@ -41,7 +41,7 @@ public class GestioneMessaggiJFrame extends javax.swing.JFrame {
             this.studentiJComboBox.addItem(stud);
         }
         
-        ArrayList<SistemaDiCifratura> sistemi = this.dbManager.getSistemiDiCifratura(this.studente);
+        ArrayList<SistemaDiCifratura> sistemi = this.dbManager.elencaSistemiCifratura(this.studente);
         DefaultComboBoxModel m = new DefaultComboBoxModel();
         DefaultComboBoxModel m2 = new DefaultComboBoxModel();
         for (SistemaDiCifratura sistema: sistemi){

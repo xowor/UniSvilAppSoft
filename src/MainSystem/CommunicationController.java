@@ -85,8 +85,7 @@ public class CommunicationController {
         esegui("DELETE FROM messaggio WHERE id="+messaggio.getId()+")", st);
     }
     
-    // new name: elencaMessaggiRicevuti
-    public static ArrayList<Messaggio> getMessaggi(int idDestinatario){
+    public static ArrayList<Messaggio> elencaMessaggiRicevuti(int idDestinatario){
         ArrayList<Messaggio> messaggi = new ArrayList();
         try {           
             ResultSet rs = st.executeQuery("SELECT * FROM messaggio WHERE idDestinatario = " + idDestinatario + "");
@@ -104,8 +103,7 @@ public class CommunicationController {
         return messaggi;
     }
     
-    // new name:visualizzaMessaggioInviato
-    public static Messaggio getMessaggio(int idMessaggio){
+    public static Messaggio visualizzaMessaggioInviato(int idMessaggio){
         Messaggio messaggio = null;
         try {            
             ResultSet rs = st.executeQuery("SELECT * FROM messaggio WHERE id = "+idMessaggio+" AND bozza='false'");
