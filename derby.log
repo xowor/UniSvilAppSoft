@@ -1,7 +1,7 @@
-Sat Feb 07 12:30:07 CET 2015 : Server di rete Apache Derby: 10.10.1.3 - (1557168) avviato e pronto ad accettare connessioni sulla porta 1527
+Sun Feb 08 11:25:04 CET 2015 : Server di rete Apache Derby: 10.10.1.3 - (1557168) avviato e pronto ad accettare connessioni sulla porta 1527
 ----------------------------------------------------------------
-Sat Feb 07 12:30:07 CET 2015:
-Avvio della versione di Derby The Apache Software Foundation - Apache Derby - 10.10.1.3 - (1557168): istanza a816c00e-014b-63cd-bcaf-00006960ef3f
+Sun Feb 08 11:25:04 CET 2015:
+Avvio della versione di Derby The Apache Software Foundation - Apache Derby - 10.10.1.3 - (1557168): istanza a816c00e-014b-68b8-8a6f-00006960ef3f
 sulla directory di database C:\Users\Federica\Documents\NetBeansProjects\UniSvilAppSoft\CryptoHelperDB con caricatore classi sun.misc.Launcher$AppClassLoader@1d44bcfa 
 Caricato da file:/C:/Program%20Files/Java/jdk1.8.0_25/db/lib/derby.jar
 java.vendor=Oracle Corporation

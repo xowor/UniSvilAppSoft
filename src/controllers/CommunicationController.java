@@ -18,8 +18,10 @@ import java.util.logging.Logger;
 public class CommunicationController {
     
     public static void send(Messaggio messaggio){
-        esegui("INSERT INTO messaggio (testo, testoCifrato, lingua, titolo, idMittente, idDestinatario, bozza, letto) VALUES ('"+messaggio.getTesto() + "', '" + messaggio.getTestoCifrato()
-                +"', '"+ messaggio.getLingua() + "', '"+ messaggio.getTitolo()+"', "+messaggio.getMittente().getId()+", "+messaggio.getDestinatario().getId()+",'false', 'false')", st);
+        esegui("INSERT INTO messaggio (testo, testoCifrato, lingua, titolo, idMittente, idDestinatario, "
+                + "bozza, letto) VALUES ('"+messaggio.getTesto() + "', '" + messaggio.getTestoCifrato()
+                +"', '"+ messaggio.getLingua() + "', '"+ messaggio.getTitolo()+"', "+messaggio.getMittente().getId()+", "
+                + ""+messaggio.getDestinatario().getId()+",'false', 'false')", st);
     }
     
     public static Messaggio apriMessaggioBozza(Messaggio messaggio){
@@ -30,7 +32,8 @@ public class CommunicationController {
             if(rs.next()){
                 UserInfo mittente = UserInfo.getUserInfo(rs.getInt("idMittente"));
                 UserInfo destinatario = UserInfo.getUserInfo(rs.getInt("idDestinatario"));
-                mess = new Messaggio(rs);
+                mess = new Messaggio(rs.getString("titolo"), rs.getString("testo"), rs.getString("testoCifrato"),
+                        mittente, destinatario, rs.getString("lingua"));
             }
         } catch (SQLException ex) {
             Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
@@ -46,7 +49,8 @@ public class CommunicationController {
             while(rs.next()){
                 UserInfo mittente = UserInfo.getUserInfo(rs.getInt("idMittente"));
                 UserInfo destinatario = UserInfo.getUserInfo(rs.getInt("idDestinatario"));
-                Messaggio tmp = new Messaggio(rs);
+                Messaggio tmp = new Messaggio(rs.getString("titolo"), rs.getString("testo"), rs.getString("testoCifrato"),
+                        mittente, destinatario, rs.getString("lingua"));
                 bozze.add(tmp);
             }
         } catch (SQLException ex) {
@@ -63,7 +67,8 @@ public class CommunicationController {
             while(rs.next()){
                 UserInfo mittente = UserInfo.getUserInfo(idMittente);
                 UserInfo destinatario = UserInfo.getUserInfo(rs.getInt("idDestinatario"));
-                Messaggio tmp = new Messaggio(rs);
+                Messaggio tmp = new Messaggio(rs.getString("titolo"), rs.getString("testo"), rs.getString("testoCifrato"),
+                        mittente, destinatario, rs.getString("lingua"));
                 inviati.add(tmp);
             }
         } catch (SQLException ex) {
@@ -78,7 +83,10 @@ public class CommunicationController {
             ResultSet rs = st.executeQuery("SELECT * FROM messaggio WHERE idDestinatario="+studente.getId()+" "
                     + "AND bozza='false'");
             while(rs.next()){
-                Messaggio tmp = new Messaggio(rs);
+                UserInfo mittente = UserInfo.getUserInfo(rs.getInt("idMittente"));
+                UserInfo destinatario = UserInfo.getUserInfo(studente.getId());
+                Messaggio tmp = new Messaggio(rs.getString("titolo"), rs.getString("testo"), rs.getString("testoCifrato"),
+                        mittente, destinatario, rs.getString("lingua"));
                 messaggi.add(tmp);
             }
         } catch (SQLException ex) {
@@ -99,15 +107,15 @@ public class CommunicationController {
         esegui("DELETE FROM messaggio WHERE id="+messaggio.getId()+")", st);
     }
     
-    // new name: elencaMessaggiRicevuti
-    public static ArrayList<Messaggio> getMessaggi(int idDestinatario){
+    public static ArrayList<Messaggio> elencaMessaggiRicevuti(int idDestinatario){
         ArrayList<Messaggio> messaggi = new ArrayList();
         try {           
             ResultSet rs = st.executeQuery("SELECT * FROM messaggio WHERE idDestinatario = " + idDestinatario + "");
             while(rs.next()){
                 UserInfo mittente = UserInfo.getUserInfo(rs.getInt("idMittente"));
                 UserInfo destinatario = UserInfo.getUserInfo(rs.getInt("idDestinatario"));
-                Messaggio messaggio = new Messaggio(rs);  
+                Messaggio messaggio = new Messaggio(rs.getString("titolo"), rs.getString("testo"), rs.getString("testoCifrato"),
+                        mittente, destinatario, rs.getString("lingua"));  
                 messaggi.add(messaggio);
             }   
         } catch (SQLException ex) {
@@ -116,15 +124,15 @@ public class CommunicationController {
         return messaggi;
     }
     
-    // new name:visualizzaMessaggioInviato
-    public static Messaggio getMessaggio(int idMessaggio){
+    public static Messaggio visualizzaMessaggioInviato(int idMessaggio){
         Messaggio messaggio = null;
         try {            
             ResultSet rs = st.executeQuery("SELECT * FROM messaggio WHERE id = "+idMessaggio+" AND bozza='false'");
             rs.next();
             UserInfo mittente = UserInfo.getUserInfo(rs.getInt("idMittene"));
             UserInfo destinatario = UserInfo.getUserInfo(rs.getInt("idDestinatario"));
-            messaggio = new Messaggio(rs);            
+            messaggio = new Messaggio(rs.getString("titolo"), rs.getString("testo"), rs.getString("testoCifrato"),
+                        mittente, destinatario, rs.getString("lingua"));            
         } catch (SQLException ex) {
             Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -150,7 +158,8 @@ public class CommunicationController {
     public static ArrayList<Proposta> getProposte(Studente destinatario){
         ArrayList<Proposta> proposte = new ArrayList();
         try {           
-            ResultSet rs = st.executeQuery("SELECT * FROM proposta WHERE idDestinatario = " + destinatario.getId() + " AND stato = 'In attesa'");
+            ResultSet rs = st.executeQuery("SELECT * FROM proposta WHERE idDestinatario = " + destinatario.getId() + " "
+                    + "AND stato = 'In attesa'");
             while(rs.next()){
                 proposte.add(new Proposta(rs));
             }   
@@ -163,7 +172,8 @@ public class CommunicationController {
     public static ArrayList<Proposta> getProposteAccettate(Studente mittente, Studente destinatario){
         ArrayList<Proposta> proposte = new ArrayList();
         try {           
-            ResultSet rs = st.executeQuery("SELECT * FROM proposta WHERE idDestinatario = " + destinatario.getId() + " AND idMittente = " + mittente.getId() + " AND stato = 'Accettata'");
+            ResultSet rs = st.executeQuery("SELECT * FROM proposta WHERE idDestinatario = " + destinatario.getId() + " "
+                    + "AND idMittente = " + mittente.getId() + " AND stato = 'Accettata'");
             while(rs.next()){
                 proposte.add(new Proposta(rs));
             }   

@@ -10,6 +10,11 @@ public class Cifratore {
         for(int i = 0; i < testo.length(); i++){
             //la 'a' minuscola corrisponde al carattere ASCII n.97
             int charNumber = 97;
+            // gestione punteggiatura
+            if(charNumber == ',' || charNumber == ';' || charNumber == '.' || charNumber == ':' || charNumber == '-' || charNumber == '_' || 
+                    charNumber == '?' || charNumber == '\'' || charNumber == '=' || charNumber == ')' || charNumber == '(' || 
+                    charNumber == '"' || charNumber == '!')
+                continue;
             charNumber = testo.charAt(i);
             // caratteri speciali ASCII
             if(charNumber==32 || charNumber==39){
@@ -31,6 +36,11 @@ public class Cifratore {
             //la 'a' minuscola corrisponde al carattere ASCII n.97
             int charNumber = 97;
             charNumber = testo.charAt(i);
+            // gestione punteggiatura
+            if(charNumber == ',' || charNumber == ';' || charNumber == '.' || charNumber == ':' || charNumber == '-' || charNumber == '_' || 
+                    charNumber == '?' || charNumber == '\'' || charNumber == '=' || charNumber == ')' || charNumber == '(' || 
+                    charNumber == '"' || charNumber == '!')
+                continue;
             // caratteri speciali ASCII
             if(charNumber==32 || charNumber==39){
                 msx.setCharAt(i, ' ');
@@ -40,5 +50,15 @@ public class Cifratore {
             }
         }
         return msx.toString();
+    }
+    
+    public static String converti(String testo){
+        testo.replace('è', 'e');
+        testo.replace('é', 'e');
+        testo.replace('à', 'a');
+        testo.replace('ò', 'o');
+        testo.replace('ì', 'i');
+        testo.replace('ù', 'u');    
+        return testo;
     }
 }

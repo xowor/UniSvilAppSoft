@@ -75,7 +75,8 @@ public class Sessione {
     
     public static boolean getIfSessioneTerminate(Studente studente){
         try {
-            ResultSet rs = DBManager.execute("SELECT COUNT(idIpotesi) FROM sessione WHERE idStudente = " + studente.getId() + " AND terminata = 'false'");
+            ResultSet rs = DBManager.execute("SELECT COUNT(idIpotesi) FROM sessione WHERE idStudente = "
+                    + "" + studente.getId() + " AND terminata = 'false'");
             rs.next();
             // se le sessioni non terminate (-> aperte) == 0
             if(rs.getInt(1) == 0){
@@ -102,7 +103,8 @@ public class Sessione {
     public static int getIdSessioneCorrente(Studente studente){
         int id = -1;
         try {
-            ResultSet rs = DBManager.execute("SELECT id FROM sessione WHERE idStudente = " + studente.getId() + " AND terminata = 'false'");
+            ResultSet rs = DBManager.execute("SELECT id FROM sessione WHERE idStudente = " + studente.getId() + " "
+                    + "AND terminata = 'false'");
             rs.next();
             id = rs.getInt(1);
         } catch (SQLException ex) {
@@ -111,15 +113,20 @@ public class Sessione {
         return id;
     }
     
+    public static void terminaSessione(Studente studente){
+        esegui("UPDATE sessione SET terminata='true' WHERE idStudente='"+studente.getId()+"' AND terminata='true'", st);
+    }
+    
     public static Sessione getOrInsertSessione(Studente studente){
         Sessione sessione = null;
         // esiste una sessione iniziata?
         // no
-        if(getIfSessioneTerminate( studente)){
+        if(getIfSessioneTerminate(studente)){
             // conteggio delle vecchie sessioni dello studente
             int countVecchie = countVecchieSessioni( studente);
             // inizializzare una sessione
-            esegui("INSERT INTO sessione (idStudente, idAlbero, terminata) VALUES (" + studente.getId() + ", "+(countVecchie+1)+", 'false')", st);
+            esegui("INSERT INTO sessione (idStudente, idAlbero, terminata) VALUES (" + studente.getId() + ", "
+                    + ""+(countVecchie+1)+", 'false')", st);
             // creare l'oggetto Sessione
             sessione = new Sessione(studente, getIdSessioneCorrente(studente));
         }else{  
