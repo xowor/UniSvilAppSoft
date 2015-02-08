@@ -18,10 +18,12 @@ public class DBManager {
     
     public DBManager(){}
     
-    public void inizializza() {
+    public Connection inizializza() {
         this.conn = openConnection();
-
         this.st = openStatement(conn);
+        return conn;
+
+        
         //creaTabelle();
         //creaDati();
         //closeStatement(st);
@@ -68,7 +70,6 @@ public class DBManager {
             String us = "studente";
             String p = "studente";
             conn = DriverManager.getConnection(ur, us, p);
-            
         } catch (SQLException ex) {
             Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
         }

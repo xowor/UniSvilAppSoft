@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
@@ -399,7 +400,10 @@ public class MainJFrame extends javax.swing.JFrame {
     
     public void inizializza(){
         this.dbManager = new DBManager();
-        this.dbManager.inizializza();
+        if (this.dbManager.inizializza() == null){
+            JOptionPane.showMessageDialog(null, "Errore durante la connessione al database");
+            this.dispose();
+        }
     }
     
     public void mostraStudenti(){
@@ -412,15 +416,17 @@ public class MainJFrame extends javax.swing.JFrame {
     
     public void mostraMessaggio(Messaggio messaggio){
         this.messaggioCorrente = messaggio;
-        this.alfabetoCorrente = new Alfabeto(this.messaggioCorrente.getLocale());
-        this.testoCifratoJTextPane.setText(messaggio.getTestoCifrato());
-        this.alberoIpotesi = new AlberoIpotesi(this.sessione.getId(), -1, messaggio.getTestoCifrato());
-        //this.alberoIpotesi.
-        DefaultTreeModel a = new DefaultTreeModel(this.alberoIpotesi.getRoot());
-        this.ipotesiJTree.setModel(a);
-        this.ipotesiJTree.setSelectionPath(new TreePath(this.alberoIpotesi.getRoot().getPath()));
-        setContentEnabled(true);
-        //System.out.println(messaggio.getTesto());
+        if (messaggio.getTesto() != null){
+            this.alfabetoCorrente = new Alfabeto(this.messaggioCorrente.getLocale());
+            this.testoCifratoJTextPane.setText(messaggio.getTestoCifrato());
+            this.alberoIpotesi = new AlberoIpotesi(this.sessione.getId(), -1, messaggio.getTestoCifrato());
+            //this.alberoIpotesi.
+            DefaultTreeModel a = new DefaultTreeModel(this.alberoIpotesi.getRoot());
+            this.ipotesiJTree.setModel(a);
+            this.ipotesiJTree.setSelectionPath(new TreePath(this.alberoIpotesi.getRoot().getPath()));
+            setContentEnabled(true);
+            //System.out.println(messaggio.getTesto());   
+        }
     }
     
     public void setContentEnabled(boolean enabled){

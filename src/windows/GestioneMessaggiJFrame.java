@@ -420,6 +420,9 @@ public class GestioneMessaggiJFrame extends javax.swing.JFrame {
         
         Messaggio messaggio = new Messaggio(titolo, testo, testoCifrato, UserInfo.getUserInfo(this.studente.getId()), UserInfo.getUserInfo(destinatario.getId()), lingua);
         CommunicationController.send(messaggio);
+        riceviMessaggi();
+        this.titoloJTextField.setText("Testo");
+        this.inviaJTextPane.setText("");
 //        int idDest = dbManager.getStudenteDaNome(this.studentiJComboBox.getSelectedItem().toString()).getId();
 //        
 //        String testo = this.inviaJTextPane.getText();//Cifratore.cifra(CalcolatoreCesare.cifraCesare("aaa"), this.inviaJTextPane.getText());
@@ -428,12 +431,7 @@ public class GestioneMessaggiJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_inviaJButtonActionPerformed
 
     private void riceviJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_riceviJButtonActionPerformed
-        ArrayList<Messaggio> messaggi = CommunicationController.elencaMessaggiRicevuti(this.studente);
-        DefaultListModel model = new DefaultListModel();
-        for (Messaggio messaggio: messaggi){
-            model.addElement(messaggio);
-        }
-        this.ricevutiJList.setModel(model);
+        riceviMessaggi();
     }//GEN-LAST:event_riceviJButtonActionPerformed
 
     private void studentiJComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_studentiJComboBoxActionPerformed
@@ -491,6 +489,16 @@ public class GestioneMessaggiJFrame extends javax.swing.JFrame {
         for (SistemaDiCifratura sistemaDiCifratura : this.sistemiDiCifratura){
             this.propostaSistemiJComboBox.addItem(sistemaDiCifratura);
         }
+    }
+    
+    
+    private void riceviMessaggi() {
+        ArrayList<Messaggio> messaggi = CommunicationController.elencaMessaggiRicevuti(this.studente);
+        DefaultListModel model = new DefaultListModel();
+        for (Messaggio messaggio: messaggi){
+            model.addElement(messaggio);
+        }
+        this.ricevutiJList.setModel(model);
     }
     
     private void caricaProposte(){
