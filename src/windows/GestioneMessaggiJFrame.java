@@ -30,6 +30,7 @@ public class GestioneMessaggiJFrame extends javax.swing.JFrame {
     private Messaggio messaggioRicevuto;
     private ArrayList<Studente> studenti;
     private ArrayList<SistemaDiCifratura> sistemiDiCifratura;
+    private SistemaDiCifratura sistemaDiCifratura;
 
     /**
      * Creates new form GestioneMessaggiJFrame
@@ -93,7 +94,7 @@ public class GestioneMessaggiJFrame extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         linguaJTextField = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
-        sistemiJComboBox = new javax.swing.JComboBox();
+        sistemaTextField = new javax.swing.JTextField();
         jPanel3 = new javax.swing.JPanel();
         riceviJButton = new javax.swing.JButton();
         jScrollPane3 = new javax.swing.JScrollPane();
@@ -273,31 +274,26 @@ public class GestioneMessaggiJFrame extends javax.swing.JFrame {
             }
         });
 
-        jLabel5.setText("Sistema di cifratura (accettato)");
+        jLabel5.setText("Sistema di cifratura accettato");
 
-        sistemiJComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        sistemiJComboBox.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                sistemiJComboBoxActionPerformed(evt);
-            }
-        });
+        sistemaTextField.setEditable(false);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+            .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(sistemiJComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(linguaJTextField)
-                    .addComponent(studentiJComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(linguaJTextField, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(studentiJComboBox, javax.swing.GroupLayout.Alignment.TRAILING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel4)
                             .addComponent(jLabel3)
                             .addComponent(jLabel5))
-                        .addGap(0, 140, Short.MAX_VALUE)))
+                        .addGap(0, 150, Short.MAX_VALUE))
+                    .addComponent(sistemaTextField))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -313,9 +309,8 @@ public class GestioneMessaggiJFrame extends javax.swing.JFrame {
                 .addComponent(linguaJTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(sistemiJComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(sistemaTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -462,10 +457,6 @@ public class GestioneMessaggiJFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_ricevutiJListValueChanged
 
-    private void sistemiJComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sistemiJComboBoxActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_sistemiJComboBoxActionPerformed
-
     private void accettaPropostaJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_accettaPropostaJButtonActionPerformed
         Proposta proposta = (Proposta) this.proposteJList.getSelectedValue();
         if (proposta != null){
@@ -503,6 +494,7 @@ public class GestioneMessaggiJFrame extends javax.swing.JFrame {
     }
     
     private void caricaProposte(){
+        Studente destinatario = (Studente) this.studentiJComboBox.getSelectedItem();
         ArrayList<Proposta> proposte = CommunicationController.getProposte(this.studente);
         DefaultListModel model = new DefaultListModel();
         for (Proposta proposta : proposte){
@@ -510,14 +502,29 @@ public class GestioneMessaggiJFrame extends javax.swing.JFrame {
         }
         this.proposteJList.setModel(model);
         
-        this.sistemiJComboBox.removeAllItems();
-        proposte = CommunicationController.getProposteAccettate(this.studente);
-        for (Proposta proposta : proposte){
-            SistemaDiCifratura sistema = proposta.getSistemaDiCifratura();
-            if (sistema != null){
-                this.sistemiJComboBox.addItem(sistema);
+        //this.sistemiJComboBox.removeAllItems();
+        Proposta proposta;
+        proposte = CommunicationController.getProposteAccettate(destinatario, this.studente);
+        if (proposte.size() > 0){
+            proposta = proposte.get(0);
+            this.sistemaDiCifratura = proposta.getSistemaDiCifratura();
+            if (this.sistemaDiCifratura != null){
+                this.sistemaTextField.setText(sistemaDiCifratura.toString());
+            } else {
+                this.sistemaTextField.setText("Sistema di cifratura non disponbile");
             }
+        } else {
+            this.sistemaTextField.setText("Nessuna proposta accettata");
         }
+        
+        
+        
+//        for (Proposta proposta : proposte){
+//            SistemaDiCifratura sistema = proposta.getSistemaDiCifratura();
+//            if (sistema != null){
+//                this.sistemiJComboBox.addItem(sistema);
+//            }
+//        }
     }
     
     
@@ -586,7 +593,7 @@ public class GestioneMessaggiJFrame extends javax.swing.JFrame {
     private javax.swing.JList proposteJList;
     private javax.swing.JButton riceviJButton;
     private javax.swing.JList ricevutiJList;
-    private javax.swing.JComboBox sistemiJComboBox;
+    private javax.swing.JTextField sistemaTextField;
     private javax.swing.JComboBox studentiJComboBox;
     private javax.swing.JTextField titoloJTextField;
     // End of variables declaration//GEN-END:variables

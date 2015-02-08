@@ -143,14 +143,15 @@ public class CommunicationController {
     }
     
     public static void inviaProposta(SistemaDiCifratura sistema, Studente mittente, Studente destinatario){
+        DBManager.execute("DELETE FROM proposta where idMittente=" + mittente.getId() + " AND idDestinatario=" + destinatario.getId());
         DBManager.execute("INSERT INTO proposta (sistemaDiCifratura, stato, notificata, idMittente, idDestinatario) "
                 + "VALUES (" + sistema.getId() + ", 'In attesa', 'false', " + mittente.getId() + ", " + destinatario.getId() + ")");
     }
     
-    public static ArrayList<Proposta> getProposte(Studente studente){
+    public static ArrayList<Proposta> getProposte(Studente destinatario){
         ArrayList<Proposta> proposte = new ArrayList();
         try {           
-            ResultSet rs = st.executeQuery("SELECT * FROM proposta WHERE idDestinatario = " + studente.getId() + " AND stato = 'In attesa'");
+            ResultSet rs = st.executeQuery("SELECT * FROM proposta WHERE idDestinatario = " + destinatario.getId() + " AND stato = 'In attesa'");
             while(rs.next()){
                 proposte.add(new Proposta(rs));
             }   
@@ -160,10 +161,10 @@ public class CommunicationController {
         return proposte;
     }
     
-    public static ArrayList<Proposta> getProposteAccettate(Studente studente){
+    public static ArrayList<Proposta> getProposteAccettate(Studente mittente, Studente destinatario){
         ArrayList<Proposta> proposte = new ArrayList();
         try {           
-            ResultSet rs = st.executeQuery("SELECT * FROM proposta WHERE idDestinatario = " + studente.getId() + " AND stato = 'Accettata'");
+            ResultSet rs = st.executeQuery("SELECT * FROM proposta WHERE idDestinatario = " + destinatario.getId() + " AND idMittente = " + mittente.getId() + " AND stato = 'Accettata'");
             while(rs.next()){
                 proposte.add(new Proposta(rs));
             }   
