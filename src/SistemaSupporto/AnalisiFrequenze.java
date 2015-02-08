@@ -18,12 +18,8 @@ public class AnalisiFrequenze implements Supporto{
         // integer hash incrementato in corrispondenza dell'occorrenza della lettera
         for (int i = 0; i < testo.length(); i++){
             char c = testo.charAt(i);
-            int val = map.get(String.valueOf(c)); 
-            System.out.println(c);
-            System.out.println(val);    
-            map.replace(String.valueOf(c),  val + 1 );   
-            System.out.println(c);
-            System.out.println(val);    
+            int val = map.get(String.valueOf(c));   
+            map.replace(String.valueOf(c),  val + 1 );
         }
                 
         

@@ -200,6 +200,7 @@ public class DBManager {
             "idPadre INT NOT NULL," +
             "figli LONG VARCHAR NOT NULL," +
             "testoParzialmenteDecifrato LONG VARCHAR NOT NULL," +
+            "delta LONG VARCHAR NOT NULL," +
             "PRIMARY KEY(id, idSessione, idAlbero))");
             
             st.execute( "CREATE TABLE frequenzaLingua(" +
@@ -286,8 +287,8 @@ public class DBManager {
         esegui("INSERT INTO frequenzaLingua (lettera, lingua, frequenza) VALUES ('"+lettera+"', '"+lingua+"', "+frequenza+")", st);
     }
     
-    public static void aggiungiIpotesi(int idSessione, int idAlbero, int idIpotesi, String testo, int idPadre, String figli){
-        esegui("INSERT INTO ipotesi (idSessione, idAlbero, testoParzialmenteDecifrato, idPadre, figli) VALUES ("+idSessione+", "+idAlbero+", '"+testo+"', "+idPadre+", '"+figli+"')", st);
+    public static void aggiungiIpotesi(int idSessione, int idAlbero, int idIpotesi, String testo, int idPadre, String figli, String delta){
+        esegui("INSERT INTO ipotesi (idSessione, idAlbero, testoParzialmenteDecifrato, idPadre, figli, delta) VALUES ("+idSessione+", "+idAlbero+", '"+testo+"', "+idPadre+", '"+figli+"', '"+delta+"')", st);
     }
     
     public static Ipotesi getIpotesi(int idIpotesi, int idSessione, int idAlbero){
@@ -297,7 +298,7 @@ public class DBManager {
             if(rs.next()){
                 ArrayList<Integer> figli = getArrayFigli(rs.getString("figli"));
                 ip = new Ipotesi(idIpotesi, idSessione, idAlbero, rs.getString("testoParzialmenteDecifrato"), 
-                    rs.getInt("idPadre"), figli);
+                    rs.getInt("idPadre"), figli, rs.getString("delta"));
             }
         } catch (SQLException ex) {
             Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);

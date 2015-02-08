@@ -10,19 +10,21 @@ public class Ipotesi {
     private String testoParzialmenteDecifrato;
     private int idPadre;
     private ArrayList<Integer> figli;
+    private String delta;
     
-    public Ipotesi(int idSes, int idAlb, int idIp, String testo, int padre, ArrayList<Integer> listaFigli){
+    public Ipotesi(int idSes, int idAlb, int idIp, String testo, int padre, ArrayList<Integer> listaFigli, String delta){
         this.idSessione = idSes;
         this.idAlbero = idAlb;
         this.idIpotesi = idIp;
         this.testoParzialmenteDecifrato = testo;
         this.idPadre = padre;
         this.figli = listaFigli;
+        this.delta = delta;
     }
     
     public void aggiungiIpotesi(){
         String figli = this.figli.toString();
-        DBManager.aggiungiIpotesi(this.idSessione, this.idAlbero, this.idIpotesi, this.testoParzialmenteDecifrato, this.idPadre, figli);
+        DBManager.aggiungiIpotesi(this.idSessione, this.idAlbero, this.idIpotesi, this.testoParzialmenteDecifrato, this.idPadre, figli, this.delta);
     }
     
     public void rimuoviIpotesi(){
@@ -56,5 +58,9 @@ public class Ipotesi {
 
     public String getTestoParzialmenteDecifrato(){
         return this.testoParzialmenteDecifrato;
+    }
+
+    String getDelta() {
+        return this.delta;
     }
 }

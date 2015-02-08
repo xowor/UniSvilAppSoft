@@ -599,7 +599,7 @@ public class GestioneMessaggiJFrame extends javax.swing.JFrame {
         
         //this.sistemiJComboBox.removeAllItems();
         Proposta proposta;
-        proposte = CommunicationController.getProposteAccettate(destinatario, this.studente);
+        proposte = CommunicationController.getProposteAccettate(this.studente, destinatario);
         if (proposte.size() > 0){
             proposta = proposte.get(0);
             this.sistemaDiCifratura = proposta.getSistemaDiCifratura();

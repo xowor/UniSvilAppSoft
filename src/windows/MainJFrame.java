@@ -311,12 +311,14 @@ public class MainJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_studentiJComboBoxActionPerformed
 
     private void aggiungiIpotesi(Sostituzione i){
-        String nuovoTesto = this.sessione.sostituisci(this.ipotesiCorrente.getTestoParzialmenteDecifrato(), i.getSostituisci(), i.getSostituisciCon());
-        AlberoIpotesi.NodoIpotesi nodoIpotesi = (AlberoIpotesi.NodoIpotesi) this.ipotesiJTree.getLastSelectedPathComponent();
-        nodoIpotesi.aggiungiIpotesi(nuovoTesto);
-        
-        DefaultTreeModel model = (DefaultTreeModel)ipotesiJTree.getModel();
-        model.reload(); 
+        if (i != null){
+            String nuovoTesto = this.sessione.sostituisci(this.ipotesiCorrente.getTestoParzialmenteDecifrato(), i.getSostituisci(), i.getSostituisciCon());
+            AlberoIpotesi.NodoIpotesi nodoIpotesi = (AlberoIpotesi.NodoIpotesi) this.ipotesiJTree.getLastSelectedPathComponent();
+            nodoIpotesi.aggiungiIpotesi(nuovoTesto, i.getSostituisci() + " -> " + i.getSostituisciCon());
+
+            DefaultTreeModel model = (DefaultTreeModel)ipotesiJTree.getModel();
+            model.reload();
+        }
     }
     
     private void aggiungiIpotesiJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aggiungiIpotesiJButtonActionPerformed
@@ -419,7 +421,7 @@ public class MainJFrame extends javax.swing.JFrame {
         if (messaggio != null && messaggio.getTesto() != null){
             this.alfabetoCorrente = new Alfabeto(this.messaggioCorrente.getLocale());
             this.testoCifratoJTextPane.setText(messaggio.getTestoCifrato());
-            this.alberoIpotesi = new AlberoIpotesi(this.sessione.getId(), -1, messaggio.getTestoCifrato());
+            this.alberoIpotesi = new AlberoIpotesi(this.sessione.getId(), -1, messaggio.getTestoCifrato(), messaggio.getTitolo());
             //this.alberoIpotesi.
             DefaultTreeModel a = new DefaultTreeModel(this.alberoIpotesi.getRoot());
             this.ipotesiJTree.setModel(a);

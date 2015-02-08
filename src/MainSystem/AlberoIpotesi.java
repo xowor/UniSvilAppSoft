@@ -17,10 +17,10 @@ public final class AlberoIpotesi extends JTree{
                                     // utile per capire quale id assegnare al nodo successivo
     
       
-    public AlberoIpotesi(int idSes, int idAlb, String cifrato){
+    public AlberoIpotesi(int idSes, int idAlb, String cifrato, String delta){
         this.idSessione = idSes;
         this.idAlbero = idAlb;
-        this.root = new NodoIpotesi(this.idSessione, this.idAlbero, cifrato);
+        this.root = new NodoIpotesi(this.idSessione, this.idAlbero, cifrato, delta);
         idCounter = 0;
         
     }
@@ -58,10 +58,10 @@ public final class AlberoIpotesi extends JTree{
         /* Costruttori */
         
         // root
-        private NodoIpotesi(int idSes, int idAlb, String testo){
+        private NodoIpotesi(int idSes, int idAlb, String testo, String delta){
             this.parent = 0;
             this.parentNodo = null;
-            this.ipotesi = new Ipotesi(idSes, idAlb, 0, testo, 0, new ArrayList<>());
+            this.ipotesi = new Ipotesi(idSes, idAlb, 0, testo, 0, new ArrayList<>(), delta);
             this.listaFigli = new ArrayList<>();
         }
         
@@ -89,8 +89,8 @@ public final class AlberoIpotesi extends JTree{
         /* Aggiunge un nuovo figlio */
         
         
-        public void aggiungiIpotesi(String testo){
-            Ipotesi tmp = new Ipotesi(this.ipotesi.getSessione(), this.ipotesi.getAlbero(), idCounter, testo, this.ipotesi.getId(), new ArrayList<Integer>());
+        public void aggiungiIpotesi(String testo, String delta){
+            Ipotesi tmp = new Ipotesi(this.ipotesi.getSessione(), this.ipotesi.getAlbero(), idCounter, testo, this.ipotesi.getId(), new ArrayList<Integer>(), delta);
             tmp.aggiungiIpotesi();
             idCounter++;
             this.listaFigli.add(new NodoIpotesi(tmp, this));
@@ -162,7 +162,7 @@ public final class AlberoIpotesi extends JTree{
         
         @Override
         public String toString(){
-            return this.ipotesi.getTestoParzialmenteDecifrato();
+            return this.ipotesi.getDelta();
         }
         /* ****************************************************************** */
     }
