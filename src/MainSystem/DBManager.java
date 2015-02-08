@@ -364,7 +364,7 @@ public class DBManager {
         HashMap<Integer, String> map = new HashMap<Integer, String>();
         try {
             ResultSet rs = st.executeQuery("SELECT id, testoCifrato FROM messaggio WHERE idDestinatario<>"+studente.getId()+""
-                    + " AND idMittente<>"+studente.getId()+"");
+                    + " AND idMittente<>"+studente.getId()+" AND bozza='false'");
             while(rs.next()){
                 map.put(rs.getInt("id"), rs.getString("testoCifrato"));
             }
@@ -403,7 +403,8 @@ public class DBManager {
     }
      
     public void aggiungiStudente(String nome, String cognome, String login, String password, Statement st){
-        esegui("INSERT INTO studente (nome, cognome, login, password) VALUES ('"+nome+"', '"+cognome+"', '"+login+"', '"+password+"')", st);
+        esegui("INSERT INTO studente (nome, cognome, login, password) VALUES ('"+nome+"', '"+cognome+"', '"+login+"', "
+                + "'"+password+"')", st);
     }
     
     public static Studente getStudente(int id){
@@ -411,7 +412,8 @@ public class DBManager {
         try {
             ResultSet rs = st.executeQuery("SELECT * FROM studente WHERE id = id");
             if (rs.next()){
-                studente = new Studente(id, rs.getString("login"), rs.getString("password"), rs.getString("nome"), rs.getString("cognome"));
+                studente = new Studente(id, rs.getString("login"), rs.getString("password"), rs.getString("nome"), 
+                        rs.getString("cognome"));
             }
         } catch (SQLException ex) {
             Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
