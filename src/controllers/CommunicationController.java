@@ -192,5 +192,18 @@ public class CommunicationController {
         }
         return messaggi;
     }
+
+    public static Proposta getProposta(Studente mittente, Studente destinatario) {
+        Proposta proposta = null;
+        try {           
+            ResultSet rs = st.executeQuery("SELECT * FROM proposta WHERE idDestinatario = " + destinatario.getId() + " AND idMittente ="  + mittente.getId() + "");
+            if(rs.next()){
+                proposta = new Proposta(rs);
+            }   
+        } catch (SQLException ex) {
+            Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return proposta;
+    }
     
 }

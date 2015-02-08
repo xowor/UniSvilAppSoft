@@ -9,6 +9,7 @@ import elements.messaggi.Messaggio;
 import elements.Studente;
 import MainSystem.DBManager;
 import SistemaCifratura.CalcolatoreCesare;
+import SistemaCifratura.CalcolatorePseudo;
 import SistemaCifratura.Cifratore;
 import SistemaCifratura.Mappatura;
 import SistemaCifratura.SistemaDiCifratura;
@@ -104,6 +105,8 @@ public class GestioneMessaggiJFrame extends javax.swing.JFrame {
         leggiJTextArea = new javax.swing.JTextArea();
         leggiJButton = new javax.swing.JButton();
         leggiJTextField = new javax.swing.JTextField();
+        jScrollPane6 = new javax.swing.JScrollPane();
+        leggiDecifratoTextArea = new javax.swing.JTextArea();
         jPanel8 = new javax.swing.JPanel();
         analizzaButton = new javax.swing.JButton();
         jScrollPane4 = new javax.swing.JScrollPane();
@@ -378,6 +381,10 @@ public class GestioneMessaggiJFrame extends javax.swing.JFrame {
             }
         });
 
+        leggiDecifratoTextArea.setColumns(20);
+        leggiDecifratoTextArea.setRows(5);
+        jScrollPane6.setViewportView(leggiDecifratoTextArea);
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -391,7 +398,10 @@ public class GestioneMessaggiJFrame extends javax.swing.JFrame {
                     .addComponent(leggiJButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 555, Short.MAX_VALUE)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 274, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(leggiJTextField))
                 .addContainerGap())
         );
@@ -408,7 +418,8 @@ public class GestioneMessaggiJFrame extends javax.swing.JFrame {
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 8, Short.MAX_VALUE)
-                        .addComponent(leggiJButton)))
+                        .addComponent(leggiJButton))
+                    .addComponent(jScrollPane6))
                 .addContainerGap())
         );
 
@@ -479,7 +490,17 @@ public class GestioneMessaggiJFrame extends javax.swing.JFrame {
     private void inviaJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inviaJButtonActionPerformed
         Studente destinatario = (Studente) this.studentiJComboBox.getSelectedItem();
         String testo = this.inviaJTextPane.getText();
-        String testoCifrato = this.inviaJTextPane.getText(); //DA CAMBIARE
+        
+        Mappatura mappatura;
+        if (this.sistemaDiCifratura.getMetodo().equals("Cesare")){
+            CalcolatoreCesare calcolatoreCesare = new CalcolatoreCesare();
+            mappatura = calcolatoreCesare.calcola(this.sistemaDiCifratura.getChiave());
+        } else {
+            CalcolatorePseudo calcolatorePseudo = new CalcolatorePseudo();
+            mappatura = calcolatorePseudo.calcola(this.sistemaDiCifratura.getChiave());
+        }
+        
+        String testoCifrato = Cifratore.cifra(mappatura, testo);
         String lingua = this.linguaJTextField.getText();
         String titolo = this.titoloJTextField.getText();
         
@@ -539,6 +560,22 @@ public class GestioneMessaggiJFrame extends javax.swing.JFrame {
         this.messaggioRicevuto = (Messaggio) this.ricevutiJList.getSelectedValue();
         this.leggiJTextArea.setText(this.messaggioRicevuto.getTestoCifrato());
         this.leggiJTextField.setText(this.messaggioRicevuto.getTitolo());
+        
+        Studente mittente = Studente.getStudente(this.messaggioRicevuto.getMittente().getId());
+        Proposta p = CommunicationController.getProposta(mittente, studente);
+        SistemaDiCifratura s = p.getSistemaDiCifratura();
+        Mappatura mappatura;
+        if (s.getMetodo().equals("Cesare")){
+            CalcolatoreCesare calcolatoreCesare = new CalcolatoreCesare();
+            mappatura = calcolatoreCesare.calcola(s.getChiave());
+        } else {
+            CalcolatorePseudo calcolatorePseudo = new CalcolatorePseudo();
+            mappatura = calcolatorePseudo.calcola(s.getChiave());
+        }
+        
+        String testoCifrato = Cifratore.decifra(mappatura, this.messaggioRicevuto.getTestoCifrato());
+        
+        this.leggiDecifratoTextArea.setText(testoCifrato);
     }//GEN-LAST:event_leggiJButtonActionPerformed
 
     private void studentiJComboBoxItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_studentiJComboBoxItemStateChanged
@@ -676,7 +713,9 @@ public class GestioneMessaggiJFrame extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
+    private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JTabbedPane jTabbedPane1;
+    private javax.swing.JTextArea leggiDecifratoTextArea;
     private javax.swing.JButton leggiJButton;
     private javax.swing.JTextArea leggiJTextArea;
     private javax.swing.JTextField leggiJTextField;

@@ -394,7 +394,7 @@ public class MainJFrame extends javax.swing.JFrame {
     private void ipotesiJTreeValueChanged(javax.swing.event.TreeSelectionEvent evt) {//GEN-FIRST:event_ipotesiJTreeValueChanged
         AlberoIpotesi.NodoIpotesi nodoIpotesi = (AlberoIpotesi.NodoIpotesi) this.ipotesiJTree.getLastSelectedPathComponent();
         if (nodoIpotesi != null){
-            ipotesiJTextPane.setText(nodoIpotesi.toString());
+            ipotesiJTextPane.setText(nodoIpotesi.getIpotesi().getTestoParzialmenteDecifrato());
             this.ipotesiCorrente = nodoIpotesi.getIpotesi();
             setContentEnabled(true);   
         }
