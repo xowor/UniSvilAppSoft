@@ -7,12 +7,10 @@ public class Alfabeto {
     
     private final String locale;
     private ArrayList<String> lettere;
-    private Frequenze frequenze;
     
     public Alfabeto(String lingua){
         this.locale = lingua;
         this.lettere = DBManager.getAlfabeto(lingua);
-        this.frequenze = new Frequenze(lingua);
     }
     
     public String getLocale(){
@@ -21,9 +19,5 @@ public class Alfabeto {
     
     public ArrayList<String> getLettere(){
         return this.lettere;
-    }
-    
-    public Frequenze getFrequenze(){
-        return this.frequenze;
     }
 }
