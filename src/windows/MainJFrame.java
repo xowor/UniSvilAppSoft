@@ -421,9 +421,16 @@ public class MainJFrame extends javax.swing.JFrame {
         if (messaggio != null && messaggio.getTesto() != null){
             this.alfabetoCorrente = new Alfabeto(this.messaggioCorrente.getLocale());
             this.testoCifratoJTextPane.setText(messaggio.getTestoCifrato());
-            this.alberoIpotesi = new AlberoIpotesi(this.sessione.getId(), -1, messaggio.getTestoCifrato(), messaggio.getTitolo());
+            //int idAlberoTmp = DBManager.getIdAlbero(this.sessione.getId());
+            //this.alberoIpotesi = new AlberoIpotesi(this.sessione.getId(), idAlberoTmp, messaggio.getTestoCifrato(), messaggio.getTitolo());
+            this.alberoIpotesi = DBManager.getAlberoIpotesi(this.sessione.getId());
             //this.alberoIpotesi.
-            DefaultTreeModel a = new DefaultTreeModel(this.alberoIpotesi.getRoot());
+            DefaultTreeModel a;
+            AlberoIpotesi tmp;
+            if(this.alberoIpotesi == null){
+                this.alberoIpotesi = new AlberoIpotesi(this.sessione.getId(), DBManager.getLastIdAlbero(), messaggio.getTestoCifrato(), messaggio.getTestoCifrato());
+            }                
+            a = new DefaultTreeModel(this.alberoIpotesi.getRoot());
             this.ipotesiJTree.setModel(a);
             this.ipotesiJTree.setSelectionPath(new TreePath(this.alberoIpotesi.getRoot().getPath()));
             setContentEnabled(true);

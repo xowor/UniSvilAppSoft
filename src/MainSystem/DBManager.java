@@ -162,10 +162,10 @@ public class DBManager {
             "PRIMARY KEY(id))");
             
             st.execute( "CREATE TABLE alberoIpotesi(" +
-            "idAlbero INT NOT NULL GENERATED ALWAYS AS IDENTITY(START WITH 1, INCREMENT BY 1)," +
+            "idAlbero INT NOT NULL," +
             "idSessione INT NOT NULL," +
             "idIpotesiRoot INT NOT NULL," +
-            "PRIMARY KEY(idAlbero))");
+            "PRIMARY KEY(idAlbero, idSessione))");
             
             st.execute( "CREATE TABLE userInfo(" +
             "id INT NOT NULL GENERATED ALWAYS AS IDENTITY(START WITH 1, INCREMENT BY 1)," +
@@ -194,7 +194,7 @@ public class DBManager {
             "PRIMARY KEY(id))");
             
             st.execute( "CREATE TABLE ipotesi(" +
-            "id INT NOT NULL GENERATED ALWAYS AS IDENTITY(START WITH 1, INCREMENT BY 1)," +
+            "id INT NOT NULL," +
             "idSessione INT NOT NULL," +
             "idAlbero INT NOT NULL," +
             "idPadre INT NOT NULL," +
@@ -272,6 +272,7 @@ public class DBManager {
         aggiungiStudente("bob", "scrittore", "bob", "bob", st);
         aggiungiStudente("rob", "lettore", "rob", "rob", st);
         aggiungiStudente("admin", "admin", "admin", "admin", st);   
+        
     }
     
   
@@ -288,8 +289,8 @@ public class DBManager {
     }
     
     public static void aggiungiIpotesi(int idSessione, int idAlbero, int idIpotesi, String testo, int idPadre, String figli, String delta){
-        esegui("INSERT INTO ipotesi (idSessione, idAlbero, testoParzialmenteDecifrato, idPadre, figli, delta) VALUES "
-                + "("+idSessione+", "+idAlbero+", '"+testo+"', "+idPadre+", '"+figli+"', '"+delta+"')", st);
+        esegui("INSERT INTO ipotesi (id, idSessione, idAlbero, testoParzialmenteDecifrato, idPadre, figli, delta) VALUES "
+                + "("+idIpotesi+", "+idSessione+", "+idAlbero+", '"+testo+"', "+idPadre+", '"+figli+"', '"+delta+"')", st);
     }
     
     public static Ipotesi getIpotesi(int idIpotesi, int idSessione, int idAlbero){
@@ -482,8 +483,30 @@ public class DBManager {
     public static AlberoIpotesi getAlberoIpotesi(int idSessione){
         AlberoIpotesi albero = null;
         Ipotesi ip = getIpotesi(0, idSessione, getIdAlbero(idSessione));
-        albero = new AlberoIpotesi(ip);
+        if(ip != null)
+            albero = new AlberoIpotesi(ip);
         return albero;
+    }
+    
+    public static int getLastIdAlbero(){
+        int id = -1;
+        try {            
+            ResultSet rs = st.executeQuery("SELECT MAX(idAlbero) FROM alberoIpotesi");
+            if (rs.next()){
+                id = rs.getInt(1);   
+            }         
+        } catch (SQLException ex) {
+            Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return id;
+    }
+    
+    public static void creaAlberoIpotesi(int idAlbero, int idSessione, int idIpotesiRoot){
+        esegui("INSERT INTO alberoIpotesi(idAlbero, idSessione, idIpotesiRoot) VALUES("+idAlbero+", "+idSessione+", "+idIpotesiRoot+")", st);
+    }
+    
+    public static void creaIpotesiRadice(int idSessione, int idAlbero){
+        esegui("INSERT INTO ipotesi(idSessione, idAlbero) VALUES("+idSessione+", "+idAlbero+")", st);
     }
     
     public static int getPadre(int idIpotesi,  int idAlbero, int idSessione){

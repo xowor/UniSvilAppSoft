@@ -22,7 +22,7 @@ public final class AlberoIpotesi extends JTree{
         this.idAlbero = idAlb;
         this.root = new NodoIpotesi(this.idSessione, this.idAlbero, cifrato, delta);
         idCounter = 0;
-        
+        DBManager.creaAlberoIpotesi(idAlb, idSes, 0);
     }
     
     public AlberoIpotesi(Ipotesi root){
@@ -37,14 +37,14 @@ public final class AlberoIpotesi extends JTree{
     }
     
     public int contaNodi(NodoIpotesi nodo){
-            int nodi = 1;
-            if(!nodo.getFigli().isEmpty()){
-                for(NodoIpotesi tmp: nodo.getFigli()){
-                    nodi += contaNodi(tmp);
-                }
+        int nodi = 1;
+        if(!nodo.getFigli().isEmpty()){
+            for(NodoIpotesi tmp: nodo.getFigli()){
+                nodi += contaNodi(tmp);
             }
-            return  nodi;
         }
+        return  nodi;
+    }
     
     /* Classe interna */
     public class NodoIpotesi extends DefaultMutableTreeNode{
@@ -62,7 +62,10 @@ public final class AlberoIpotesi extends JTree{
             this.parent = 0;
             this.parentNodo = null;
             this.ipotesi = new Ipotesi(idSes, idAlb, 0, testo, 0, new ArrayList<>(), delta);
+            this.ipotesi.aggiungiIpotesi();
+            idCounter++;
             this.listaFigli = new ArrayList<>();
+            //DBManager.creaIpotesiRadice(idSes, idAlb);
         }
         
         // nuovo nodo ipotesi
@@ -87,13 +90,11 @@ public final class AlberoIpotesi extends JTree{
         /* Metodi interni */
         
         /* Aggiunge un nuovo figlio */
-        
-        
         public void aggiungiIpotesi(String testo, String delta){
+            idCounter++;
             Ipotesi tmp = new Ipotesi(this.ipotesi.getSessione(), this.ipotesi.getAlbero(), idCounter, testo, 
                     this.ipotesi.getId(), new ArrayList<Integer>(), delta);
-            tmp.aggiungiIpotesi();
-            idCounter++;
+            tmp.aggiungiIpotesi();            
             this.listaFigli.add(new NodoIpotesi(tmp, this));
         }
         

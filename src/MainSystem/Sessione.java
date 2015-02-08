@@ -36,7 +36,7 @@ public class Sessione {
         this.idSessione = idSes;
         this.idAlbero = idAlb;    
         this.alberoIpotesi = DBManager.getAlberoIpotesi(idSes);
-        //this.messaggioOriginaleCifrato = CommunicationController.visualizzaMessaggioInviato(idMessaggioCifrato);
+        this.messaggioOriginaleCifrato = CommunicationController.visualizzaMessaggioInviato(idMessaggioCifrato);
     }
     
     // pre: cosa sostituire
@@ -50,7 +50,7 @@ public class Sessione {
     }
     
     public void setAlberoIpotesi(String testo){
-        //this.alberoIpotesi = new AlberoIpotesi(this.idSessione, this.idAlbero, messaggioOriginaleCifrato.testoCifrato);
+        this.alberoIpotesi = new AlberoIpotesi(this.idSessione, this.idAlbero, messaggioOriginaleCifrato.getTestoCifrato(), testo);
     }
     
     public static boolean verificaSoluzione(Messaggio messaggio, String soluzioneSpia){
