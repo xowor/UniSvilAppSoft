@@ -288,13 +288,15 @@ public class DBManager {
     }
     
     public static void aggiungiIpotesi(int idSessione, int idAlbero, int idIpotesi, String testo, int idPadre, String figli, String delta){
-        esegui("INSERT INTO ipotesi (idSessione, idAlbero, testoParzialmenteDecifrato, idPadre, figli, delta) VALUES ("+idSessione+", "+idAlbero+", '"+testo+"', "+idPadre+", '"+figli+"', '"+delta+"')", st);
+        esegui("INSERT INTO ipotesi (idSessione, idAlbero, testoParzialmenteDecifrato, idPadre, figli, delta) VALUES "
+                + "("+idSessione+", "+idAlbero+", '"+testo+"', "+idPadre+", '"+figli+"', '"+delta+"')", st);
     }
     
     public static Ipotesi getIpotesi(int idIpotesi, int idSessione, int idAlbero){
         Ipotesi ip = null;
         try {
-            ResultSet rs = st.executeQuery("SELECT * FROM ipotesi WHERE id="+idIpotesi+" AND idSessione="+idSessione+" AND idAlbero="+idAlbero+"");
+            ResultSet rs = st.executeQuery("SELECT * FROM ipotesi WHERE id="+idIpotesi+" AND idSessione="+idSessione+" "
+                    + "AND idAlbero="+idAlbero+"");
             if(rs.next()){
                 ArrayList<Integer> figli = getArrayFigli(rs.getString("figli"));
                 ip = new Ipotesi(idIpotesi, idSessione, idAlbero, rs.getString("testoParzialmenteDecifrato"), 
