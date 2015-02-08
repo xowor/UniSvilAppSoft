@@ -457,68 +457,7 @@ public class DBManager {
         return al;
     }
     
-    public boolean getIfSessioneTerminate(int idStudente){
-        try {
-            ResultSet rs = st.executeQuery("SELECT COUNT(idIpotesi) FROM sessione WHERE idStudente = "+idStudente+" AND terminata = 'false'");
-            rs.next();
-            // se le sessioni non terminate (-> aperte) == 0
-            if(rs.getInt(1) == 0){
-                return true;
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return false;
-    }
-    
-    public int countVecchieSessioni(int idStudente){
-        int count = -1;
-        try {
-            ResultSet rs = st.executeQuery("SELECT COUNT(id) FROM sessione WHERE idStudente = "+idStudente+"");
-            rs.next();
-            count = rs.getInt(1);
-        } catch (SQLException ex) {
-            Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return count;
-    }
-    
-    public int getIdSessioneCorrente(int idStudente){
-        int id = -1;
-        try {
-            ResultSet rs = st.executeQuery("SELECT id FROM sessione WHERE idStudente = "+idStudente+" AND terminata = 'false'");
-            rs.next();
-            id = rs.getInt(1);
-        } catch (SQLException ex) {
-            Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return id;
-    }
-    
-    public Sessione getOrInsertSessione(int idStudente){
-        Sessione sessione = null;
-        // esiste una sessione iniziata?
-        // no
-        if(getIfSessioneTerminate(idStudente)){
-            // conteggio delle vecchie sessioni dello studente
-            int countVecchie = countVecchieSessioni(idStudente);
-            // inizializzare una sessione
-            esegui("INSERT INTO sessione (idStudente, idAlbero, terminata) VALUES ("+idStudente+", "+(countVecchie+1)+", 'false')", st);
-            // creare l'oggetto Sessione
-            sessione = new Sessione(getIdSessioneCorrente(idStudente), idStudente);
-        }else{  
-            try {
-                // si
-                // recuperare la sessione con la decifratura già iniziata (terminata = false)
-                ResultSet rs = st.executeQuery("SELECT * FROM sessione WHERE idStudente = "+idStudente+"");
-                rs.next();
-                sessione = new Sessione(rs.getInt("id"), idStudente, rs.getInt("idAlbero"), rs.getInt("idMessaggioOriginaleCifrato"));
-            } catch (SQLException ex) {
-                Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-        return sessione;
-    }
+
     
     public static int getIdAlbero(int idSessione){
         int id = -1;
