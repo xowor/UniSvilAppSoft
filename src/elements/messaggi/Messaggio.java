@@ -119,7 +119,7 @@ public class Messaggio implements MessaggioMittente, MessaggioDestinatario{
     
     @Override
     public String toString(){
-        return this.mittente.getNome() + ": " + this.titolo;
+        return this.getMittente().getNome() + " -> " + this.getDestinatario().getNome() + " : " + this.getTitolo();
     }
 
     @Override

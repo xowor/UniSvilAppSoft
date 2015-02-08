@@ -31,6 +31,7 @@ public class GestioneMessaggiJFrame extends javax.swing.JFrame {
     private ArrayList<Studente> studenti;
     private ArrayList<SistemaDiCifratura> sistemiDiCifratura;
     private SistemaDiCifratura sistemaDiCifratura;
+    private Messaggio messaggioIntercettato;
 
     /**
      * Creates new form GestioneMessaggiJFrame
@@ -99,7 +100,15 @@ public class GestioneMessaggiJFrame extends javax.swing.JFrame {
         riceviJButton = new javax.swing.JButton();
         jScrollPane3 = new javax.swing.JScrollPane();
         ricevutiJList = new javax.swing.JList();
+        jScrollPane5 = new javax.swing.JScrollPane();
+        leggiJTextArea = new javax.swing.JTextArea();
+        leggiJButton = new javax.swing.JButton();
+        leggiJTextField = new javax.swing.JTextField();
+        jPanel8 = new javax.swing.JPanel();
         analizzaButton = new javax.swing.JButton();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        intercettaJList = new javax.swing.JList();
+        riceviJButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Gestione Messaggi");
@@ -257,6 +266,11 @@ public class GestioneMessaggiJFrame extends javax.swing.JFrame {
 
         jPanel1.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
 
+        studentiJComboBox.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                studentiJComboBoxItemStateChanged(evt);
+            }
+        });
         studentiJComboBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 studentiJComboBoxActionPerformed(evt);
@@ -353,10 +367,14 @@ public class GestioneMessaggiJFrame extends javax.swing.JFrame {
         });
         jScrollPane3.setViewportView(ricevutiJList);
 
-        analizzaButton.setText("Analizza messaggio");
-        analizzaButton.addActionListener(new java.awt.event.ActionListener() {
+        leggiJTextArea.setColumns(20);
+        leggiJTextArea.setRows(5);
+        jScrollPane5.setViewportView(leggiJTextArea);
+
+        leggiJButton.setText("Leggi");
+        leggiJButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                analizzaButtonActionPerformed(evt);
+                leggiJButtonActionPerformed(evt);
             }
         });
 
@@ -365,31 +383,78 @@ public class GestioneMessaggiJFrame extends javax.swing.JFrame {
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                        .addGap(12, 12, 12)
-                        .addComponent(riceviJButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 830, Short.MAX_VALUE))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(analizzaButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(riceviJButton, javax.swing.GroupLayout.PREFERRED_SIZE, 269, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 269, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(leggiJButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 555, Short.MAX_VALUE)
+                    .addComponent(leggiJTextField))
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(riceviJButton)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(riceviJButton)
+                    .addComponent(leggiJTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 222, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(analizzaButton)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane5)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 8, Short.MAX_VALUE)
+                        .addComponent(leggiJButton)))
                 .addContainerGap())
         );
 
         jTabbedPane1.addTab("Ricevi messaggi", jPanel3);
+
+        analizzaButton.setText("Analizza messaggio");
+        analizzaButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                analizzaButtonActionPerformed(evt);
+            }
+        });
+
+        jScrollPane4.setViewportView(intercettaJList);
+
+        riceviJButton1.setText("Ricevi");
+        riceviJButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                riceviJButton1ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
+        jPanel8.setLayout(jPanel8Layout);
+        jPanel8Layout.setHorizontalGroup(
+            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel8Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 840, Short.MAX_VALUE)
+                    .addComponent(analizzaButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(riceviJButton1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
+        );
+        jPanel8Layout.setVerticalGroup(
+            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel8Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(riceviJButton1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(analizzaButton)
+                .addContainerGap())
+        );
+
+        jTabbedPane1.addTab("Intercetta", jPanel8);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -405,7 +470,7 @@ public class GestioneMessaggiJFrame extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 373, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addGap(0, 0, 0))
         );
 
         pack();
@@ -447,7 +512,7 @@ public class GestioneMessaggiJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_linguaJTextFieldActionPerformed
 
     private void analizzaButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_analizzaButtonActionPerformed
-        this.messaggioRicevuto = (Messaggio) this.ricevutiJList.getSelectedValue();
+        this.messaggioIntercettato = (Messaggio) this.intercettaJList.getSelectedValue();
         this.dispose();
     }//GEN-LAST:event_analizzaButtonActionPerformed
 
@@ -470,10 +535,24 @@ public class GestioneMessaggiJFrame extends javax.swing.JFrame {
         this.caricaProposte();
     }//GEN-LAST:event_proponiJButtonActionPerformed
 
+    private void leggiJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_leggiJButtonActionPerformed
+        this.messaggioRicevuto = (Messaggio) this.ricevutiJList.getSelectedValue();
+        this.leggiJTextArea.setText(this.messaggioRicevuto.getTestoCifrato());
+        this.leggiJTextField.setText(this.messaggioRicevuto.getTitolo());
+    }//GEN-LAST:event_leggiJButtonActionPerformed
+
+    private void studentiJComboBoxItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_studentiJComboBoxItemStateChanged
+        caricaProposte();
+    }//GEN-LAST:event_studentiJComboBoxItemStateChanged
+
+    private void riceviJButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_riceviJButton1ActionPerformed
+        riceviMessaggi();
+    }//GEN-LAST:event_riceviJButton1ActionPerformed
+
     
     
-    Messaggio getMessaggioRicevuto() {
-        return this.messaggioRicevuto;
+    Messaggio getMessaggioIntercettato() {
+        return this.messaggioIntercettato;
     }
     
     private void caricaStudenti(){
@@ -499,6 +578,14 @@ public class GestioneMessaggiJFrame extends javax.swing.JFrame {
             model.addElement(messaggio);
         }
         this.ricevutiJList.setModel(model);
+        
+                
+        messaggi = CommunicationController.getMessaggi();
+        model = new DefaultListModel();
+        for (Messaggio messaggio: messaggi){
+            model.addElement(messaggio);
+        }
+        this.intercettaJList.setModel(model);
     }
     
     private void caricaProposte(){
@@ -525,14 +612,6 @@ public class GestioneMessaggiJFrame extends javax.swing.JFrame {
             this.sistemaTextField.setText("Nessuna proposta accettata");
         }
         
-        
-        
-//        for (Proposta proposta : proposte){
-//            SistemaDiCifratura sistema = proposta.getSistemaDiCifratura();
-//            if (sistema != null){
-//                this.sistemiJComboBox.addItem(sistema);
-//            }
-//        }
     }
     
     
@@ -575,6 +654,7 @@ public class GestioneMessaggiJFrame extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton accettaPropostaJButton;
     private javax.swing.JButton analizzaButton;
+    private javax.swing.JList intercettaJList;
     private javax.swing.JButton inviaJButton;
     private javax.swing.JTextPane inviaJTextPane;
     private javax.swing.JLabel jLabel1;
@@ -590,16 +670,23 @@ public class GestioneMessaggiJFrame extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
+    private javax.swing.JPanel jPanel8;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JTabbedPane jTabbedPane1;
+    private javax.swing.JButton leggiJButton;
+    private javax.swing.JTextArea leggiJTextArea;
+    private javax.swing.JTextField leggiJTextField;
     private javax.swing.JTextField linguaJTextField;
     private javax.swing.JButton proponiJButton;
     private javax.swing.JComboBox propostaSistemiJComboBox;
     private javax.swing.JComboBox propostaStudentiJComboBox;
     private javax.swing.JList proposteJList;
     private javax.swing.JButton riceviJButton;
+    private javax.swing.JButton riceviJButton1;
     private javax.swing.JList ricevutiJList;
     private javax.swing.JTextField sistemaTextField;
     private javax.swing.JComboBox studentiJComboBox;

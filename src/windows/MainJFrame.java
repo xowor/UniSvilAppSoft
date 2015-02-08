@@ -372,7 +372,7 @@ public class MainJFrame extends javax.swing.JFrame {
         frame.addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosed(WindowEvent e) {
-                mostraMessaggio(frame.getMessaggioRicevuto());
+                mostraMessaggio(frame.getMessaggioIntercettato());
             }
         });
         frame.setVisible(true);
@@ -416,7 +416,7 @@ public class MainJFrame extends javax.swing.JFrame {
     
     public void mostraMessaggio(Messaggio messaggio){
         this.messaggioCorrente = messaggio;
-        if (messaggio.getTesto() != null){
+        if (messaggio != null && messaggio.getTesto() != null){
             this.alfabetoCorrente = new Alfabeto(this.messaggioCorrente.getLocale());
             this.testoCifratoJTextPane.setText(messaggio.getTestoCifrato());
             this.alberoIpotesi = new AlberoIpotesi(this.sessione.getId(), -1, messaggio.getTestoCifrato());

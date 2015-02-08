@@ -104,7 +104,6 @@ public class CommunicationController {
         ArrayList<Messaggio> messaggi = new ArrayList();
         try {           
             ResultSet rs = st.executeQuery("SELECT * FROM messaggio WHERE idDestinatario = " + idDestinatario + "");
-            rs.next();
             while(rs.next()){
                 UserInfo mittente = UserInfo.getUserInfo(rs.getInt("idMittente"));
                 UserInfo destinatario = UserInfo.getUserInfo(rs.getInt("idDestinatario"));
@@ -178,6 +177,20 @@ public class CommunicationController {
         esegui("UPDATE sistemadicifratura SET accettazione='rifiutato'"
                 + " WHERE idStudente="+idMittente+" AND idDestinatario="+idDestinatario+""
                 + " AND chiave='"+key+"' AND metodo='"+metodo+"'", st);
+    }
+
+    public static ArrayList<Messaggio> getMessaggi() {
+        ArrayList<Messaggio> messaggi = new ArrayList();
+        try {           
+            ResultSet rs = st.executeQuery("SELECT * FROM messaggio");
+            while(rs.next()){
+                Messaggio messaggio = new Messaggio(rs);  
+                messaggi.add(messaggio);
+            }   
+        } catch (SQLException ex) {
+            Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return messaggi;
     }
     
 }
