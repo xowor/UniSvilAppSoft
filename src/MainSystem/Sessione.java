@@ -51,6 +51,7 @@ public class Sessione {
     
     public void setAlberoIpotesi(String testo){
         this.alberoIpotesi = new AlberoIpotesi(this.idSessione, this.idAlbero, messaggioOriginaleCifrato.getTestoCifrato(), testo);
+    
     }
     
     public static boolean verificaSoluzione(Messaggio messaggio, String soluzioneSpia){
@@ -75,8 +76,8 @@ public class Sessione {
     
     public static boolean getIfSessioneTerminate(Studente studente){
         try {
-            ResultSet rs = DBManager.execute("SELECT COUNT(idIpotesi) FROM sessione WHERE idStudente = "
-                    + "" + studente.getId() + " AND terminata = 'false'");
+            ResultSet rs = DBManager.execute("SELECT COUNT(id) FROM sessione WHERE idStudente = "
+                    + studente.getId() + " AND terminata = 'false'");
             rs.next();
             // se le sessioni non terminate (-> aperte) == 0
             if(rs.getInt(1) == 0){

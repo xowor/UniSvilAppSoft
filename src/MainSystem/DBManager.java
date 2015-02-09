@@ -527,6 +527,7 @@ public class DBManager {
     
     public static void creaAlberoIpotesi(int idAlbero, int idSessione, int idIpotesiRoot){
         esegui("INSERT INTO alberoIpotesi(idAlbero, idSessione, idIpotesiRoot) VALUES("+idAlbero+", "+idSessione+", "+idIpotesiRoot+")", st);
+        esegui("UPDATE sessione SET id ="+ idSessione+", idAlbero = " +idAlbero +" , idIpotesi = " + 0, st);
     }
     
     public static void creaIpotesiRadice(int idSessione, int idAlbero){
