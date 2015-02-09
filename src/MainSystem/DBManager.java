@@ -291,7 +291,21 @@ public class DBManager {
     public static void aggiungiIpotesi(int idSessione, int idAlbero, int idIpotesi, String testo, int idPadre, String figli, String delta){
         esegui("INSERT INTO ipotesi (id, idSessione, idAlbero, testoParzialmenteDecifrato, idPadre, figli, delta) VALUES "
                 + "("+idIpotesi+", "+idSessione+", "+idAlbero+", '"+testo+"', "+idPadre+", '"+figli+"', '"+delta+"')", st);
-    }
+        ArrayList<Integer> newFigli = getArrayFigli(figli);
+        if(idIpotesi != 0){
+            String strFigli = getFigli(idPadre, idAlbero, idSessione);
+            newFigli = new ArrayList<>();
+            // figli vecchi
+            ArrayList<Integer> figliTmp = getArrayFigli(strFigli);            
+            for(int i = 0; i < figliTmp.size(); i++)
+                newFigli.add(figliTmp.get(i));
+            // figli nuovi
+            newFigli.add(idIpotesi);
+        }
+        String figliFinali = getStringFromArray(newFigli);
+        aggiornaFigli(idPadre, idAlbero, idSessione, figliFinali);
+    }   
+    
     
     public static Ipotesi getIpotesi(int idIpotesi, int idSessione, int idAlbero){
         Ipotesi ip = null;
@@ -352,11 +366,21 @@ public class DBManager {
 //    }
     
     public static ArrayList<Integer> getArrayFigli(String figli){
-        ArrayList<Integer> arrayFigli = new ArrayList<>();
-        String[] str = figli.split(",");
-        for(int i = 0; i < str.length; i++){
-            int val = Integer.parseInt(str[i]);
-            arrayFigli.add(val);
+         ArrayList<Integer> arrayFigli = new ArrayList<>();
+        if(!figli.equals("[]")){
+            String tmp = figli.substring(1, figli.length()-2);    
+            if(figli.contains(",")){
+                String[] str = tmp.split(",");
+                for(int i = 0; i < str.length; i++){
+                    String stringa = str[i];
+                    int val = Integer.parseInt(stringa);
+                    arrayFigli.add(val);
+                }    
+            }else{
+                int val = Integer.parseInt(tmp);
+                arrayFigli.add(val);
+            }
+            
         }
         return arrayFigli;
     }
@@ -550,8 +574,18 @@ public class DBManager {
     
     public static String getStringFromArray(ArrayList<Integer> array){
         String stringa = "";
-        for(int i = 0; i < array.size(); i++){
-            stringa = stringa + array.get(i)+",";
+        if(array.size() == 0){
+            stringa = "[]";
+        }else if(array.size() == 1){
+            stringa = "["+array.get(0)+"]";
+        }else{
+            stringa+="[";
+            for(int i = 0; i < array.size(); i++){
+                stringa = stringa + array.get(i);
+                if(i != array.size()-1)
+                    stringa+=",";
+            }
+            stringa+="]";
         }
         return stringa;
     }
@@ -560,6 +594,8 @@ public class DBManager {
         esegui("UPDATE ipotesi SET figli = '"+figli+"' WHERE id = "+id+" AND "
                 + "idAlbero="+idAlbero+" AND idSessione="+idSessione+"", st);
     }
+    
+    
     
     public static void rimuoviIpotesi(int idSessione, int idAlbero, int id){
         // trovare il padre della tripletta
