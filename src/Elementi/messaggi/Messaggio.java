@@ -79,7 +79,7 @@ public class Messaggio implements MessaggioMittente, MessaggioDestinatario{
         this.letto = letto ;
     }
 
-    public static Messaggio load(String id){
+    public static Messaggio load(int id){
         return null;
     }
 

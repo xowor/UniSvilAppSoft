@@ -308,7 +308,10 @@ public class DBManager {
         try {
             ResultSet rs = st.executeQuery("SELECT idMessaggioOriginaleCifrato FROM sessione WHERE id="+idSessione);
             if(rs.next()){
-                mex = Messaggio.load(rs.getInt(1)+"");
+                int idMex = rs.getInt(1);
+                rs = st.executeQuery("SELECT * FROM messaggio WHERE id="+idMex);
+                rs.next();
+                mex = new Messaggio(rs);
             }
         } catch (SQLException ex) {
             Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
