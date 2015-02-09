@@ -122,20 +122,18 @@ public class Sessione {
         // esiste una sessione iniziata?
         // no
         if(getIfSessioneTerminate(studente)){
-            // conteggio delle vecchie sessioni dello studente
-            int countVecchie = countVecchieSessioni( studente);
             // inizializzare una sessione
-            esegui("INSERT INTO sessione (idStudente, idAlbero, terminata) VALUES (" + studente.getId() + ", "
-                    + ""+(countVecchie+1)+", 'false')", st);
+            esegui("INSERT INTO sessione (idStudente, terminata) VALUES (" + studente.getId() + ", 'false')", st);
             // creare l'oggetto Sessione
             sessione = new Sessione(studente, getIdSessioneCorrente(studente));
         }else{  
             try {
                 // si
                 // recuperare la sessione con la decifratura già iniziata (terminata = false)
-                ResultSet rs = st.executeQuery("SELECT * FROM sessione WHERE idStudente = " + studente.getId() + "");
-                rs.next();
+                ResultSet rs = st.executeQuery("SELECT * FROM sessione WHERE idStudente = " + studente.getId() + " AND terminata = false");
+                if(rs.next()){
                 sessione = new Sessione(rs.getInt("id"), studente, rs.getInt("idAlbero"), rs.getInt("idMessaggioOriginaleCifrato"));
+                }
             } catch (SQLException ex) {
                 Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
             }

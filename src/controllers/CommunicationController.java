@@ -128,11 +128,13 @@ public class CommunicationController {
         Messaggio messaggio = null;
         try {            
             ResultSet rs = st.executeQuery("SELECT * FROM messaggio WHERE id = "+idMessaggio+" AND bozza='false'");
-            rs.next();
-            UserInfo mittente = UserInfo.getUserInfo(rs.getInt("idMittene"));
+            if(rs.next()){
+            
+            UserInfo mittente = UserInfo.getUserInfo(rs.getInt("idMittente"));
             UserInfo destinatario = UserInfo.getUserInfo(rs.getInt("idDestinatario"));
             messaggio = new Messaggio(rs.getString("titolo"), rs.getString("testo"), rs.getString("testoCifrato"),
                         mittente, destinatario, rs.getString("lingua"));            
+            }
         } catch (SQLException ex) {
             Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
         }

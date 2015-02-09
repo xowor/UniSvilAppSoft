@@ -142,7 +142,7 @@ public class DBManager {
             st.execute( "CREATE TABLE sessione(" +
             "id INT NOT NULL GENERATED ALWAYS AS IDENTITY(START WITH 1, INCREMENT BY 1)," +
             "idStudente INT NOT NULL," +
-            "idAlbero INT NOT NULL," +
+            "idAlbero INT," +
                     // idIpotesi == idIpotesi dell'ipotesi raggiunta nell'alberoIpotesi
             "idIpotesi INT," +
             "idMessaggioOriginaleCifrato INT," +
