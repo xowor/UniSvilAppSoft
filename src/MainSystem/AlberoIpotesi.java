@@ -27,7 +27,7 @@ public final class AlberoIpotesi extends JTree{
     public AlberoIpotesi(Ipotesi root){
         this.idSessione = root.getSessione();
         this.idAlbero = root.getAlbero();
-        this.root = new NodoIpotesi(root, null);
+        this.root = new NodoIpotesi(root);
         idCounter = contaNodi(this.root);
     }
     
@@ -66,6 +66,15 @@ public final class AlberoIpotesi extends JTree{
             this.listaFigli = new ArrayList<>();
         }
         
+        // root
+        private NodoIpotesi(Ipotesi ip){
+            this.parent = 0;
+            this.parentNodo = null;
+            this.ipotesi = ip;
+            idCounter++;
+            this.listaFigli = new ArrayList<>();
+        }
+        
         // nuovo nodo ipotesi
         private NodoIpotesi(Ipotesi ip, NodoIpotesi parent){
             this.parent = ip.getParent();
@@ -81,7 +90,6 @@ public final class AlberoIpotesi extends JTree{
                     this.listaFigli.add(new NodoIpotesi(temp, this));
                 }
             }
-            
         }
         
         /* ****************************************************************** */
