@@ -6,16 +6,15 @@ public class Cifratore {
     public static String cifra(Mappatura map, String testo){
         //genera una stringa modificabile
         StringBuilder msx = new StringBuilder(testo);
+        //la 'a' minuscola corrisponde al carattere ASCII n.97
         // cicla sul testo
         for(int i = 0; i < testo.length(); i++){
-            //la 'a' minuscola corrisponde al carattere ASCII n.97
-            int charNumber = 97;
+            int charNumber = testo.charAt(i);
             // gestione punteggiatura
-            if(charNumber == ',' || charNumber == ';' || charNumber == '.' || charNumber == ':' || charNumber == '-' || charNumber == '_' || 
-                    charNumber == '?' || charNumber == '\'' || charNumber == '=' || charNumber == ')' || charNumber == '(' || 
-                    charNumber == '"' || charNumber == '!')
+            if(charNumber == ' ' || charNumber == ',' || charNumber == ';' || charNumber == '.' || charNumber == ':' || charNumber == '-' || charNumber == '_' || 
+                charNumber == '?' || charNumber == '\'' || charNumber == '=' || charNumber == ')' || charNumber == '(' || 
+                charNumber == '"' || charNumber == '!')
                 continue;
-            charNumber = testo.charAt(i);
             // caratteri speciali ASCII
             if(charNumber==32 || charNumber==39){
                 msx.setCharAt(i, ' ');
@@ -31,15 +30,14 @@ public class Cifratore {
     public static String decifra(Mappatura map, String testo){
         //genera una stringa modificabile
         StringBuilder msx = new StringBuilder(testo);
+        //la 'a' minuscola corrisponde al carattere ASCII n.97
         // cicla sul testo
         for(int i = 0; i < testo.length(); i++){
-            //la 'a' minuscola corrisponde al carattere ASCII n.97
-            int charNumber = 97;
-            charNumber = testo.charAt(i);
+            int charNumber = testo.charAt(i);
             // gestione punteggiatura
-            if(charNumber == ',' || charNumber == ';' || charNumber == '.' || charNumber == ':' || charNumber == '-' || charNumber == '_' || 
-                    charNumber == '?' || charNumber == '\'' || charNumber == '=' || charNumber == ')' || charNumber == '(' || 
-                    charNumber == '"' || charNumber == '!')
+            if(charNumber == ' ' || charNumber == ',' || charNumber == ';' || charNumber == '.' || charNumber == ':' || charNumber == '-' || charNumber == '_' || 
+                charNumber == '?' || charNumber == '\'' || charNumber == '=' || charNumber == ')' || charNumber == '(' || 
+                charNumber == '"' || charNumber == '!')
                 continue;
             // caratteri speciali ASCII
             if(charNumber==32 || charNumber==39){
