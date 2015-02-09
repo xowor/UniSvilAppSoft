@@ -313,12 +313,14 @@ public class DBManager {
     public static Ipotesi getIpotesi(int idIpotesi, int idSessione){
         Ipotesi ip = null;
         try {
-            ResultSet rs = st.executeQuery("SELECT * FROM ipotesi WHERE id="+idIpotesi+" AND idSessione="+idSessione+" "
-                    + "AND idAlbero="+getIdAlbero(idSessione)+"");
-            if(rs.next()){
-                ArrayList<Integer> figli = getArrayFigli(rs.getString("figli"));
-                ip = new Ipotesi(idIpotesi, idSessione, getIdAlbero(idSessione), rs.getString("testoParzialmenteDecifrato"), 
-                    rs.getInt("idPadre"), figli, rs.getString("delta"));
+            if(getIdAlbero(idSessione)>0){
+                ResultSet rs = st.executeQuery("SELECT * FROM ipotesi WHERE id="+idIpotesi+" AND idSessione="+idSessione+" "
+                        + "AND idAlbero="+getIdAlbero(idSessione)+"");
+                if(rs.next()){
+                    ArrayList<Integer> figli = getArrayFigli(rs.getString("figli"));
+                    ip = new Ipotesi(idIpotesi, idSessione, getIdAlbero(idSessione), rs.getString("testoParzialmenteDecifrato"), 
+                        rs.getInt("idPadre"), figli, rs.getString("delta"));
+                }
             }
         } catch (SQLException ex) {
             Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
@@ -481,13 +483,15 @@ public class DBManager {
     
     public static int getIdAlbero(int idSessione){
         int id = -1;
-        try {            
-            ResultSet rs = st.executeQuery("SELECT COUNT(idAlbero) FROM alberoIpotesi WHERE idSessione = "+idSessione);
-            if (rs.getInt(1)>0){ 
+        try {
+            ResultSet rs = st.executeQuery("SELECT COUNT(*) FROM alberoIpotesi WHERE idSessione = "+idSessione);
+            rs.next();
+            int tmp = rs.getInt(1);
+            if (tmp>0){
                 rs = st.executeQuery("SELECT idAlbero FROM sessione WHERE id = "+idSessione);
-                if (rs.next()){
+                rs.next();
                     id = rs.getInt("idAlbero");
-                }
+                
             }
         } catch (SQLException ex) {
             Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
