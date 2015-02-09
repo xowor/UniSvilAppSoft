@@ -7,6 +7,7 @@ import MainSystem.AlberoIpotesi;
 import MainSystem.Ipotesi;
 import MainSystem.Sessione;
 import MainSystem.Sostituzione;
+import controllers.CommunicationController;
 import java.awt.event.ItemEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
@@ -375,6 +376,21 @@ public class MainJFrame extends javax.swing.JFrame {
             
             this.sessione = Sessione.getOrInsertSessione(this.studente);
             
+            //int idAlberoTmp = DBManager.getIdAlbero(this.sessione.getId());
+            //this.alberoIpotesi = new AlberoIpotesi(this.sessione.getId(), idAlberoTmp, messaggio.getTestoCifrato(), messaggio.getTitolo());
+            this.alberoIpotesi = DBManager.getAlberoIpotesi(sessione.getId());
+            
+            this.alfabetoCorrente = new Alfabeto(this.messaggioCorrente.getLocale());
+            //this.testoCifratoJTextPane.setText(messaggio.getTestoCifrato());
+            DefaultTreeModel a;
+            AlberoIpotesi tmp;
+            if(this.alberoIpotesi == null){
+                //this.alberoIpotesi = new AlberoIpotesi(this.sessione.getId(), messaggio.getTestoCifrato(), messaggio.getTestoCifrato());
+            }                
+            a = new DefaultTreeModel(this.alberoIpotesi.getRoot());
+            this.ipotesiJTree.setModel(a);
+            this.ipotesiJTree.setSelectionPath(new TreePath(this.alberoIpotesi.getRoot().getPath()));
+            setContentEnabled(true);
             
             //System.out.println(this.sessione.getId());
         }
