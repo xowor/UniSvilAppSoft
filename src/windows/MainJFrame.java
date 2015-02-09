@@ -438,9 +438,7 @@ public class MainJFrame extends javax.swing.JFrame {
         this.studenti = Studente.getStudenti();
         for (Studente studente : this.studenti){
             this.studentiJComboBox.addItem(studente);
-        }
-        
-        
+        }        
     }
     
     public void mostraMessaggio(Messaggio messaggio){

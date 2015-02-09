@@ -317,6 +317,7 @@ public class DBManager {
     }
     
     public static void aggiungiIpotesi(int idSessione,  int idIpotesi, String testo, int idPadre, String figli, String delta){
+        
         if(getIdAlbero(idSessione)<0){
             creaAlberoIpotesi(idSessione);
             HashMap<Integer, String> mappa = recuperaMessaggiCifrati(getStudente(idSessione));
