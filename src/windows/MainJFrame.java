@@ -431,6 +431,7 @@ public class MainJFrame extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Errore durante la connessione al database");
             this.dispose();
         }
+        
     }
     
     public void mostraStudenti(){
@@ -438,7 +439,8 @@ public class MainJFrame extends javax.swing.JFrame {
         for (Studente studente : this.studenti){
             this.studentiJComboBox.addItem(studente);
         }
-                
+        
+        
     }
     
     public void mostraMessaggio(Messaggio messaggio){
@@ -517,6 +519,7 @@ public class MainJFrame extends javax.swing.JFrame {
                 
                 frame.inizializza();
                 frame.mostraStudenti();
+                
                 
                 // TEMP
                 //Studente studente = new Studente("mario", "rossi");
