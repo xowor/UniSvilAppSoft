@@ -303,7 +303,21 @@ public class DBManager {
         return stud;
     }
     
+    public static Messaggio getMessaggio(int idSessione){
+        Messaggio mex = null;
+        try {
+            ResultSet rs = st.executeQuery("SELECT idMessaggioOriginaleCifrato FROM sessione WHERE id="+idSessione);
+            if(rs.next()){
+                mex = Messaggio.load(rs.getInt(1)+"");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return mex;
+    }
+    
     public static void aggiungiIpotesi(int idSessione,  int idIpotesi, String testo, int idPadre, String figli, String delta){
+        
         if(getIdAlbero(idSessione)<0){
             creaAlberoIpotesi(idSessione);
             HashMap<Integer, String> mappa = recuperaMessaggiCifrati(getStudente(idSessione));
