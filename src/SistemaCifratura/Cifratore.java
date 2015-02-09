@@ -7,7 +7,6 @@ public class Cifratore {
         //genera una stringa modificabile
         StringBuilder msx = new StringBuilder(testo);
         //la 'a' minuscola corrisponde al carattere ASCII n.97
-        int startNumber = 97;
         // cicla sul testo
         for(int i = 0; i < testo.length(); i++){
             int charNumber = testo.charAt(i);
@@ -32,7 +31,6 @@ public class Cifratore {
         //genera una stringa modificabile
         StringBuilder msx = new StringBuilder(testo);
         //la 'a' minuscola corrisponde al carattere ASCII n.97
-        int startNumber = 97;
         // cicla sul testo
         for(int i = 0; i < testo.length(); i++){
             int charNumber = testo.charAt(i);
