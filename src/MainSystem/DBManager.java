@@ -162,7 +162,7 @@ public class DBManager {
             "PRIMARY KEY(id))");
             
             st.execute( "CREATE TABLE alberoIpotesi(" +
-            "idAlbero INT NOT NULL," +
+            "idAlbero INT NOT NULL GENERATED ALWAYS AS IDENTITY(START WITH 1, INCREMENT BY 1)," +
             "idSessione INT NOT NULL," +
             "idIpotesiRoot INT NOT NULL," +
             "PRIMARY KEY(idAlbero, idSessione))");
@@ -288,12 +288,12 @@ public class DBManager {
         esegui("INSERT INTO frequenzaLingua (lettera, lingua, frequenza) VALUES ('"+lettera+"', '"+lingua+"', "+frequenza+")", st);
     }
     
-    public static void aggiungiIpotesi(int idSessione, int idAlbero, int idIpotesi, String testo, int idPadre, String figli, String delta){
+    public static void aggiungiIpotesi(int idSessione,  int idIpotesi, String testo, int idPadre, String figli, String delta){
         esegui("INSERT INTO ipotesi (id, idSessione, idAlbero, testoParzialmenteDecifrato, idPadre, figli, delta) VALUES "
-                + "("+idIpotesi+", "+idSessione+", "+idAlbero+", '"+testo+"', "+idPadre+", '"+figli+"', '"+delta+"')", st);
+                + "("+idIpotesi+", "+idSessione+", "+ getIdAlbero(idSessione)+", '"+testo+"', "+idPadre+", '"+figli+"', '"+delta+"')", st);
         ArrayList<Integer> newFigli = getArrayFigli(figli);
         if(idIpotesi != 0){
-            String strFigli = getFigli(idPadre, idAlbero, idSessione);
+            String strFigli = getFigli(idPadre, getIdAlbero(idSessione), idSessione);
             newFigli = new ArrayList<>();
             // figli vecchi
             ArrayList<Integer> figliTmp = getArrayFigli(strFigli);            
@@ -303,7 +303,7 @@ public class DBManager {
             newFigli.add(idIpotesi);
         }
         String figliFinali = getStringFromArray(newFigli);
-        aggiornaFigli(idPadre, idAlbero, idSessione, figliFinali);
+        aggiornaFigli(idPadre, getIdAlbero(idSessione), idSessione, figliFinali);
     }   
     
     
@@ -511,7 +511,7 @@ public class DBManager {
             albero = new AlberoIpotesi(ip);
         return albero;
     }
-    
+    /*
     public static int getLastIdAlbero(){
         int id = -1;
         try {            
@@ -524,15 +524,23 @@ public class DBManager {
         }
         return id;
     }
-    
-    public static void creaAlberoIpotesi(int idAlbero, int idSessione, int idIpotesiRoot){
-        esegui("INSERT INTO alberoIpotesi(idAlbero, idSessione, idIpotesiRoot) VALUES("+idAlbero+", "+idSessione+", "+idIpotesiRoot+")", st);
-        esegui("UPDATE sessione SET idAlbero = "+idAlbero +" , idIpotesi = " + 0 +" WHERE id = "+ idSessione, st);
+    */
+    public static void creaAlberoIpotesi(int idSessione, int idIpotesiRoot){
+        if(getIdAlbero(idSessione)<0){
+            esegui("INSERT INTO alberoIpotesi(idSessione, idIpotesiRoot) VALUES("+idSessione+", "+idIpotesiRoot+")", st);
+            int id = -1;
+            try {
+                ResultSet rs = st.executeQuery("SELECT idAlbero FROM alberoIpotesi WHERE idSessione = "+idSessione);
+                if (rs.next()){
+                    id = rs.getInt(1);   
+                }         
+            } catch (SQLException ex) {
+                Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            esegui("UPDATE sessione SET idAlbero = "+id+", idIpotesi = " + 0 +" WHERE id = "+ idSessione, st);
+        }
     }
     
-    public static void creaIpotesiRadice(int idSessione, int idAlbero){
-        esegui("INSERT INTO ipotesi(idSessione, idAlbero) VALUES("+idSessione+", "+idAlbero+")", st);
-    }
     
     public static int getPadre(int idIpotesi,  int idAlbero, int idSessione){
         int id = -1;

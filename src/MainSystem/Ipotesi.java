@@ -24,7 +24,7 @@ public class Ipotesi {
     
     public void aggiungiIpotesi(){
         String figli = this.figli.toString();
-        DBManager.aggiungiIpotesi(this.idSessione, this.idAlbero, this.idIpotesi, this.testoParzialmenteDecifrato, 
+        DBManager.aggiungiIpotesi(this.idSessione, this.idIpotesi, this.testoParzialmenteDecifrato, 
                 this.idPadre, figli, this.delta);
     }
     

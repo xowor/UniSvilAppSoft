@@ -22,7 +22,7 @@ public final class AlberoIpotesi extends JTree{
         this.idAlbero = idAlb;
         this.root = new NodoIpotesi(this.idSessione, this.idAlbero, cifrato, delta);
         idCounter = 0;
-        DBManager.creaAlberoIpotesi(idAlb, idSes, 0);
+        DBManager.creaAlberoIpotesi(idSes, 0);
     }
     
     public AlberoIpotesi(Ipotesi root){
@@ -65,7 +65,6 @@ public final class AlberoIpotesi extends JTree{
             this.ipotesi.aggiungiIpotesi();
             idCounter++;
             this.listaFigli = new ArrayList<>();
-            //DBManager.creaIpotesiRadice(idSes, idAlb);
         }
         
         // nuovo nodo ipotesi
