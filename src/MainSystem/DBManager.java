@@ -317,9 +317,14 @@ public class DBManager {
                 ResultSet rs = st.executeQuery("SELECT * FROM ipotesi WHERE id="+idIpotesi+" AND idSessione="+idSessione+" "
                         + "AND idAlbero="+getIdAlbero(idSessione)+"");
                 if(rs.next()){
-                    ArrayList<Integer> figli = getArrayFigli(rs.getString("figli"));
-                    ip = new Ipotesi(idIpotesi, idSessione, getIdAlbero(idSessione), rs.getString("testoParzialmenteDecifrato"), 
-                        rs.getInt("idPadre"), figli, rs.getString("delta"));
+                    String stringaFigli = rs.getString("figli");
+                    String stringaTesto = rs.getString("testoParzialmenteDecifrato");
+                    int padre = rs.getInt("idPadre");
+                    String stringaDelta = rs.getString("delta");
+                    
+                    ArrayList<Integer> figli = getArrayFigli(stringaFigli);
+                    ip = new Ipotesi(idIpotesi, idSessione, getIdAlbero(idSessione), stringaTesto, 
+                        padre, figli, stringaDelta);
                 }
             }
         } catch (SQLException ex) {
