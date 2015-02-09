@@ -1,10 +1,8 @@
 package MainSystem;
-import Elementi.Frequenze;
 import Elementi.messaggi.Messaggio;
 import Elementi.Studente;
 import SistemaCifratura.SistemaDiCifratura;
 import Elementi.utenti.UserInfo;
-import javax.management.Query;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -98,7 +96,6 @@ public class DBManager {
     * Esegue una execute SQL ritornando un ResultSet;
     *
     * @param sql indica il testo di una execute SQL;
-    * @param st indica lo Statement creato per l'interazione con il database;
     * @return il resultSet della execute eseguIT_it;
     */
     public static ResultSet execute(String sql) {
@@ -308,7 +305,10 @@ public class DBManager {
         try {
             ResultSet rs = st.executeQuery("SELECT idMessaggioOriginaleCifrato FROM sessione WHERE id="+idSessione);
             if(rs.next()){
-                mex = Messaggio.load(rs.getInt(1)+"");
+                int idMex = rs.getInt(1);
+                rs = st.executeQuery("SELECT * FROM messaggio WHERE id="+idMex);
+                rs.next();
+                mex = new Messaggio(rs);
             }
         } catch (SQLException ex) {
             Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
