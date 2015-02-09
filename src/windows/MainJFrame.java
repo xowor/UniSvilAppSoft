@@ -379,18 +379,20 @@ public class MainJFrame extends javax.swing.JFrame {
             //int idAlberoTmp = DBManager.getIdAlbero(this.sessione.getId());
             //this.alberoIpotesi = new AlberoIpotesi(this.sessione.getId(), idAlberoTmp, messaggio.getTestoCifrato(), messaggio.getTitolo());
             this.alberoIpotesi = DBManager.getAlberoIpotesi(sessione.getId());
-            
-            this.alfabetoCorrente = new Alfabeto(this.messaggioCorrente.getLocale());
-            //this.testoCifratoJTextPane.setText(messaggio.getTestoCifrato());
-            DefaultTreeModel a;
-            AlberoIpotesi tmp;
-            if(this.alberoIpotesi == null){
-                //this.alberoIpotesi = new AlberoIpotesi(this.sessione.getId(), messaggio.getTestoCifrato(), messaggio.getTestoCifrato());
-            }                
-            a = new DefaultTreeModel(this.alberoIpotesi.getRoot());
-            this.ipotesiJTree.setModel(a);
-            this.ipotesiJTree.setSelectionPath(new TreePath(this.alberoIpotesi.getRoot().getPath()));
-            setContentEnabled(true);
+            this.messaggioCorrente = DBManager.getMessaggio(sessione.getId());
+            if (this.messaggioCorrente != null){
+                this.alfabetoCorrente = new Alfabeto(this.messaggioCorrente.getLocale());
+                this.testoCifratoJTextPane.setText(this.messaggioCorrente.getTestoCifrato());
+                DefaultTreeModel a;
+                AlberoIpotesi tmp;
+                if(this.alberoIpotesi == null){
+                    this.alberoIpotesi = new AlberoIpotesi(this.sessione.getId(), this.messaggioCorrente.getTestoCifrato(), this.messaggioCorrente.getTestoCifrato());
+                }                
+                a = new DefaultTreeModel(this.alberoIpotesi.getRoot());
+                this.ipotesiJTree.setModel(a);
+                this.ipotesiJTree.setSelectionPath(new TreePath(this.alberoIpotesi.getRoot().getPath()));
+                setContentEnabled(true);
+            }
             
             //System.out.println(this.sessione.getId());
         }
