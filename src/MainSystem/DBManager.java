@@ -145,7 +145,7 @@ public class DBManager {
             "idAlbero INT," +
                     // idIpotesi == idIpotesi dell'ipotesi raggiunta nell'alberoIpotesi
             "idIpotesi INT," +
-            "idMessaggioOriginaleCifrato INT," +
+            "idMessaggioOriginaleCifrato LONG VARCHAR," +
             "terminata BOOLEAN NOT NULL," +     // false = sessione corrente; true = chiusa
             "PRIMARY KEY(id))");
             
@@ -291,6 +291,9 @@ public class DBManager {
     public static void aggiungiIpotesi(int idSessione,  int idIpotesi, String testo, int idPadre, String figli, String delta){
         if(getIdAlbero(idSessione)<0){
             creaAlberoIpotesi(idSessione);
+            System.out.println("puppaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+            esegui("UPDATE sessione SET idMessaggioOriginaleCifrato = '" + testo + "' WHERE id =" + idSessione, st);
+            System.out.println("meloooooooooooooooooooooooo");
         }
         esegui("INSERT INTO ipotesi (id, idSessione, idAlbero, testoParzialmenteDecifrato, idPadre, figli, delta) VALUES "
                 + "("+idIpotesi+", "+idSessione+", "+ getIdAlbero(idSessione)+", '"+testo+"', "+idPadre+", '"+figli+"', '"+delta+"')", st);
