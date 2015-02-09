@@ -39,6 +39,13 @@ public class SistemaDiCifratura {
         }
     }
     
+    public SistemaDiCifratura(int id, String key, String met, UserInfo creatore){
+            this.id = id;
+            this.chiave = key;
+            this.metodo = met;
+            this.creatore = creatore;
+    }
+    
     public static ArrayList<SistemaDiCifratura> caricaSistemiCifratura(Studente studente){
         ArrayList<SistemaDiCifratura> lista = new ArrayList<SistemaDiCifratura>();
         int idStudente = studente.getId();

@@ -352,7 +352,7 @@ public class DBManager {
     public static Ipotesi getIpotesi(int idIpotesi, int idSessione){
         Ipotesi ip = null;
         try {
-            if(getIdAlbero(idSessione)>0){
+            if(getIdAlbero(idSessione)<0){
                 ResultSet rs = st.executeQuery("SELECT * FROM ipotesi WHERE id="+idIpotesi+" AND idSessione="+idSessione+" "
                         + "AND idAlbero="+getIdAlbero(idSessione)+"");
                 if(rs.next()){
@@ -522,8 +522,7 @@ public class DBManager {
             if (tmp>0){
                 rs = st.executeQuery("SELECT idAlbero FROM sessione WHERE id = "+idSessione);
                 rs.next();
-                    id = rs.getInt("idAlbero");
-                
+                    id = rs.getInt("idAlbero");                
             }
         } catch (SQLException ex) {
             Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);

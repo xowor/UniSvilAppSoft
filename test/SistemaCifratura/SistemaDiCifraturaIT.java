@@ -6,6 +6,9 @@
 package SistemaCifratura;
 
 import Elementi.Studente;
+import Elementi.utenti.UserInfo;
+import static MainSystem.DBManager.esegui;
+import static MainSystem.DBManager.st;
 import java.util.ArrayList;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
@@ -21,12 +24,17 @@ public class SistemaDiCifraturaIT {
     public SistemaDiCifraturaIT() {
     }
     
+    UserInfo userTest = new UserInfo(10, "nome", "cognome");
+    SistemaDiCifratura instance = new SistemaDiCifratura(50, "chiave", "cesare", userTest);
+    
     @BeforeClass
     public static void setUpClass() {
+        esegui("INSERT INTO sistemaDiCifratura (idStudente, chiave, metodo) VALUES(10, 'chiave', 'cesare')", st);
     }
     
     @AfterClass
     public static void tearDownClass() {
+        esegui("DELETE FROM sistemaDiCifratura WHERE idStudente=10 AND chiave='chiave' AND metodo='cesare'", st);
     }
 
     /**
@@ -54,43 +62,37 @@ public class SistemaDiCifraturaIT {
         SistemaDiCifratura result = SistemaDiCifratura.load(id);
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        fail("testLoad has got a problem.");
     }
 
     /**
-     * Test of calcolaMappatura method, of class SistemaDiCifratura.
+     * Test of calcolaMappatura method, of class SistemaDiCifratura. TODO
      */
     @Test
     public void testCalcolaMappatura() {
         System.out.println("calcolaMappatura");
-        SistemaDiCifratura instance = null;
         instance.calcolaMappatura();
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        fail("testCalcolaMappatura has got a problem.");
     }
 
     /**
-     * Test of salva method, of class SistemaDiCifratura.
+     * Test of salva method, of class SistemaDiCifratura. TODO
      */
     @Test
     public void testSalva() {
         System.out.println("salva");
-        SistemaDiCifratura instance = null;
         instance.salva();
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        fail("testSalva has got a problem.");
     }
 
     /**
-     * Test of elimina method, of class SistemaDiCifratura.
+     * Test of elimina method, of class SistemaDiCifratura. TODO
      */
     @Test
     public void testElimina() {
         System.out.println("elimina");
-        SistemaDiCifratura instance = null;
         instance.elimina();
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        fail("testElimina has got a problem.");
     }
 
     /**
@@ -99,12 +101,10 @@ public class SistemaDiCifraturaIT {
     @Test
     public void testGetChiave() {
         System.out.println("getChiave");
-        SistemaDiCifratura instance = null;
-        String expResult = "";
+        String expResult = "chiave";
         String result = instance.getChiave();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        fail("testGetChiave has got a problem.");
     }
 
     /**
@@ -113,12 +113,10 @@ public class SistemaDiCifraturaIT {
     @Test
     public void testGetMetodo() {
         System.out.println("getMetodo");
-        SistemaDiCifratura instance = null;
-        String expResult = "";
+        String expResult = "cesare";
         String result = instance.getMetodo();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        fail("testGetMetodo has got a problem.");
     }
 
     /**
@@ -127,12 +125,10 @@ public class SistemaDiCifraturaIT {
     @Test
     public void testToString() {
         System.out.println("toString");
-        SistemaDiCifratura instance = null;
-        String expResult = "";
+        String expResult = "cesare/chiave";
         String result = instance.toString();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        fail("testToString has got a problem.");
     }
 
     /**
@@ -141,12 +137,10 @@ public class SistemaDiCifraturaIT {
     @Test
     public void testGetId() {
         System.out.println("getId");
-        SistemaDiCifratura instance = null;
-        int expResult = 0;
         int result = instance.getId();
+        int expResult = 3;
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        fail("testGetId has got a problem.");
     }
     
 }
