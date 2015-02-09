@@ -380,7 +380,9 @@ public class DBManager {
         }
         return arrayFigli;
     }
-        
+    
+
+    
     public HashMap<Integer, String> recuperaMessaggiCifrati(Studente studente){                  // per la spia
         HashMap<Integer, String> map = new HashMap<Integer, String>();
         try {
@@ -428,6 +430,20 @@ public class DBManager {
                 + "'"+password+"')", st);
     }
     
+    public Studente getStudente(int idSessione){
+        Studente stud = null;
+        try {
+            ResultSet rs = st.executeQuery("SELECT idStudente FROM sessione WHERE id="+idSessione);
+            if(rs.next()){
+                int id = rs.getInt("idStudente");
+                stud = Studente.getStudente(id);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return stud;
+    }
+        /*
     public static Studente getStudente(int id){
         Studente studente = null;
         try {
@@ -440,7 +456,7 @@ public class DBManager {
             Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
         }
         return studente;
-    }
+    }*/
     
     public Studente getStudenteDaNome(String nome){
         Studente studente = null;
