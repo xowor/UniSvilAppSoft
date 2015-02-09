@@ -1,10 +1,8 @@
 package MainSystem;
-import Elementi.Frequenze;
 import Elementi.messaggi.Messaggio;
 import Elementi.Studente;
 import SistemaCifratura.SistemaDiCifratura;
 import Elementi.utenti.UserInfo;
-import javax.management.Query;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -98,7 +96,6 @@ public class DBManager {
     * Esegue una execute SQL ritornando un ResultSet;
     *
     * @param sql indica il testo di una execute SQL;
-    * @param st indica lo Statement creato per l'interazione con il database;
     * @return il resultSet della execute eseguIT_it;
     */
     public static ResultSet execute(String sql) {

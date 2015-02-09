@@ -7,17 +7,14 @@ import MainSystem.AlberoIpotesi;
 import MainSystem.Ipotesi;
 import MainSystem.Sessione;
 import MainSystem.Sostituzione;
-import controllers.CommunicationController;
 import java.awt.event.ItemEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.ArrayList;
-import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.UnsupportedLookAndFeelException;
-import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreePath;
 
