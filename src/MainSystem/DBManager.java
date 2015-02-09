@@ -368,7 +368,7 @@ public class DBManager {
     public static ArrayList<Integer> getArrayFigli(String figli){
          ArrayList<Integer> arrayFigli = new ArrayList<>();
         if(!figli.equals("[]")){
-            String tmp = figli.substring(1, figli.length()-2);    
+            String tmp = figli.substring(1, figli.length()-1);    
             if(figli.contains(",")){
                 String[] str = tmp.split(",");
                 for(int i = 0; i < str.length; i++){
