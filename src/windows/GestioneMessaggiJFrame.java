@@ -9,6 +9,7 @@ import elements.messaggi.Messaggio;
 import elements.Studente;
 import MainSystem.DBManager;
 import SistemaCifratura.CalcolatoreCesare;
+import SistemaCifratura.CalcolatoreChiave;
 import SistemaCifratura.CalcolatorePseudo;
 import SistemaCifratura.Cifratore;
 import SistemaCifratura.Mappatura;
@@ -495,9 +496,14 @@ public class GestioneMessaggiJFrame extends javax.swing.JFrame {
         if (this.sistemaDiCifratura.getMetodo().equals("Cesare")){
             CalcolatoreCesare calcolatoreCesare = new CalcolatoreCesare();
             mappatura = calcolatoreCesare.calcola(this.sistemaDiCifratura.getChiave());
-        } else {
-            CalcolatorePseudo calcolatorePseudo = new CalcolatorePseudo();
-            mappatura = calcolatorePseudo.calcola(this.sistemaDiCifratura.getChiave());
+//        } else if(this.sistemaDiCifratura.getMetodo().equals("parola chiave")){
+//            CalcolatoreChiave calcolatoreMonoalfabetico = new CalcolatoreChiave();
+//            mappatura = calcolatoreMonoalfabetico.calcola("'"+this.sistemaDiCifratura.getChiave()+"'");
+        }else {
+            CalcolatoreChiave calcolatoreMonoalfabetico = new CalcolatoreChiave();
+            mappatura = calcolatoreMonoalfabetico.calcola(this.sistemaDiCifratura.getChiave());
+//            CalcolatorePseudo calcolatorePseudo = new CalcolatorePseudo();
+//            mappatura = calcolatorePseudo.calcola(this.sistemaDiCifratura.getChiave());
         }
         
         String testoCifrato = Cifratore.cifra(mappatura, testo);
@@ -569,8 +575,10 @@ public class GestioneMessaggiJFrame extends javax.swing.JFrame {
             CalcolatoreCesare calcolatoreCesare = new CalcolatoreCesare();
             mappatura = calcolatoreCesare.calcola(s.getChiave());
         } else {
-            CalcolatorePseudo calcolatorePseudo = new CalcolatorePseudo();
-            mappatura = calcolatorePseudo.calcola(s.getChiave());
+            CalcolatoreChiave calcolatoreMonoalfabetico = new CalcolatoreChiave();
+            mappatura = calcolatoreMonoalfabetico.calcola(s.getChiave());
+//            CalcolatorePseudo calcolatorePseudo = new CalcolatorePseudo();
+//            mappatura = calcolatorePseudo.calcola(s.getChiave());
         }
         
         String testoCifrato = Cifratore.decifra(mappatura, this.messaggioRicevuto.getTestoCifrato());
