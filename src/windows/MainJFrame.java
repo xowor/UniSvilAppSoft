@@ -449,7 +449,6 @@ public class MainJFrame extends javax.swing.JFrame {
             //int idAlberoTmp = DBManager.getIdAlbero(this.sessione.getId());
             //this.alberoIpotesi = new AlberoIpotesi(this.sessione.getId(), idAlberoTmp, messaggio.getTestoCifrato(), messaggio.getTitolo());
             this.alberoIpotesi = DBManager.getAlberoIpotesi(this.sessione.getId());
-            //this.alberoIpotesi.
             DefaultTreeModel a;
             AlberoIpotesi tmp;
             if(this.alberoIpotesi == null){

@@ -142,7 +142,7 @@ public class DBManager {
             st.execute( "CREATE TABLE sessione(" +
             "id INT NOT NULL GENERATED ALWAYS AS IDENTITY(START WITH 1, INCREMENT BY 1)," +
             "idStudente INT NOT NULL," +
-            "idAlbero INT NOT NULL," +
+            "idAlbero INT," +
                     // idIpotesi == idIpotesi dell'ipotesi raggiunta nell'alberoIpotesi
             "idIpotesi INT," +
             "idMessaggioOriginaleCifrato INT," +
@@ -527,6 +527,7 @@ public class DBManager {
     
     public static void creaAlberoIpotesi(int idAlbero, int idSessione, int idIpotesiRoot){
         esegui("INSERT INTO alberoIpotesi(idAlbero, idSessione, idIpotesiRoot) VALUES("+idAlbero+", "+idSessione+", "+idIpotesiRoot+")", st);
+        esegui("UPDATE sessione SET idAlbero = "+idAlbero +" , idIpotesi = " + 0 +" WHERE id = "+ idSessione, st);
     }
     
     public static void creaIpotesiRadice(int idSessione, int idAlbero){
