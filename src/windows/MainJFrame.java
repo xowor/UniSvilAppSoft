@@ -81,6 +81,8 @@ public class MainJFrame extends javax.swing.JFrame {
         jScrollPane4 = new javax.swing.JScrollPane();
         ipotesiJTextPane = new javax.swing.JTextPane();
         mostraAlfabetoJButton = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
+        soluzioneJLabel = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("CryptoHelper");
@@ -251,22 +253,37 @@ public class MainJFrame extends javax.swing.JFrame {
             }
         });
 
+        jButton2.setText("Soluzione");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
+        soluzioneJLabel.setText(" ");
+
         javax.swing.GroupLayout RightJPanelLayout = new javax.swing.GroupLayout(RightJPanel);
         RightJPanel.setLayout(RightJPanelLayout);
         RightJPanelLayout.setHorizontalGroup(
             RightJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jSplitPane2)
             .addGroup(RightJPanelLayout.createSequentialGroup()
-                .addContainerGap()
                 .addComponent(mostraAlfabetoJButton)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addComponent(jSplitPane2, javax.swing.GroupLayout.Alignment.TRAILING)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(soluzioneJLabel)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         RightJPanelLayout.setVerticalGroup(
             RightJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(RightJPanelLayout.createSequentialGroup()
-                .addComponent(jSplitPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 460, Short.MAX_VALUE)
+                .addComponent(jSplitPane2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(mostraAlfabetoJButton))
+                .addGroup(RightJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(mostraAlfabetoJButton)
+                    .addComponent(jButton2)
+                    .addComponent(soluzioneJLabel)))
         );
 
         contentJSplitPane.setRightComponent(RightJPanel);
@@ -283,7 +300,7 @@ public class MainJFrame extends javax.swing.JFrame {
             .addGroup(mainJPanelLayout.createSequentialGroup()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(contentJSplitPane, javax.swing.GroupLayout.DEFAULT_SIZE, 501, Short.MAX_VALUE))
+                .addComponent(contentJSplitPane))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -399,6 +416,14 @@ public class MainJFrame extends javax.swing.JFrame {
             setContentEnabled(true);   
         }
     }//GEN-LAST:event_ipotesiJTreeValueChanged
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        if (this.messaggioCorrente.getTesto().equals(this.ipotesiCorrente.getTestoParzialmenteDecifrato())){
+            this.soluzioneJLabel.setText("Soluzione corretta");
+        } else {
+            this.soluzioneJLabel.setText("Soluzione errata");
+        }
+    }//GEN-LAST:event_jButton2ActionPerformed
     
     public void inizializza(){
         this.dbManager = new DBManager();
@@ -513,6 +538,7 @@ public class MainJFrame extends javax.swing.JFrame {
     private javax.swing.JTextPane ipotesiJTextPane;
     private javax.swing.JTree ipotesiJTree;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel2;
@@ -525,6 +551,7 @@ public class MainJFrame extends javax.swing.JFrame {
     private javax.swing.JPanel mainJPanel;
     private javax.swing.JButton mostraAlfabetoJButton;
     private javax.swing.JButton rimuoviIpotesiJButton;
+    private javax.swing.JLabel soluzioneJLabel;
     private javax.swing.JComboBox studentiJComboBox;
     private javax.swing.JTextPane testoCifratoJTextPane;
     // End of variables declaration//GEN-END:variables

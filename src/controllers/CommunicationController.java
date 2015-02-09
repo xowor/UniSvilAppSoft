@@ -42,7 +42,7 @@ public class CommunicationController {
     }
         
     public static ArrayList<Messaggio> elencaMessaggiBozza(int idStudente){
-        ArrayList<Messaggio> bozze  = null;
+        ArrayList<Messaggio> bozze  = new ArrayList<Messaggio>();
         try {
             ResultSet rs = st.executeQuery("SELECT * FROM messaggio WHERE idMittente="+idStudente+" "
                     + "AND bozza='true'");
@@ -110,7 +110,8 @@ public class CommunicationController {
     public static ArrayList<Messaggio> elencaMessaggiRicevuti(int idDestinatario){
         ArrayList<Messaggio> messaggi = new ArrayList();
         try {           
-            ResultSet rs = st.executeQuery("SELECT * FROM messaggio WHERE idDestinatario = " + idDestinatario + "");
+            ResultSet rs = st.executeQuery("SELECT * FROM messaggio WHERE idDestinatario = " + idDestinatario + ""
+                    + "AND bozza='false'");
             while(rs.next()){
                 UserInfo mittente = UserInfo.getUserInfo(rs.getInt("idMittente"));
                 UserInfo destinatario = UserInfo.getUserInfo(rs.getInt("idDestinatario"));
@@ -142,9 +143,11 @@ public class CommunicationController {
     }
 
     
-    public static void salvaMessaggioBozza(int idMessaggio, String messaggioModificato){
-        esegui("UPDATE sistemadicifratura SET testo='"+messaggioModificato+"' AND bozza='true'"
-                + " WHERE id="+idMessaggio+"", st);
+    public static void salvaMessaggioBozza(Messaggio messaggio){
+        esegui("INSERT INTO messaggio (testo, testoCifrato, lingua, titolo, idMittente, idDestinatario, "
+                + "bozza, letto) VALUES ('"+messaggio.getTesto() + "', '" + messaggio.getTestoCifrato()
+                +"', '"+ messaggio.getLingua() + "', '"+ messaggio.getTitolo()+"', "+messaggio.getMittente().getId()+", "
+                + ""+messaggio.getDestinatario().getId()+",'true', 'false')", st);
     }
     
     public static void setAccettaProposta(int id){
@@ -194,7 +197,7 @@ public class CommunicationController {
     public static ArrayList<Messaggio> getMessaggi() {
         ArrayList<Messaggio> messaggi = new ArrayList();
         try {           
-            ResultSet rs = st.executeQuery("SELECT * FROM messaggio");
+            ResultSet rs = st.executeQuery("SELECT * FROM messaggio WHERE bozza='false'");
             while(rs.next()){
                 Messaggio messaggio = new Messaggio(rs);  
                 messaggi.add(messaggio);
