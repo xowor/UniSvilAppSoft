@@ -15,6 +15,7 @@ CryptoHelperDB/*
 nbproject/private
 nbproject/private/*
 derby.log
+derby.properties
 build
 build/*
 /dist/
