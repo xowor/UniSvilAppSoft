@@ -12,3 +12,7 @@ os.arch=amd64
 os.version=6.3
 derby.system.home=D:\Documents\Dropbox\Università\2 - Laurea Triennale\3 - Terzo anno\Esami da sostenere\Sviluppo applicazioni software\Progetto\Git\UniSvilAppSoft
 Programma di caricamento classe database avviato - derby.database.classpath=''
+----------------------------------------------------------------
+Mon Feb 09 10:26:33 CET 2015:
+Arresto dell'istanza a816c00e-014b-6d6e-1d38-00001d49406b nella directory del database D:\Documents\Dropbox\Università\2 - Laurea Triennale\3 - Terzo anno\Esami da sostenere\Sviluppo applicazioni software\Progetto\Git\UniSvilAppSoft\CryptoHelperDB con il caricatore di classi sun.misc.Launcher$AppClassLoader@1d44bcfa 
+Mon Feb 09 10:26:33 CET 2015 Thread[DRDAConnThread_4,5,main] (DATABASE = CryptoHelperDB), (DRDAID = {17}), Chiusura del database 'CryptoHelperDB'.
