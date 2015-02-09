@@ -511,7 +511,7 @@ public class DBManager {
             albero = new AlberoIpotesi(ip);
         return albero;
     }
-    
+    /*
     public static int getLastIdAlbero(){
         int id = -1;
         try {            
@@ -524,7 +524,7 @@ public class DBManager {
         }
         return id;
     }
-    
+    */
     public static void creaAlberoIpotesi(int idAlbero, int idSessione, int idIpotesiRoot){
         esegui("INSERT INTO alberoIpotesi(idAlbero, idSessione, idIpotesiRoot) VALUES("+idAlbero+", "+idSessione+", "+idIpotesiRoot+")", st);
         esegui("UPDATE sessione SET idAlbero = "+idAlbero +" , idIpotesi = " + 0 +" WHERE id = "+ idSessione, st);
