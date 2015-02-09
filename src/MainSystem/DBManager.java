@@ -502,6 +502,7 @@ public class DBManager {
             albero = new AlberoIpotesi(ip);
         return albero;
     }
+
     
     public static void creaAlberoIpotesi(int idSessione){
         if(getIdAlbero(idSessione)<0){
@@ -518,7 +519,7 @@ public class DBManager {
             esegui("UPDATE sessione SET idAlbero = "+id+", idIpotesi = " + 0 +" WHERE id = "+ idSessione, st);
         }
     }
-    
+
     
     public static int getPadre(int idIpotesi, int idSessione){
         int id = -1;
