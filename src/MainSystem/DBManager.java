@@ -8,6 +8,7 @@ import javax.management.Query;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -145,7 +146,7 @@ public class DBManager {
             "idAlbero INT," +
                     // idIpotesi == idIpotesi dell'ipotesi raggiunta nell'alberoIpotesi
             "idIpotesi INT," +
-            "idMessaggioOriginaleCifrato LONG VARCHAR," +
+            "idMessaggioOriginaleCifrato INT," +
             "terminata BOOLEAN NOT NULL," +     // false = sessione corrente; true = chiusa
             "PRIMARY KEY(id))");
             
@@ -275,7 +276,7 @@ public class DBManager {
         
     }
     
-  
+    
     public static void salvaSistemaCifratura(Studente studente, String key, String metodo){
         esegui("INSERT INTO sistemadicifratura (idStudente, chiave, metodo) VALUES ("+ studente.getId() +", '"+key + "', '"+metodo+"')", st);
     }
@@ -288,12 +289,33 @@ public class DBManager {
         esegui("INSERT INTO frequenzaLingua (lettera, lingua, frequenza) VALUES ('"+lettera+"', '"+lingua+"', "+frequenza+")", st);
     }
     
+    public static Studente getStudente(int idSessione){
+        Studente stud = null;
+        try {
+            ResultSet rs = st.executeQuery("SELECT idStudente FROM sessione WHERE id="+idSessione);
+            if(rs.next()){
+                int id = rs.getInt("idStudente");
+                stud = Studente.getStudente(id);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return stud;
+    }
+    
     public static void aggiungiIpotesi(int idSessione,  int idIpotesi, String testo, int idPadre, String figli, String delta){
         if(getIdAlbero(idSessione)<0){
             creaAlberoIpotesi(idSessione);
-            System.out.println("puppaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
-            esegui("UPDATE sessione SET idMessaggioOriginaleCifrato = '" + testo + "' WHERE id =" + idSessione, st);
-            System.out.println("meloooooooooooooooooooooooo");
+            HashMap<Integer, String> mappa = recuperaMessaggiCifrati(getStudente(idSessione));
+            int idMex = -1;
+            Set<Integer> keys = mappa.keySet();
+            for(Integer i: keys){
+                if(mappa.get(i).equals(testo)){
+                    idMex = i;
+                    break;
+                }
+            }
+            esegui("UPDATE sessione SET idMessaggioOriginaleCifrato = " + idMex + " WHERE id =" + idSessione, st);
         }
         esegui("INSERT INTO ipotesi (id, idSessione, idAlbero, testoParzialmenteDecifrato, idPadre, figli, delta) VALUES "
                 + "("+idIpotesi+", "+idSessione+", "+ getIdAlbero(idSessione)+", '"+testo+"', "+idPadre+", '"+figli+"', '"+delta+"')", st);
@@ -384,7 +406,7 @@ public class DBManager {
         return arrayFigli;
     }
         
-    public HashMap<Integer, String> recuperaMessaggiCifrati(Studente studente){                  // per la spia
+    public static HashMap<Integer, String> recuperaMessaggiCifrati(Studente studente){                  // per la spia
         HashMap<Integer, String> map = new HashMap<Integer, String>();
         try {
             ResultSet rs = st.executeQuery("SELECT id, testoCifrato FROM messaggio WHERE idDestinatario<>"+studente.getId()+""
@@ -429,20 +451,6 @@ public class DBManager {
     public void aggiungiStudente(String nome, String cognome, String login, String password, Statement st){
         esegui("INSERT INTO studente (nome, cognome, login, password) VALUES ('"+nome+"', '"+cognome+"', '"+login+"', "
                 + "'"+password+"')", st);
-    }
-    
-    public static Studente getStudente(int id){
-        Studente studente = null;
-        try {
-            ResultSet rs = st.executeQuery("SELECT * FROM studente WHERE id = id");
-            if (rs.next()){
-                studente = new Studente(id, rs.getString("login"), rs.getString("password"), rs.getString("nome"), 
-                        rs.getString("cognome"));
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return studente;
     }
     
     public Studente getStudenteDaNome(String nome){
