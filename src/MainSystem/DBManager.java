@@ -289,6 +289,9 @@ public class DBManager {
     }
     
     public static void aggiungiIpotesi(int idSessione,  int idIpotesi, String testo, int idPadre, String figli, String delta){
+        if(getIdAlbero(idSessione)<0){
+            creaAlberoIpotesi(idSessione);
+        }
         esegui("INSERT INTO ipotesi (id, idSessione, idAlbero, testoParzialmenteDecifrato, idPadre, figli, delta) VALUES "
                 + "("+idIpotesi+", "+idSessione+", "+ getIdAlbero(idSessione)+", '"+testo+"', "+idPadre+", '"+figli+"', '"+delta+"')", st);
         ArrayList<Integer> newFigli = getArrayFigli(figli);
@@ -350,20 +353,6 @@ public class DBManager {
         }
         return lista;
     }
-
-//    public static ArrayList<SistemaDiCifratura> elencaSistemiCifratura(){
-//        ArrayList<SistemaDiCifratura> list = new ArrayList<SistemaDiCifratura>();
-//        SistemaDiCifratura sdc = null;
-//        try {
-//            ResultSet rs = st.executeQuery("SELECT * FROM sistemadicifratura");
-//            while(rs.next()){
-//                list.add(new SistemaDiCifratura(rs.getString("chiave"), rs.getString("metodo")));
-//            }
-//        } catch (SQLException ex) {
-//            Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-//        return list;
-//    }
     
     public static ArrayList<Integer> getArrayFigli(String figli){
          ArrayList<Integer> arrayFigli = new ArrayList<>();
@@ -493,11 +482,13 @@ public class DBManager {
     public static int getIdAlbero(int idSessione){
         int id = -1;
         try {            
-            ResultSet rs = st.executeQuery("SELECT idAlbero FROM ipotesi WHERE id = "+idSessione+""
-                    + "AND id=0");
-            if (rs.next()){
-                id = rs.getInt("idAlbero");   
-            }         
+            ResultSet rs = st.executeQuery("SELECT COUNT(idAlbero) FROM alberoIpotesi WHERE idSessione = "+idSessione);
+            if (rs.getInt(1)>0){ 
+                rs = st.executeQuery("SELECT idAlbero FROM sessione WHERE id = "+idSessione);
+                if (rs.next()){
+                    id = rs.getInt("idAlbero");
+                }
+            }
         } catch (SQLException ex) {
             Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -512,9 +503,9 @@ public class DBManager {
         return albero;
     }
     
-    public static void creaAlberoIpotesi(int idSessione, int idIpotesiRoot){
+    public static void creaAlberoIpotesi(int idSessione){
         if(getIdAlbero(idSessione)<0){
-            esegui("INSERT INTO alberoIpotesi(idSessione, idIpotesiRoot) VALUES("+idSessione+", "+idIpotesiRoot+")", st);
+            esegui("INSERT INTO alberoIpotesi(idSessione, idIpotesiRoot) VALUES("+idSessione+", "+0+")", st);
             int id = -1;
             try {
                 ResultSet rs = st.executeQuery("SELECT idAlbero FROM alberoIpotesi WHERE idSessione = "+idSessione);

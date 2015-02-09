@@ -50,7 +50,7 @@ public class Sessione {
     }
     
     public void setAlberoIpotesi(String testo){
-        this.alberoIpotesi = new AlberoIpotesi(this.idSessione, this.idAlbero, messaggioOriginaleCifrato.getTestoCifrato(), testo);
+        this.alberoIpotesi = new AlberoIpotesi(this.idSessione, messaggioOriginaleCifrato.getTestoCifrato(), testo);
     
     }
     

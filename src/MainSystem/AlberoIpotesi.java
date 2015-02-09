@@ -17,12 +17,11 @@ public final class AlberoIpotesi extends JTree{
                                     // utile per capire quale id assegnare al nodo successivo
     
       
-    public AlberoIpotesi(int idSes, int idAlb, String cifrato, String delta){
+    public AlberoIpotesi(int idSes,String cifrato, String delta){
         this.idSessione = idSes;
-        this.idAlbero = idAlb;
         this.root = new NodoIpotesi(this.idSessione, this.idAlbero, cifrato, delta);
         idCounter = 0;
-        DBManager.creaAlberoIpotesi(idSes, 0);
+        this.idAlbero = DBManager.getIdAlbero(idSes);
     }
     
     public AlberoIpotesi(Ipotesi root){
