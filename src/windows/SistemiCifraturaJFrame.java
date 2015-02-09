@@ -5,10 +5,10 @@
  */
 package windows;
 
-import elements.Studente;
+import Elementi.Studente;
 import MainSystem.DBManager;
 import SistemaCifratura.SistemaDiCifratura;
-import elements.utenti.UserInfo;
+import Elementi.utenti.UserInfo;
 import java.awt.event.ItemEvent;
 import java.util.ArrayList;
 import javax.swing.DefaultListModel;

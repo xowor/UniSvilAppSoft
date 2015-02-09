@@ -1,7 +1,7 @@
 package windows;
-import elements.Alfabeto;
-import elements.Studente;
-import elements.messaggi.Messaggio;
+import Elementi.Alfabeto;
+import Elementi.Studente;
+import Elementi.messaggi.Messaggio;
 import MainSystem.DBManager;
 import MainSystem.AlberoIpotesi;
 import MainSystem.Ipotesi;

@@ -5,9 +5,9 @@
  */
 package windows;
 
-import elements.Alfabeto;
-import elements.Frequenze;
-import elements.messaggi.Messaggio;
+import Elementi.Alfabeto;
+import Elementi.Frequenze;
+import Elementi.messaggi.Messaggio;
 import MainSystem.DBManager;
 import SistemaSupporto.AnalisiFrequenze;
 import javax.swing.table.DefaultTableModel;

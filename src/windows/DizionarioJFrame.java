@@ -5,7 +5,7 @@
  */
 package windows;
 
-import elements.Studente;
+import Elementi.Studente;
 import MainSystem.DBManager;
 import SistemaSupporto.Dizionario;
 import javax.swing.DefaultListModel;

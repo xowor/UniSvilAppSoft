@@ -5,7 +5,7 @@
  */
 package windows;
 
-import elements.Alfabeto;
+import Elementi.Alfabeto;
 import java.util.ArrayList;
 import javax.swing.DefaultListModel;
 

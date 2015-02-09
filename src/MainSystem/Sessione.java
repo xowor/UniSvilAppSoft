@@ -2,8 +2,8 @@ package MainSystem;
 
 import static MainSystem.DBManager.esegui;
 import static MainSystem.DBManager.st;
-import elements.Studente;
-import elements.messaggi.Messaggio;
+import Elementi.Studente;
+import Elementi.messaggi.Messaggio;
 import SistemaSupporto.Supporto;
 import SistemaCifratura.SistemaDiCifratura;
 import controllers.CommunicationController;

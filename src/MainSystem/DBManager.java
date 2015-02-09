@@ -1,9 +1,9 @@
 package MainSystem;
-import elements.Frequenze;
-import elements.messaggi.Messaggio;
-import elements.Studente;
+import Elementi.Frequenze;
+import Elementi.messaggi.Messaggio;
+import Elementi.Studente;
 import SistemaCifratura.SistemaDiCifratura;
-import elements.utenti.UserInfo;
+import Elementi.utenti.UserInfo;
 import javax.management.Query;
 import java.sql.*;
 import java.util.ArrayList;

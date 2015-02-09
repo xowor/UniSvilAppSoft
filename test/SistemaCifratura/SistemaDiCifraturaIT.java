@@ -5,7 +5,7 @@
  */
 package SistemaCifratura;
 
-import elements.Studente;
+import Elementi.Studente;
 import java.util.ArrayList;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;

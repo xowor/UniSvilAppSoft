@@ -1,8 +1,8 @@
-package elements.messaggi;
+package Elementi.messaggi;
 
 import SistemaCifratura.SistemaDiCifratura;
-import elements.Studente;
-import elements.utenti.UserInfo;
+import Elementi.Studente;
+import Elementi.utenti.UserInfo;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
@@ -122,22 +122,22 @@ public class Messaggio implements MessaggioMittente, MessaggioDestinatario{
         return this.getMittente().getNome() + " -> " + this.getDestinatario().getNome() + " : " + this.getTitolo();
     }
 
-    @Override
+    
     public boolean isBozza() {
         return this.bozza;
     }
 
-    @Override
+    
     public String getLingua() {
         return this.lingua;
     }
 
-    @Override
+    
     public String getTitolo() {
         return this.titolo;
     }
 
-    @Override
+    
     public boolean isLetto() {
         return this.letto;
     }

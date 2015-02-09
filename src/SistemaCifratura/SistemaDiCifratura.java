@@ -1,8 +1,8 @@
 package SistemaCifratura;
 
-import elements.Studente;
+import Elementi.Studente;
 import MainSystem.DBManager;
-import elements.utenti.UserInfo;
+import Elementi.utenti.UserInfo;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;

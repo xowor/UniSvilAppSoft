@@ -1,7 +1,7 @@
-package elements.messaggi;
+package Elementi.messaggi;
 import SistemaCifratura.*;
-import elements.Studente;
-import elements.utenti.UserInfo;
+import Elementi.Studente;
+import Elementi.utenti.UserInfo;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;

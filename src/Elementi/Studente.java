@@ -1,4 +1,4 @@
-package elements;
+package Elementi;
 
 import MainSystem.DBManager;
 import java.sql.ResultSet;

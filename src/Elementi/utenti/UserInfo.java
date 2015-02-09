@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package elements.utenti;
+package Elementi.utenti;
 
 import MainSystem.DBManager;
 import java.sql.ResultSet;

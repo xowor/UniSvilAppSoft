@@ -5,8 +5,8 @@
  */
 package windows;
 
-import elements.messaggi.Messaggio;
-import elements.Studente;
+import Elementi.messaggi.Messaggio;
+import Elementi.Studente;
 import MainSystem.DBManager;
 import SistemaCifratura.CalcolatoreCesare;
 import SistemaCifratura.CalcolatoreChiave;
@@ -15,8 +15,8 @@ import SistemaCifratura.Cifratore;
 import SistemaCifratura.Mappatura;
 import SistemaCifratura.SistemaDiCifratura;
 import controllers.CommunicationController;
-import elements.messaggi.Proposta;
-import elements.utenti.UserInfo;
+import Elementi.messaggi.Proposta;
+import Elementi.utenti.UserInfo;
 import java.util.ArrayList;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
