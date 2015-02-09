@@ -29,7 +29,7 @@ public class Ipotesi {
     }
     
     public void rimuoviIpotesi(){
-        DBManager.rimuoviIpotesi(this.idSessione, this.idAlbero, this.idIpotesi);
+        DBManager.rimuoviIpotesi(this.idSessione, this.idIpotesi);
     }
     
     public void addFiglio(int figlio){
