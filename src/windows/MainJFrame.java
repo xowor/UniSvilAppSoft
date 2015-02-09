@@ -452,7 +452,7 @@ public class MainJFrame extends javax.swing.JFrame {
             DefaultTreeModel a;
             AlberoIpotesi tmp;
             if(this.alberoIpotesi == null){
-                this.alberoIpotesi = new AlberoIpotesi(this.sessione.getId(), DBManager.getLastIdAlbero(), messaggio.getTestoCifrato(), messaggio.getTestoCifrato());
+                this.alberoIpotesi = new AlberoIpotesi(this.sessione.getId(), DBManager.getIdAlbero(this.sessione.getId()), messaggio.getTestoCifrato(), messaggio.getTestoCifrato());
             }                
             a = new DefaultTreeModel(this.alberoIpotesi.getRoot());
             this.ipotesiJTree.setModel(a);

@@ -162,7 +162,7 @@ public class DBManager {
             "PRIMARY KEY(id))");
             
             st.execute( "CREATE TABLE alberoIpotesi(" +
-            "idAlbero INT NOT NULL," +
+            "idAlbero INT NOT NULL GENERATED ALWAYS AS IDENTITY(START WITH 1, INCREMENT BY 1)," +
             "idSessione INT NOT NULL," +
             "idIpotesiRoot INT NOT NULL," +
             "PRIMARY KEY(idAlbero, idSessione))");
@@ -288,12 +288,12 @@ public class DBManager {
         esegui("INSERT INTO frequenzaLingua (lettera, lingua, frequenza) VALUES ('"+lettera+"', '"+lingua+"', "+frequenza+")", st);
     }
     
-    public static void aggiungiIpotesi(int idSessione, int idAlbero, int idIpotesi, String testo, int idPadre, String figli, String delta){
+    public static void aggiungiIpotesi(int idSessione,  int idIpotesi, String testo, int idPadre, String figli, String delta){
         esegui("INSERT INTO ipotesi (id, idSessione, idAlbero, testoParzialmenteDecifrato, idPadre, figli, delta) VALUES "
-                + "("+idIpotesi+", "+idSessione+", "+idAlbero+", '"+testo+"', "+idPadre+", '"+figli+"', '"+delta+"')", st);
+                + "("+idIpotesi+", "+idSessione+", "+ getIdAlbero(idSessione)+", '"+testo+"', "+idPadre+", '"+figli+"', '"+delta+"')", st);
         ArrayList<Integer> newFigli = getArrayFigli(figli);
         if(idIpotesi != 0){
-            String strFigli = getFigli(idPadre, idAlbero, idSessione);
+            String strFigli = getFigli(idPadre, idSessione);
             newFigli = new ArrayList<>();
             // figli vecchi
             ArrayList<Integer> figliTmp = getArrayFigli(strFigli);            
@@ -303,18 +303,18 @@ public class DBManager {
             newFigli.add(idIpotesi);
         }
         String figliFinali = getStringFromArray(newFigli);
-        aggiornaFigli(idPadre, idAlbero, idSessione, figliFinali);
+        aggiornaFigli(idPadre, idSessione, figliFinali);
     }   
     
     
-    public static Ipotesi getIpotesi(int idIpotesi, int idSessione, int idAlbero){
+    public static Ipotesi getIpotesi(int idIpotesi, int idSessione){
         Ipotesi ip = null;
         try {
             ResultSet rs = st.executeQuery("SELECT * FROM ipotesi WHERE id="+idIpotesi+" AND idSessione="+idSessione+" "
-                    + "AND idAlbero="+idAlbero+"");
+                    + "AND idAlbero="+getIdAlbero(idSessione)+"");
             if(rs.next()){
                 ArrayList<Integer> figli = getArrayFigli(rs.getString("figli"));
-                ip = new Ipotesi(idIpotesi, idSessione, idAlbero, rs.getString("testoParzialmenteDecifrato"), 
+                ip = new Ipotesi(idIpotesi, idSessione, getIdAlbero(idSessione), rs.getString("testoParzialmenteDecifrato"), 
                     rs.getInt("idPadre"), figli, rs.getString("delta"));
             }
         } catch (SQLException ex) {
@@ -506,39 +506,35 @@ public class DBManager {
     
     public static AlberoIpotesi getAlberoIpotesi(int idSessione){
         AlberoIpotesi albero = null;
-        Ipotesi ip = getIpotesi(0, idSessione, getIdAlbero(idSessione));
+        Ipotesi ip = getIpotesi(0, idSessione);
         if(ip != null)
             albero = new AlberoIpotesi(ip);
         return albero;
     }
-    /*
-    public static int getLastIdAlbero(){
-        int id = -1;
-        try {            
-            ResultSet rs = st.executeQuery("SELECT MAX(idAlbero) FROM alberoIpotesi");
-            if (rs.next()){
-                id = rs.getInt(1);   
-            }         
-        } catch (SQLException ex) {
-            Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
+
+    
+    public static void creaAlberoIpotesi(int idSessione, int idIpotesiRoot){
+        if(getIdAlbero(idSessione)<0){
+            esegui("INSERT INTO alberoIpotesi(idSessione, idIpotesiRoot) VALUES("+idSessione+", "+idIpotesiRoot+")", st);
+            int id = -1;
+            try {
+                ResultSet rs = st.executeQuery("SELECT idAlbero FROM alberoIpotesi WHERE idSessione = "+idSessione);
+                if (rs.next()){
+                    id = rs.getInt(1);   
+                }         
+            } catch (SQLException ex) {
+                Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            esegui("UPDATE sessione SET idAlbero = "+id+", idIpotesi = " + 0 +" WHERE id = "+ idSessione, st);
         }
-        return id;
     }
-    */
-    public static void creaAlberoIpotesi(int idAlbero, int idSessione, int idIpotesiRoot){
-        esegui("INSERT INTO alberoIpotesi(idAlbero, idSessione, idIpotesiRoot) VALUES("+idAlbero+", "+idSessione+", "+idIpotesiRoot+")", st);
-        esegui("UPDATE sessione SET idAlbero = "+idAlbero +" , idIpotesi = " + 0 +" WHERE id = "+ idSessione, st);
-    }
+
     
-    public static void creaIpotesiRadice(int idSessione, int idAlbero){
-        esegui("INSERT INTO ipotesi(idSessione, idAlbero) VALUES("+idSessione+", "+idAlbero+")", st);
-    }
-    
-    public static int getPadre(int idIpotesi,  int idAlbero, int idSessione){
+    public static int getPadre(int idIpotesi, int idSessione){
         int id = -1;
         try {            
             ResultSet rs = st.executeQuery("SELECT idPadre FROM ipotesi WHERE id = "+idIpotesi+" AND "
-                    + "idAlbero="+idAlbero+" AND idSessione="+idSessione+"");
+                    + "idAlbero="+getIdAlbero(idSessione)+" AND idSessione="+idSessione+"");
             rs.next();
             id = rs.getInt("idPadre");            
         } catch (SQLException ex) {
@@ -547,11 +543,11 @@ public class DBManager {
         return id;
     }
     
-    public static String getFigli(int id, int idAlbero, int idSessione){
+    public static String getFigli(int id, int idSessione){
         String figli = "";
         try {            
             ResultSet rs = st.executeQuery("SELECT figli FROM ipotesi WHERE id = "+id+""
-                    + " AND idAlbero="+idAlbero+" AND idSessione="+idSessione+"");
+                    + " AND idAlbero="+getIdAlbero(idSessione)+" AND idSessione="+idSessione+"");
             rs.next();
             figli = rs.getString("figli");            
         } catch (SQLException ex) {
@@ -560,11 +556,11 @@ public class DBManager {
         return figli;
     }
     
-    public static String getTestoFromIpotesi(int id, int idAlbero, int idSessione){
+    public static String getTestoFromIpotesi(int id, int idSessione){
         String testo = "";
         try {            
             ResultSet rs = st.executeQuery("SELECT testoParzialmenteDecifrato FROM ipotesi WHERE id = "+id+" AND "
-                    + "idAlbero="+idAlbero+" AND idSessione="+idSessione+"");
+                    + "idAlbero="+getIdAlbero(idSessione)+" AND idSessione="+idSessione+"");
             rs.next();
             testo = rs.getString("figli");            
         } catch (SQLException ex) {
@@ -591,18 +587,18 @@ public class DBManager {
         return stringa;
     }
     
-    public static void aggiornaFigli(int id, int idAlbero, int idSessione, String figli){  
+    public static void aggiornaFigli(int id, int idSessione, String figli){  
         esegui("UPDATE ipotesi SET figli = '"+figli+"' WHERE id = "+id+" AND "
-                + "idAlbero="+idAlbero+" AND idSessione="+idSessione+"", st);
+                + "idAlbero="+getIdAlbero(idSessione)+" AND idSessione="+idSessione+"", st);
     }
     
     
     
-    public static void rimuoviIpotesi(int idSessione, int idAlbero, int id){
+    public static void rimuoviIpotesi(int idSessione, int id){
         // trovare il padre della tripletta
-        int idPadre = getPadre(id, idAlbero, idSessione);
+        int idPadre = getPadre(id, idSessione);
         // prendere i figli del padre
-        String strFigli = getFigli(idPadre, idAlbero, idSessione);
+        String strFigli = getFigli(idPadre, idSessione);
         ArrayList<Integer> figli = getArrayFigli(strFigli);
         // creare un nuovo array list senza l'id da parametro
         ArrayList<Integer> newFigli = new ArrayList<>();
@@ -613,7 +609,7 @@ public class DBManager {
         // convertire l'arrayList in String
         String figliFinali = getStringFromArray(newFigli);
         // sostituire la lista di figli nel padre
-        aggiornaFigli(idPadre, idAlbero, idSessione, figliFinali);
+        aggiornaFigli(idPadre, idSessione, figliFinali);
 
     }
 }

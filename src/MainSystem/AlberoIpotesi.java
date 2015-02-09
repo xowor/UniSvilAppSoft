@@ -22,7 +22,7 @@ public final class AlberoIpotesi extends JTree{
         this.idAlbero = idAlb;
         this.root = new NodoIpotesi(this.idSessione, this.idAlbero, cifrato, delta);
         idCounter = 0;
-        DBManager.creaAlberoIpotesi(idAlb, idSes, 0);
+        DBManager.creaAlberoIpotesi(idSes, 0);
     }
     
     public AlberoIpotesi(Ipotesi root){
@@ -65,7 +65,6 @@ public final class AlberoIpotesi extends JTree{
             this.ipotesi.aggiungiIpotesi();
             idCounter++;
             this.listaFigli = new ArrayList<>();
-            //DBManager.creaIpotesiRadice(idSes, idAlb);
         }
         
         // nuovo nodo ipotesi
@@ -79,7 +78,7 @@ public final class AlberoIpotesi extends JTree{
             int alb = ip.getAlbero();
             if(!tmp.isEmpty()){
                 for(Integer idNewIp : tmp){
-                    Ipotesi temp = DBManager.getIpotesi(ses, alb, idNewIp);
+                    Ipotesi temp = DBManager.getIpotesi(ses, idNewIp);
                     this.listaFigli.add(new NodoIpotesi(temp, this));
                 }
             }
@@ -96,8 +95,8 @@ public final class AlberoIpotesi extends JTree{
                     this.ipotesi.getId(), new ArrayList<Integer>(), delta);
             tmp.aggiungiIpotesi();            
             this.listaFigli.add(new NodoIpotesi(tmp, this));
-            String figli = DBManager.getFigli(this.ipotesi.getId(), idAlbero, idSessione);
-            DBManager.aggiornaFigli(this.ipotesi.getId(), idAlbero, idSessione, figli);
+            String figli = DBManager.getFigli(this.ipotesi.getId(), idSessione);
+            DBManager.aggiornaFigli(this.ipotesi.getId(), idSessione, figli);
         }
         
         public void eliminaIpotesi(NodoIpotesi nodo){
