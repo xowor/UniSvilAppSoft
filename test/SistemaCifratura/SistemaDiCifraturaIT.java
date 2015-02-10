@@ -76,6 +76,8 @@ public class SistemaDiCifraturaIT {
     public static void tearDownClass() {
         esegui("DELETE FROM sistemaDiCifratura WHERE idStudente=10 AND chiave='chiave' AND metodo='cesare'", st);
         esegui("DELETE FROM studente WHERE nome='nome' AND cognome='cognome' AND login='login' AND password='password'", st);
+        esegui("DELETE FROM sistemadicifratura WHERE idStudente=60 AND chiave='key' AND metodo='cesar'", st);
+        
     }
 
     /**
@@ -92,11 +94,10 @@ public class SistemaDiCifraturaIT {
             // costruisco il risultato da testare
             ArrayList<SistemaDiCifratura> result = SistemaDiCifratura.caricaSistemiCifratura(studente);
             
-            //assertEquals(expResult, result);
             assertEquals(expResult.get(0).getChiave(), result.get(0).getChiave()); 
-//            assertEquals(expResult.get(idSistema).getId(), result.get(idSistema).getId());
-//            assertEquals(expResult.get(idSistema).getMetodo(), result.get(idSistema).getMetodo());
-//            assertEquals(expResult.get(idSistema).toString(), result.get(idSistema).toString());
+            assertEquals(expResult.get(0).getId(), result.get(0).getId());
+            assertEquals(expResult.get(0).getMetodo(), result.get(0).getMetodo());
+            assertEquals(expResult.get(0).toString(), result.get(0).toString());
 
     }
 
@@ -136,8 +137,20 @@ public class SistemaDiCifraturaIT {
      */
     @Test
     public void testSalva() {
-        System.out.println("salva");
-        instance.salva();
+        try {
+            System.out.println("salva");
+            esegui("INSERT INTO sistemadicifratura (idStudente, chiave, metodo) VALUES (60, 'key', 'cesar')", st);
+            ResultSet rs = st.executeQuery("SELECT id FROM sistemaDiCifratura WHERE idStudente="+idStudente+""
+                    + " AND chiave='chiave' AND metodo='cesare'");
+            int id = -1;
+            if(rs.next())
+                id = rs.getInt("id");
+            UserInfo stud = new UserInfo(89, "stud", "stud");
+            SistemaDiCifratura instance2 = new SistemaDiCifratura(id, "key", "cesar", stud);
+            instance2.salva();
+        } catch (SQLException ex) {
+            Logger.getLogger(SistemaDiCifraturaIT.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -145,8 +158,21 @@ public class SistemaDiCifraturaIT {
      */
     @Test
     public void testElimina() {
-        System.out.println("elimina");
-        instance.elimina();
+        try {
+            System.out.println("elimina");
+            esegui("INSERT INTO sistemaDiCifratura (idStudente, chiave, metodo) VALUES(89, 'key', 'cesar')", st);
+            ResultSet rs = st.executeQuery("SELECT id FROM sistemaDiCifratura WHERE idStudente="+idStudente+""
+                    + " AND chiave='chiave' AND metodo='cesare'");
+            int id = -1;
+            if(rs.next())
+                id = rs.getInt("id");
+            esegui("DELETE FROM sistemadicifratura WHERE chiave='" + id + "' AND metodo='cesare' AND chiave='key'", st);
+            UserInfo stud = new UserInfo(89, "stud", "stud");
+            SistemaDiCifratura instance2 = new SistemaDiCifratura(id, "key", "cesar", stud);
+            instance2.elimina();
+        } catch (SQLException ex) {
+            Logger.getLogger(SistemaDiCifraturaIT.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
