@@ -3,6 +3,7 @@ package SistemaCifratura;
 import Elementi.Studente;
 import MainSystem.DBManager;
 import Elementi.utenti.UserInfo;
+import static MainSystem.DBManager.st;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -62,8 +63,8 @@ public class SistemaDiCifratura {
 
     public static SistemaDiCifratura load(int id){
         SistemaDiCifratura sistema = null;
-        ResultSet rs = DBManager.execute("SELECT * FROM sistemaDiCifratura WHERE id="+id+"");
         try {
+            ResultSet rs = st.executeQuery("SELECT * FROM sistemaDiCifratura WHERE id="+id);
             if(rs.next()){
                 sistema = new SistemaDiCifratura(rs);
             }
@@ -94,7 +95,6 @@ public class SistemaDiCifratura {
     public String getMetodo(){
         return this.metodo;
     }
-    
     
     @Override
     public String toString(){
