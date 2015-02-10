@@ -27,7 +27,7 @@ public final class AlberoIpotesi extends JTree{
     public AlberoIpotesi(Ipotesi root){
         this.idSessione = root.getSessione();
         this.idAlbero = root.getAlbero();
-        this.root = new NodoIpotesi(root);
+        this.root = new NodoIpotesi(root, null);
         idCounter = contaNodi(this.root);
     }
     
@@ -51,7 +51,7 @@ public final class AlberoIpotesi extends JTree{
         private final int parent;
         private final Ipotesi ipotesi;
         private ArrayList<NodoIpotesi> listaFigli;
-        private final NodoIpotesi parentNodo;
+        private NodoIpotesi nodoPadre;
         
         /* ****************************************************************** */
         /* Costruttori */
@@ -59,17 +59,14 @@ public final class AlberoIpotesi extends JTree{
         // root
         private NodoIpotesi(int idSes, int idAlb, String testo, String delta){
             this.parent = 0;
-            this.parentNodo = null;
             this.ipotesi = new Ipotesi(idSes, idAlb, 0, testo, 0, new ArrayList<>(), delta);
             this.ipotesi.aggiungiIpotesi();
             idCounter++;
             this.listaFigli = new ArrayList<>();
         }
         
-        // root
-        private NodoIpotesi(Ipotesi ip){
-            this.parentNodo = null;
-            this.parent = 0;
+        private NodoIpotesi(Ipotesi ip, NodoIpotesi padre){
+            this.parent =ip.getParent();
             this.ipotesi = ip;
             idCounter++;
             this.listaFigli = new ArrayList<>();
@@ -77,27 +74,12 @@ public final class AlberoIpotesi extends JTree{
             int ses = ip.getSessione();
             if(!tmp.isEmpty()){
                 for(Integer idNewIp : tmp){
-                    Ipotesi temp = DBManager.getIpotesi(ses, idNewIp);
+                    Ipotesi temp = DBManager.getIpotesi(idNewIp, ses);
                     this.listaFigli.add(new NodoIpotesi(temp, this));
                 }
             }
         }
         
-        // nuovo nodo ipotesi
-        private NodoIpotesi(Ipotesi ip, NodoIpotesi parent){
-            this.parent = ip.getParent();
-            this.ipotesi = ip;
-            this.parentNodo = parent;
-            this.listaFigli = new ArrayList<>();
-            ArrayList<Integer> tmp = ip.getFigli();
-            int ses = ip.getSessione();
-            if(!tmp.isEmpty()){
-                for(Integer idNewIp : tmp){
-                    Ipotesi temp = DBManager.getIpotesi(ses, idNewIp);
-                    this.listaFigli.add(new NodoIpotesi(temp, this));
-                }
-            }
-        }
         
         /* ****************************************************************** */
         /* Metodi interni */
@@ -149,7 +131,7 @@ public final class AlberoIpotesi extends JTree{
 
         @Override
         public TreeNode getParent() {
-            return this.parentNodo;
+            return this.nodoPadre;
         }
 
         @Override
