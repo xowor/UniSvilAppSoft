@@ -459,8 +459,8 @@ public class MainJFrame extends javax.swing.JFrame {
     }
     
     public void mostraMessaggio(Messaggio messaggio){
-        this.sessione.setMessaggio( messaggio );
         if (messaggio != null && messaggio.getTesto() != null){
+            this.sessione.setMessaggio( messaggio );
             this.sessione.setAlfabeto( new Alfabeto(this.sessione.getMessaggio().getLocale()) );
             this.testoCifratoJTextPane.setText(messaggio.getTestoCifrato());
             //int idAlberoTmp = DBManager.getIdAlbero(this.sessione.getId());
