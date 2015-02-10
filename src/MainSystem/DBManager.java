@@ -21,8 +21,6 @@ public class DBManager {
         this.conn = openConnection();
         this.st = openStatement(conn);
         return conn;
-
-        
         //creaTabelle();
         //creaDati();
         //closeStatement(st);
