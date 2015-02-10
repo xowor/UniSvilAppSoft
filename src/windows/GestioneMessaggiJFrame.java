@@ -703,7 +703,7 @@ public class GestioneMessaggiJFrame extends javax.swing.JFrame {
         this.ricevutiJList.setModel(model);
         
                 
-        messaggi = CommunicationController.getMessaggi();
+        messaggi = CommunicationController.intercettaMessaggi(this.studente.getId());
         model = new DefaultListModel();
         for (Messaggio messaggio: messaggi){
             model.addElement(messaggio);
