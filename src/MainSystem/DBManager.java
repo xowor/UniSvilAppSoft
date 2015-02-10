@@ -362,7 +362,7 @@ public class DBManager {
                     String stringaDelta = rs.getString("delta");
                     
                     ArrayList<Integer> figli = getArrayFigli(stringaFigli);
-                    ip = new Ipotesi(idIpotesi, idSessione, getIdAlbero(idSessione), stringaTesto, 
+                    ip = new Ipotesi(idSessione, getIdAlbero(idSessione), idIpotesi, stringaTesto, 
                         padre, figli, stringaDelta);
                 }
             }
