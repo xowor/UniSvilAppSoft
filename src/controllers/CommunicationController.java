@@ -207,6 +207,20 @@ public class CommunicationController {
         }
         return messaggi;
     }
+    
+    public static ArrayList<Messaggio> intercettaMessaggi(int idStudente) {
+        ArrayList<Messaggio> messaggi = new ArrayList();
+        try {           
+            ResultSet rs = st.executeQuery("SELECT * FROM messaggio WHERE bozza='false' AND idDestinatario<>"+idStudente);
+            while(rs.next()){
+                Messaggio messaggio = new Messaggio(rs);  
+                messaggi.add(messaggio);
+            }   
+        } catch (SQLException ex) {
+            Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return messaggi;
+    }
 
     public static Proposta getProposta(Studente mittente, Studente destinatario) {
         Proposta proposta = null;
