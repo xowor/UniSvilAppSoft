@@ -1,4 +1,5 @@
 package MainSystem;
+import Elementi.Alfabeto;
 import Elementi.messaggi.Messaggio;
 import Elementi.Studente;
 import SistemaCifratura.SistemaDiCifratura;
@@ -448,10 +449,10 @@ public class DBManager {
         return al;
     }
    
-    public static HashMap<String, Integer> getFrequenzeAlfabeto(String lingua){
+    public static HashMap<String, Integer> getFrequenzeAlfabeto(Alfabeto alfabeto){
         HashMap<String, Integer> map = new HashMap();        
         try {
-            ResultSet rs = st.executeQuery("SELECT lettera, frequenza FROM frequenzaLingua WHERE lingua = '"+lingua+"'");
+            ResultSet rs = st.executeQuery("SELECT lettera, frequenza FROM frequenzaLingua WHERE lingua = '"+alfabeto.getLocale()+"'");
             map = new HashMap();
             while(rs.next()){
                 map.put(rs.getString("lettera"), rs.getInt("frequenza"));

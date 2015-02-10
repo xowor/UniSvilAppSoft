@@ -29,9 +29,11 @@ public class AnalisiFrequenzeJFrame extends javax.swing.JFrame {
         
         DefaultTableModel model = (DefaultTableModel) this.frequenzeJTable.getModel();
         
-        Frequenze frequenze = new Frequenze(alfabeto.getLocale());
-        frequenze.setFrequenze( dbManager.getFrequenzeAlfabeto(alfabeto.getLocale()) );
-        Frequenze frequenzeTesto = AnalisiFrequenze.calcolaFrequenze(messaggio , alfabeto);
+        /* #UC */
+        Frequenze frequenze = Frequenze.getFrequenze(alfabeto);
+        //frequenze.setFrequenze( dbManager.getFrequenzeAlfabeto(alfabeto.getLocale()) );
+        /* #UC */
+        Frequenze frequenzeTesto = AnalisiFrequenze.getFrequenzeTesto(messaggio , alfabeto);
 
         for (String parola : frequenze.getFrequenze().keySet()) {
             int frequenza = frequenze.getFrequenze().get(parola);

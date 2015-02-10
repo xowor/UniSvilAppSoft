@@ -222,7 +222,6 @@ public class AggiungiIpotesiJFrame extends javax.swing.JDialog {
     }//GEN-LAST:event_confermaJButtonActionPerformed
 
     private void mostraAnalisiFrequenzeJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mostraAnalisiFrequenzeJButtonActionPerformed
-        // TODO add your handling code here:
         AnalisiFrequenzeJFrame frame = new AnalisiFrequenzeJFrame(this.messaggio, this.alfabeto, this.dbManager);
         frame.setVisible(true);
     }//GEN-LAST:event_mostraAnalisiFrequenzeJButtonActionPerformed

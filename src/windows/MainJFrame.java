@@ -79,13 +79,11 @@ public class MainJFrame extends javax.swing.JFrame {
         jScrollPane4 = new javax.swing.JScrollPane();
         ipotesiJTextPane = new javax.swing.JTextPane();
         mostraAlfabetoJButton = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        soluzioneJButton = new javax.swing.JButton();
         soluzioneJLabel = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("CryptoHelper");
-
-        mainJPanel.setBorder(null);
 
         jLabel1.setText("Studente");
 
@@ -147,8 +145,6 @@ public class MainJFrame extends javax.swing.JFrame {
                 .addComponent(jButton1))
         );
 
-        IpotesiJPanel.setBorder(null);
-
         jLabel2.setText("Ipotesi");
 
         aggiungiIpotesiJButton.setText("+");
@@ -203,8 +199,6 @@ public class MainJFrame extends javax.swing.JFrame {
 
         contentJSplitPane.setLeftComponent(IpotesiJPanel);
 
-        RightJPanel.setBorder(null);
-
         jSplitPane2.setDividerLocation(220);
         jSplitPane2.setOrientation(javax.swing.JSplitPane.VERTICAL_SPLIT);
 
@@ -251,10 +245,10 @@ public class MainJFrame extends javax.swing.JFrame {
             }
         });
 
-        jButton2.setText("Soluzione");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        soluzioneJButton.setText("Soluzione");
+        soluzioneJButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                soluzioneJButtonActionPerformed(evt);
             }
         });
 
@@ -268,7 +262,7 @@ public class MainJFrame extends javax.swing.JFrame {
             .addGroup(RightJPanelLayout.createSequentialGroup()
                 .addComponent(mostraAlfabetoJButton)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton2)
+                .addComponent(soluzioneJButton)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(soluzioneJLabel)
                 .addGap(0, 0, Short.MAX_VALUE))
@@ -280,7 +274,7 @@ public class MainJFrame extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(RightJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(mostraAlfabetoJButton)
-                    .addComponent(jButton2)
+                    .addComponent(soluzioneJButton)
                     .addComponent(soluzioneJLabel)))
         );
 
@@ -432,13 +426,13 @@ public class MainJFrame extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_ipotesiJTreeValueChanged
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void soluzioneJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_soluzioneJButtonActionPerformed
         if (this.messaggioCorrente.getTesto().equals(this.ipotesiCorrente.getTestoParzialmenteDecifrato())){
             this.soluzioneJLabel.setText("Soluzione corretta");
         } else {
             this.soluzioneJLabel.setText("Soluzione errata");
         }
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_soluzioneJButtonActionPerformed
     
     public void inizializza(){
         this.dbManager = new DBManager();
@@ -484,6 +478,7 @@ public class MainJFrame extends javax.swing.JFrame {
         this.aggiungiIpotesiJButton.setEnabled(enabled);
         this.rimuoviIpotesiJButton.setEnabled(enabled);
         this.mostraAlfabetoJButton.setEnabled(enabled);
+        this.soluzioneJButton.setEnabled(enabled);
     }
     
     /**
@@ -554,7 +549,6 @@ public class MainJFrame extends javax.swing.JFrame {
     private javax.swing.JTextPane ipotesiJTextPane;
     private javax.swing.JTree ipotesiJTree;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel2;
@@ -567,6 +561,7 @@ public class MainJFrame extends javax.swing.JFrame {
     private javax.swing.JPanel mainJPanel;
     private javax.swing.JButton mostraAlfabetoJButton;
     private javax.swing.JButton rimuoviIpotesiJButton;
+    private javax.swing.JButton soluzioneJButton;
     private javax.swing.JLabel soluzioneJLabel;
     private javax.swing.JComboBox studentiJComboBox;
     private javax.swing.JTextPane testoCifratoJTextPane;
