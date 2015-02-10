@@ -351,8 +351,9 @@ public class MainJFrame extends javax.swing.JFrame {
     private void rimuoviIpotesiJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rimuoviIpotesiJButtonActionPerformed
         AlberoIpotesi.NodoIpotesi nodoIpotesi = (AlberoIpotesi.NodoIpotesi) this.ipotesiJTree.getLastSelectedPathComponent();
         NodoIpotesi parent = ((AlberoIpotesi.NodoIpotesi) nodoIpotesi.getParent());
-        parent.eliminaIpotesi(nodoIpotesi);
-        
+        if(parent != null){
+            parent.eliminaIpotesi(nodoIpotesi);
+        }
         DefaultTreeModel model = (DefaultTreeModel)ipotesiJTree.getModel();
         model.reload(); 
     }//GEN-LAST:event_rimuoviIpotesiJButtonActionPerformed
