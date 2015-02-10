@@ -123,12 +123,15 @@ public class Sessione {
         // esiste una sessione iniziata?
         // no
         if(getIfSessioneTerminate(studente)){
+            System.out.println("NUOVA SESSIONE");
             // inizializzare una sessione
             esegui("INSERT INTO sessione (idStudente, terminata) VALUES (" + studente.getId() + ", 'false')", st);
             // creare l'oggetto Sessione
             sessione = new Sessione(studente, getIdSessioneCorrente(studente));
         }else{  
             try {
+                
+                System.out.println("VECCHIA SESSIONE");
                 // si
                 // recuperare la sessione con la decifratura già iniziata (terminata = false)
                 ResultSet rs = st.executeQuery("SELECT * FROM sessione WHERE idStudente = " + studente.getId() + " AND terminata = false");
