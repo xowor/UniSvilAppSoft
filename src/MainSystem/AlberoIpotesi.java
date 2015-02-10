@@ -70,6 +70,7 @@ public final class AlberoIpotesi extends JTree{
             this.ipotesi = ip;
             idCounter++;
             this.listaFigli = new ArrayList<>();
+            this.nodoPadre = padre;
             ArrayList<Integer> tmp = ip.getFigli();
             int ses = ip.getSessione();
             if(!tmp.isEmpty()){

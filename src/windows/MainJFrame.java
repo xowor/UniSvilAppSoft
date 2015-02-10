@@ -4,6 +4,7 @@ import Elementi.Studente;
 import Elementi.messaggi.Messaggio;
 import MainSystem.DBManager;
 import MainSystem.AlberoIpotesi;
+import MainSystem.AlberoIpotesi.NodoIpotesi;
 import MainSystem.Ipotesi;
 import MainSystem.Sessione;
 import MainSystem.Sostituzione;
@@ -349,7 +350,8 @@ public class MainJFrame extends javax.swing.JFrame {
 
     private void rimuoviIpotesiJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rimuoviIpotesiJButtonActionPerformed
         AlberoIpotesi.NodoIpotesi nodoIpotesi = (AlberoIpotesi.NodoIpotesi) this.ipotesiJTree.getLastSelectedPathComponent();
-        ((AlberoIpotesi.NodoIpotesi) nodoIpotesi.getParent()).eliminaIpotesi(nodoIpotesi);
+        NodoIpotesi parent = ((AlberoIpotesi.NodoIpotesi) nodoIpotesi.getParent());
+        parent.eliminaIpotesi(nodoIpotesi);
         
         DefaultTreeModel model = (DefaultTreeModel)ipotesiJTree.getModel();
         model.reload(); 
