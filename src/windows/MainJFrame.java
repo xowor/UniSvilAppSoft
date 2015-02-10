@@ -34,10 +34,10 @@ public class MainJFrame extends javax.swing.JFrame {
     private Studente studente;
     private Sessione sessione;
     private ArrayList<Studente> studenti;
-    private AlberoIpotesi alberoIpotesi;
-    private Ipotesi ipotesiCorrente;
-    private Messaggio messaggioCorrente;
-    private Alfabeto alfabetoCorrente;
+//    private AlberoIpotesi alberoIpotesi;
+//    private Ipotesi ipotesiCorrente;
+//    private Messaggio messaggioCorrente;
+//    private Alfabeto alfabetoCorrente;
 
     /**
      * Creates new form MainJFrame
@@ -84,6 +84,7 @@ public class MainJFrame extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("CryptoHelper");
+        setResizable(false);
 
         jLabel1.setText("Studente");
 
@@ -183,14 +184,15 @@ public class MainJFrame extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(rimuoviIpotesiJButton, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(27, 27, 27))
-            .addComponent(jScrollPane1)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, IpotesiJPanelLayout.createSequentialGroup()
+                .addComponent(jScrollPane1)
+                .addContainerGap())
         );
         IpotesiJPanelLayout.setVerticalGroup(
             IpotesiJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(IpotesiJPanelLayout.createSequentialGroup()
-                .addGap(6, 6, 6)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 454, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
                 .addGroup(IpotesiJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(aggiungiIpotesiJButton)
@@ -321,9 +323,11 @@ public class MainJFrame extends javax.swing.JFrame {
 
     private void aggiungiIpotesi(Sostituzione i){
         if (i != null){
-            String nuovoTesto = this.sessione.sostituisci(this.ipotesiCorrente.getTestoParzialmenteDecifrato(), i.getSostituisci(), i.getSostituisciCon());
-            AlberoIpotesi.NodoIpotesi nodoIpotesi = (AlberoIpotesi.NodoIpotesi) this.ipotesiJTree.getLastSelectedPathComponent();
-            nodoIpotesi.aggiungiIpotesi(nuovoTesto, i.getSostituisci() + " -> " + i.getSostituisciCon());
+            // # DSD #
+            String nuovoTesto = this.sessione.sostituisci(this.sessione.getIpotesiCorrente().getTestoParzialmenteDecifrato(), i.getSostituisci(), i.getSostituisciCon());
+            this.sessione.getIpotesiCorrente().aggiungiIpotesiAdAlbero(nuovoTesto, i.getSostituisci() + " -> " + i.getSostituisciCon());
+            //AlberoIpotesi.NodoIpotesi nodoIpotesi = (AlberoIpotesi.NodoIpotesi) this.ipotesiJTree.getLastSelectedPathComponent();
+            //nodoIpotesi.aggiungiIpotesi(nuovoTesto, i.getSostituisci() + " -> " + i.getSostituisciCon());
 
             DefaultTreeModel model = (DefaultTreeModel)ipotesiJTree.getModel();
             model.reload();
@@ -331,8 +335,8 @@ public class MainJFrame extends javax.swing.JFrame {
     }
     
     private void aggiungiIpotesiJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aggiungiIpotesiJButtonActionPerformed
-        Sostituzione sostituzione = new Sostituzione(this.ipotesiCorrente.getTestoParzialmenteDecifrato());
-        windows.AggiungiIpotesiJFrame frame = new windows.AggiungiIpotesiJFrame(this.ipotesiCorrente.getTestoParzialmenteDecifrato(), this.alfabetoCorrente, sostituzione, this.dbManager);
+        Sostituzione sostituzione = new Sostituzione(this.sessione.getIpotesiCorrente().getTestoParzialmenteDecifrato());
+        windows.AggiungiIpotesiJFrame frame = new windows.AggiungiIpotesiJFrame(this.sessione, this.dbManager);
         frame.addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosed(WindowEvent e) {
@@ -357,7 +361,7 @@ public class MainJFrame extends javax.swing.JFrame {
         //Alfabeto alfabeto = new Alfabeto("EN_us", chars);
         //\TEMP
         
-        windows.AlfabetoJFrame frame = new windows.AlfabetoJFrame(this.alfabetoCorrente);
+        windows.AlfabetoJFrame frame = new windows.AlfabetoJFrame(this.sessione.getAlfabeto());
         frame.setVisible(true);
     }//GEN-LAST:event_mostraAlfabetoJButtonActionPerformed
 
@@ -368,20 +372,20 @@ public class MainJFrame extends javax.swing.JFrame {
             this.sessione = Sessione.getOrInsertSessione(this.studente);
             
             //int idAlberoTmp = DBManager.getIdAlbero(this.sessione.getId());
-            //this.alberoIpotesi = new AlberoIpotesi(this.sessione.getId(), idAlberoTmp, messaggio.getTestoCifrato(), messaggio.getTitolo());
-            this.alberoIpotesi = DBManager.getAlberoIpotesi(sessione.getId());
-            this.messaggioCorrente = DBManager.getMessaggio(sessione.getId());
-            if (this.messaggioCorrente != null){
-                this.alfabetoCorrente = new Alfabeto(this.messaggioCorrente.getLocale());
-                this.testoCifratoJTextPane.setText(this.messaggioCorrente.getTestoCifrato());
+            //this.sessione.setAlberoIpotesi(new AlberoIpotesi(this.sessione.getId(), idAlberoTmp, messaggio.getTestoCifrato(), messaggio.getTitolo());
+            this.sessione.setAlberoIpotesi( DBManager.getAlberoIpotesi(sessione.getId()) );
+            this.sessione.setMessaggio( DBManager.getMessaggio(sessione.getId()) );
+            if (this.sessione.getMessaggio() != null){
+                this.sessione.setAlfabeto( new Alfabeto(this.sessione.getMessaggio().getLocale()) );
+                this.testoCifratoJTextPane.setText(this.sessione.getMessaggio().getTestoCifrato());
                 DefaultTreeModel a;
                 AlberoIpotesi tmp;
-                if(this.alberoIpotesi == null){
-                    this.alberoIpotesi = new AlberoIpotesi(this.sessione.getId(), this.messaggioCorrente.getTestoCifrato(), this.messaggioCorrente.getTestoCifrato());
+                if(this.sessione.getAlberoIpotesi() == null){
+                    this.sessione.setAlberoIpotesi( new AlberoIpotesi(this.sessione.getId(), this.sessione.getMessaggio().getTestoCifrato(), this.sessione.getMessaggio().getTestoCifrato()) );
                 }                
-                a = new DefaultTreeModel(this.alberoIpotesi.getRoot());
+                a = new DefaultTreeModel(this.sessione.getAlberoIpotesi().getRoot());
                 this.ipotesiJTree.setModel(a);
-                this.ipotesiJTree.setSelectionPath(new TreePath(this.alberoIpotesi.getRoot().getPath()));
+                this.ipotesiJTree.setSelectionPath(new TreePath(this.sessione.getAlberoIpotesi().getRoot().getPath()));
                 setContentEnabled(true);
             }
             
@@ -421,13 +425,13 @@ public class MainJFrame extends javax.swing.JFrame {
         AlberoIpotesi.NodoIpotesi nodoIpotesi = (AlberoIpotesi.NodoIpotesi) this.ipotesiJTree.getLastSelectedPathComponent();
         if (nodoIpotesi != null){
             ipotesiJTextPane.setText(nodoIpotesi.getIpotesi().getTestoParzialmenteDecifrato());
-            this.ipotesiCorrente = nodoIpotesi.getIpotesi();
+            this.sessione.setIpotesiCorrente( nodoIpotesi.getIpotesi() );
             setContentEnabled(true);   
         }
     }//GEN-LAST:event_ipotesiJTreeValueChanged
 
     private void soluzioneJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_soluzioneJButtonActionPerformed
-        if (this.messaggioCorrente.getTesto().equals(this.ipotesiCorrente.getTestoParzialmenteDecifrato())){
+        if (this.sessione.getMessaggio().getTesto().equals(this.sessione.getIpotesiCorrente().getTestoParzialmenteDecifrato())){
             this.soluzioneJLabel.setText("Soluzione corretta");
         } else {
             this.soluzioneJLabel.setText("Soluzione errata");
@@ -445,30 +449,36 @@ public class MainJFrame extends javax.swing.JFrame {
     
     public void mostraStudenti(){
         this.studenti = Studente.getStudenti();
-        for (Studente studente : this.studenti){
-            this.studentiJComboBox.addItem(studente);
-        }        
+        if (studenti.size() > 0){
+            for (Studente studente : this.getStudenti()){
+                this.studentiJComboBox.addItem(studente);
+            }
+        }      
     }
     
     public void mostraMessaggio(Messaggio messaggio){
-        this.messaggioCorrente = messaggio;
+        this.sessione.setMessaggio( messaggio );
         if (messaggio != null && messaggio.getTesto() != null){
-            this.alfabetoCorrente = new Alfabeto(this.messaggioCorrente.getLocale());
+            this.sessione.setAlfabeto( new Alfabeto(this.sessione.getMessaggio().getLocale()) );
             this.testoCifratoJTextPane.setText(messaggio.getTestoCifrato());
             //int idAlberoTmp = DBManager.getIdAlbero(this.sessione.getId());
-            //this.alberoIpotesi = new AlberoIpotesi(this.sessione.getId(), idAlberoTmp, messaggio.getTestoCifrato(), messaggio.getTitolo());
-            this.alberoIpotesi = DBManager.getAlberoIpotesi(this.sessione.getId());
+            //this.sessione.setAlberoIpotesi(new AlberoIpotesi(this.sessione.getId(), idAlberoTmp, messaggio.getTestoCifrato(), messaggio.getTitolo());
+            this.sessione.setAlberoIpotesi( DBManager.getAlberoIpotesi(this.sessione.getId()) );
             DefaultTreeModel a;
             AlberoIpotesi tmp;
-            if(this.alberoIpotesi == null){
-                this.alberoIpotesi = new AlberoIpotesi(this.sessione.getId(), messaggio.getTestoCifrato(), messaggio.getTestoCifrato());
+            if(this.sessione.getAlberoIpotesi() == null){
+                this.sessione.setAlberoIpotesi( new AlberoIpotesi(this.sessione.getId(), messaggio.getTestoCifrato(), messaggio.getTestoCifrato()) );
             }                
-            a = new DefaultTreeModel(this.alberoIpotesi.getRoot());
+            a = new DefaultTreeModel(this.sessione.getAlberoIpotesi().getRoot());
             this.ipotesiJTree.setModel(a);
-            this.ipotesiJTree.setSelectionPath(new TreePath(this.alberoIpotesi.getRoot().getPath()));
+            this.ipotesiJTree.setSelectionPath(new TreePath(this.sessione.getAlberoIpotesi().getRoot().getPath()));
             setContentEnabled(true);
             //System.out.println(messaggio.getTesto());   
         }
+    }
+    
+    private ArrayList<Studente> getStudenti() {
+        return this.studenti;
     }
     
     public void setContentEnabled(boolean enabled){
@@ -566,4 +576,5 @@ public class MainJFrame extends javax.swing.JFrame {
     private javax.swing.JComboBox studentiJComboBox;
     private javax.swing.JTextPane testoCifratoJTextPane;
     // End of variables declaration//GEN-END:variables
+
 }

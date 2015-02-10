@@ -8,6 +8,7 @@ package windows;
 import Elementi.Alfabeto;
 import Elementi.messaggi.Messaggio;
 import MainSystem.DBManager;
+import MainSystem.Sessione;
 import MainSystem.Sostituzione;
 import java.util.Set;
 
@@ -21,14 +22,16 @@ public class AggiungiIpotesiJFrame extends javax.swing.JDialog {
     private final DBManager dbManager;
     private final String messaggio;
     private final Alfabeto alfabeto;
+    private Sessione sessione;
 
     /**
      * Creates new form AggiungiIpotesiJFrame
      */
-    public AggiungiIpotesiJFrame(String messaggio, Alfabeto alfabeto, Sostituzione sostituzione, DBManager dbManager) {
+    public AggiungiIpotesiJFrame(Sessione sessione, DBManager dbManager) {
+        this.sessione = sessione;
         this.sostituzione = sostituzione;
-        this.messaggio = messaggio;
-        this.alfabeto = alfabeto;
+        this.messaggio = sessione.getMessaggio().getTestoCifrato();
+        this.alfabeto = sessione.getAlfabeto();
         this.dbManager = dbManager;
         initComponents();
         this.messaggioJTextArea.setText(messaggio);
@@ -222,13 +225,13 @@ public class AggiungiIpotesiJFrame extends javax.swing.JDialog {
     }//GEN-LAST:event_confermaJButtonActionPerformed
 
     private void mostraAnalisiFrequenzeJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mostraAnalisiFrequenzeJButtonActionPerformed
-        AnalisiFrequenzeJFrame frame = new AnalisiFrequenzeJFrame(this.messaggio, this.alfabeto, this.dbManager);
+        AnalisiFrequenzeJFrame frame = new AnalisiFrequenzeJFrame(this.sessione.getSupporto("AnalisiFrequenze"), this.messaggio, this.alfabeto, this.dbManager);
         frame.setVisible(true);
     }//GEN-LAST:event_mostraAnalisiFrequenzeJButtonActionPerformed
 
     private void mostraDizionarioJButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mostraDizionarioJButton1ActionPerformed
         // TODO add your handling code here:
-        DizionarioJFrame frame = new DizionarioJFrame(this.dbManager);
+        DizionarioJFrame frame = new DizionarioJFrame(this.sessione.getSupporto("Dizionario"), this.dbManager);
         frame.setVisible(true);
     }//GEN-LAST:event_mostraDizionarioJButton1ActionPerformed
 

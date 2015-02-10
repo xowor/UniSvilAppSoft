@@ -1,11 +1,14 @@
 package MainSystem;
 
+import Elementi.Alfabeto;
 import static MainSystem.DBManager.esegui;
 import static MainSystem.DBManager.st;
 import Elementi.Studente;
 import Elementi.messaggi.Messaggio;
 import SistemaSupporto.Supporto;
 import SistemaCifratura.SistemaDiCifratura;
+import SistemaSupporto.AnalisiFrequenze;
+import SistemaSupporto.Dizionario;
 import controllers.CommunicationController;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -15,13 +18,18 @@ import java.util.logging.Logger;
 
 public class Sessione {
     
+    private int idSessione;
     private Studente studente;
-    private final int idSessione;
-    private int idAlbero;
-    private int idIpotesiCorrente;
-    private Messaggio messaggioOriginaleCifrato;
+    private Sessione sessione;
     private AlberoIpotesi alberoIpotesi;
-    private ArrayList<Supporto> strumentoSupporto;
+    private Ipotesi ipotesiCorrente;
+    private Messaggio messaggio;
+    private Alfabeto alfabeto;
+    //private int idAlbero;
+    //private int idIpotesiCorrente;
+    //private Messaggio messaggioOriginaleCifrato;
+    //private AlberoIpotesi alberoIpotesi;
+    //private ArrayList<Supporto> strumentoSupporto;
 //    private ArrayList<SistemaDiCifratura> sistemaCifratura;
     
     // Sessione iniziale senza aver ancora deciso cosa decifrare
@@ -34,9 +42,9 @@ public class Sessione {
     public Sessione(int idSes, Studente studente, int idAlb, int idMessaggioCifrato){
         this.studente = studente;
         this.idSessione = idSes;
-        this.idAlbero = idAlb;    
-        this.alberoIpotesi = DBManager.getAlberoIpotesi(idSes);
-        this.messaggioOriginaleCifrato = CommunicationController.visualizzaMessaggioInviato(idMessaggioCifrato);
+//        this.idAlbero = idAlb;    
+//        this.alberoIpotesi = DBManager.getAlberoIpotesi(idSes);
+//        this.messaggioOriginaleCifrato = CommunicationController.visualizzaMessaggioInviato(idMessaggioCifrato);
     }
     
     // pre: cosa sostituire
@@ -45,14 +53,14 @@ public class Sessione {
         return testo.replace(pre, post);
     }
     
-    public void setSupporto(){
-        this.strumentoSupporto = null;
-    }
-    
-    public void setAlberoIpotesi(String testo){
-        this.alberoIpotesi = new AlberoIpotesi(this.idSessione, messaggioOriginaleCifrato.getTestoCifrato(), testo);
-    
-    }
+//    public void setSupporto(){
+//        this.strumentoSupporto = null;
+//    }
+//    
+//    public void setAlberoIpotesi(String testo){
+//        this.alberoIpotesi = new AlberoIpotesi(this.idSessione, messaggioOriginaleCifrato.getTestoCifrato(), testo);
+//    
+//    }
     
     public static boolean verificaSoluzione(Messaggio messaggio, String soluzioneSpia){
         if(messaggio.getTesto().equals(soluzioneSpia))
@@ -69,7 +77,7 @@ public class Sessione {
     }
 
     public int getId() {
-        return this.idSessione;
+        return this.getIdSessione();
     }
     
     
@@ -143,5 +151,104 @@ public class Sessione {
             }
         }
         return sessione;
+    }
+    
+    
+    public Supporto getSupporto(String nome){
+        if (nome.equals("Dizionario")) return new Dizionario();
+        if (nome.equals("AnalisiFrequenze")) return new AnalisiFrequenze();
+        return null;
+    }
+    
+
+    /**
+     * @return the idSessione
+     */
+    public int getIdSessione() {
+        return idSessione;
+    }
+
+    /**
+     * @param idSessione the idSessione to set
+     */
+    public void setIdSessione(int idSessione) {
+        this.idSessione = idSessione;
+    }
+
+    /**
+     * @param studente the studente to set
+     */
+    public void setStudente(Studente studente) {
+        this.studente = studente;
+    }
+
+    /**
+     * @return the sessione
+     */
+    public Sessione getSessione() {
+        return sessione;
+    }
+
+    /**
+     * @param sessione the sessione to set
+     */
+    public void setSessione(Sessione sessione) {
+        this.sessione = sessione;
+    }
+
+    /**
+     * @return the alberoIpotesi
+     */
+    public AlberoIpotesi getAlberoIpotesi() {
+        return alberoIpotesi;
+    }
+
+    /**
+     * @param alberoIpotesi the alberoIpotesi to set
+     */
+    public void setAlberoIpotesi(AlberoIpotesi alberoIpotesi) {
+        this.alberoIpotesi = alberoIpotesi;
+    }
+
+    /**
+     * @return the ipotesiCorrente
+     */
+    public Ipotesi getIpotesiCorrente() {
+        return ipotesiCorrente;
+    }
+
+    /**
+     * @param ipotesiCorrente the ipotesiCorrente to set
+     */
+    public void setIpotesiCorrente(Ipotesi ipotesiCorrente) {
+        this.ipotesiCorrente = ipotesiCorrente;
+    }
+
+    /**
+     * @return the messaggio
+     */
+    public Messaggio getMessaggio() {
+        return messaggio;
+    }
+
+    /**
+     * @param messaggio the messaggio to set
+     */
+    public void setMessaggio(Messaggio messaggio) {
+        this.messaggio = messaggio;
+    }
+
+    /**
+     * @return the alfabeto
+     */
+    public Alfabeto getAlfabeto() {
+        return alfabeto;
+    }
+
+    /**
+     * @param alfabeto the alfabeto to set
+     */
+    public void setAlfabeto(Alfabeto alfabeto) {
+        this.alfabeto = alfabeto;
     }
 }

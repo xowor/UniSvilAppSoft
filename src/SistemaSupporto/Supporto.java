@@ -10,5 +10,6 @@ package SistemaSupporto;
  * @author luca
  */
 public interface Supporto {
+    public String getNome();
     
 }

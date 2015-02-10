@@ -1,5 +1,6 @@
 package MainSystem;
 
+import MainSystem.AlberoIpotesi.NodoIpotesi;
 import java.util.ArrayList;
 
 public class Ipotesi {
@@ -11,6 +12,7 @@ public class Ipotesi {
     private int idPadre;
     private ArrayList<Integer> figli;
     private String delta;
+    private NodoIpotesi nodoIpotesi;
     
     public Ipotesi(int idSes, int idAlb, int idIp, String testo, int padre, ArrayList<Integer> listaFigli, String delta){
         this.idSessione = idSes;
@@ -26,6 +28,10 @@ public class Ipotesi {
         String figli = this.figli.toString();
         DBManager.aggiungiIpotesi(this.idSessione, this.idIpotesi, this.testoParzialmenteDecifrato, 
                 this.idPadre, figli, this.delta);
+    }
+    
+    public void aggiungiIpotesiAdAlbero(String testo, String delta){
+        this.nodoIpotesi.aggiungiIpotesi(testo, delta);
     }
     
     public void rimuoviIpotesi(){
@@ -63,5 +69,19 @@ public class Ipotesi {
 
     String getDelta() {
         return this.delta;
+    }
+
+    /**
+     * @return the nodoIpotesi
+     */
+    public NodoIpotesi getNodoIpotesi() {
+        return nodoIpotesi;
+    }
+
+    /**
+     * @param nodoIpotesi the nodoIpotesi to set
+     */
+    public void setNodoIpotesi(NodoIpotesi nodoIpotesi) {
+        this.nodoIpotesi = nodoIpotesi;
     }
 }

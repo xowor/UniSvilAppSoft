@@ -10,6 +10,7 @@ import Elementi.Frequenze;
 import Elementi.messaggi.Messaggio;
 import MainSystem.DBManager;
 import SistemaSupporto.AnalisiFrequenze;
+import SistemaSupporto.Supporto;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -23,7 +24,7 @@ public class AnalisiFrequenzeJFrame extends javax.swing.JFrame {
     /**
      * Creates new form AnalisiFrequenzeJFrame
      */
-    public AnalisiFrequenzeJFrame(String messaggio, Alfabeto alfabeto, DBManager dbManager) {
+    public AnalisiFrequenzeJFrame(Supporto supporto, String messaggio, Alfabeto alfabeto, DBManager dbManager) {
         this.dbManager = dbManager;
         initComponents();
         
@@ -31,9 +32,10 @@ public class AnalisiFrequenzeJFrame extends javax.swing.JFrame {
         
         /* #UC */
         Frequenze frequenze = Frequenze.getFrequenze(alfabeto);
+        AnalisiFrequenze analisiFrequenze = (AnalisiFrequenze) supporto;
         //frequenze.setFrequenze( dbManager.getFrequenzeAlfabeto(alfabeto.getLocale()) );
         /* #UC */
-        Frequenze frequenzeTesto = AnalisiFrequenze.getFrequenzeTesto(messaggio , alfabeto);
+        Frequenze frequenzeTesto = analisiFrequenze.getFrequenzeTesto(messaggio , alfabeto);
 
         for (String parola : frequenze.getFrequenze().keySet()) {
             int frequenza = frequenze.getFrequenze().get(parola);

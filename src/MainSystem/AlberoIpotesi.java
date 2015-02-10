@@ -103,6 +103,7 @@ public final class AlberoIpotesi extends JTree{
         }
         
         public Ipotesi getIpotesi(){
+            this.ipotesi.setNodoIpotesi(this);
             return this.ipotesi;
         }
         

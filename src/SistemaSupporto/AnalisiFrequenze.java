@@ -34,4 +34,9 @@ public class AnalisiFrequenze implements Supporto{
         freq.setFrequenze(map);
         return freq;
     }
+
+    @Override
+    public String getNome() {
+        return "AnalisiFrequenze";
+    }
 }

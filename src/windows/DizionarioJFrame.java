@@ -8,6 +8,7 @@ package windows;
 import Elementi.Studente;
 import MainSystem.DBManager;
 import SistemaSupporto.Dizionario;
+import SistemaSupporto.Supporto;
 import javax.swing.DefaultListModel;
 
 /**
@@ -21,12 +22,12 @@ public class DizionarioJFrame extends javax.swing.JFrame {
     /**
      * Creates new form DizionarioJFrame
      */
-    public DizionarioJFrame(DBManager dbManager) {
+    public DizionarioJFrame(Supporto supporto, DBManager dbManager) {
         this.dbManager = dbManager;
         initComponents();
         
         DefaultListModel listModel = new DefaultListModel();
-        Dizionario dizionario = new Dizionario();
+        Dizionario dizionario = (Dizionario) supporto;
         String[] parole = dizionario.getDizionario("IT_it");
         for (String parola : parole){
             listModel.addElement(parola);
