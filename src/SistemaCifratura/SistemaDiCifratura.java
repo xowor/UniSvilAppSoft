@@ -47,10 +47,14 @@ public class SistemaDiCifratura {
             this.creatore = creatore;
     }
     
+    /**
+     * Scarica dal db tutti i Sistemi di Cifratura di un dato Studente.
+     * @param studente
+     * @return ArrayList<SistemaDiCifratura> 
+     */
     public static ArrayList<SistemaDiCifratura> caricaSistemiCifratura(Studente studente){
         ArrayList<SistemaDiCifratura> lista = new ArrayList<SistemaDiCifratura>();
-        int idStudente = studente.getId();
-        ResultSet rs = DBManager.execute("SELECT * FROM sistemaDiCifratura WHERE idStudente="+idStudente+"");
+        ResultSet rs = DBManager.execute("SELECT * FROM sistemaDiCifratura WHERE idStudente="+studente.getId()+"");
         try {
             while(rs.next()){
                 lista.add( new SistemaDiCifratura(rs) );
@@ -61,6 +65,11 @@ public class SistemaDiCifratura {
         return lista;
     }
 
+    /**
+     * Carica dal db il SistemaDiCifratura tramite l'id.
+     * @param id del SistemaDiCifratura
+     * @return SistemaDiCifratura
+     */
     public static SistemaDiCifratura load(int id){
         SistemaDiCifratura sistema = null;
         try {
