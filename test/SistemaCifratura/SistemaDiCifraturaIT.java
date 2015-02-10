@@ -38,12 +38,14 @@ public class SistemaDiCifraturaIT {
     public static void setUpClass() {
         dbManager = new DBManager();
         dbManager.inizializza();
-        esegui("INSERT INTO sistemaDiCifratura (idStudente, chiave, metodo) VALUES(10, 'chiave', 'cesare')", st);          
+        esegui("INSERT INTO sistemaDiCifratura (idStudente, chiave, metodo) VALUES(10, 'chiave', 'cesare')", st); 
+        esegui("INSERT INTO studente (nome, cognome, login, password) VALUES('nome', 'cognome', 'login', 'password')", st);
     }
     
     @AfterClass
     public static void tearDownClass() {
         esegui("DELETE FROM sistemaDiCifratura WHERE idStudente=10 AND chiave='chiave' AND metodo='cesare'", st);
+        esegui("DELETE FROM studente WHERE nome='nome' AND cognome='cognome' AND login='login' AND password='password'", st);
     }
 
     /**
@@ -81,13 +83,14 @@ public class SistemaDiCifraturaIT {
      */
     @Test
     public void testLoad() {
-        try {
-            System.out.println("load");
-            int id = 1;
-            SistemaDiCifratura expResult = null;
-            SistemaDiCifratura result = SistemaDiCifratura.load(id);
-            assertEquals(expResult, result);
-            
+        System.out.println("load");
+        int id = 500;
+        SistemaDiCifratura expResult = null;
+        SistemaDiCifratura result = SistemaDiCifratura.load(id);
+        System.out.println(result);
+        assertNull(result);
+        
+        try {            
             ResultSet rs0 = st.executeQuery("SELECT id FROM studente WHERE nome='nome' AND cognome='cognome' "
                     + "AND login='login' AND password='password'");
             rs0.next();

@@ -97,6 +97,10 @@ public class SistemaDiCifratura {
         DBManager.execute("DELETE FROM sistemadicifratura WHERE chiave='" + this.chiave + "' AND metodo='" + this.metodo + "'");
     }
     
+//    public ArrayList<SistemaDiCifratura> ottieniMetodiCifratura(){
+//        // TODO
+//    }
+    
     public String getChiave(){
         return this.chiave;
     }
