@@ -304,9 +304,11 @@ public class DBManager {
             ResultSet rs = st.executeQuery("SELECT idMessaggioOriginaleCifrato FROM sessione WHERE id="+idSessione);
             if(rs.next()){
                 int idMex = rs.getInt(1);
-                rs = st.executeQuery("SELECT * FROM messaggio WHERE id="+idMex);
-                rs.next();
-                mex = new Messaggio(rs);
+                if(idMex>0){
+                    rs = st.executeQuery("SELECT * FROM messaggio WHERE id="+idMex);
+                    rs.next();
+                    mex = new Messaggio(rs);
+                }
             }
         } catch (SQLException ex) {
             Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
@@ -350,7 +352,7 @@ public class DBManager {
     public static Ipotesi getIpotesi(int idIpotesi, int idSessione){
         Ipotesi ip = null;
         try {
-            if(getIdAlbero(idSessione)<0){
+            if(getIdAlbero(idSessione)>=0){
                 ResultSet rs = st.executeQuery("SELECT * FROM ipotesi WHERE id="+idIpotesi+" AND idSessione="+idSessione+" "
                         + "AND idAlbero="+getIdAlbero(idSessione)+"");
                 if(rs.next()){

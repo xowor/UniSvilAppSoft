@@ -68,11 +68,19 @@ public final class AlberoIpotesi extends JTree{
         
         // root
         private NodoIpotesi(Ipotesi ip){
-            this.parent = 0;
             this.parentNodo = null;
+            this.parent = 0;
             this.ipotesi = ip;
             idCounter++;
             this.listaFigli = new ArrayList<>();
+            ArrayList<Integer> tmp = ip.getFigli();
+            int ses = ip.getSessione();
+            if(!tmp.isEmpty()){
+                for(Integer idNewIp : tmp){
+                    Ipotesi temp = DBManager.getIpotesi(ses, idNewIp);
+                    this.listaFigli.add(new NodoIpotesi(temp, this));
+                }
+            }
         }
         
         // nuovo nodo ipotesi
@@ -83,7 +91,6 @@ public final class AlberoIpotesi extends JTree{
             this.listaFigli = new ArrayList<>();
             ArrayList<Integer> tmp = ip.getFigli();
             int ses = ip.getSessione();
-            int alb = ip.getAlbero();
             if(!tmp.isEmpty()){
                 for(Integer idNewIp : tmp){
                     Ipotesi temp = DBManager.getIpotesi(ses, idNewIp);
