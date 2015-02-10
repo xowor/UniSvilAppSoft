@@ -2,12 +2,11 @@ package SistemaSupporto;
 
 import Elementi.Alfabeto;
 import Elementi.Frequenze;
-import Elementi.messaggi.Messaggio;
 import java.util.HashMap;
 
 public class AnalisiFrequenze implements Supporto{
     
-    public static Frequenze getFrequenzeTesto(String testoCifrato, Alfabeto alfabeto){
+    public Frequenze getFrequenzeTesto(String testoCifrato, Alfabeto alfabeto){
         HashMap<String,Integer> map = new HashMap();
         
         // chiave hashmap -> lettera alfabeto

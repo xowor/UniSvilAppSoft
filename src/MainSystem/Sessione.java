@@ -6,13 +6,10 @@ import static MainSystem.DBManager.st;
 import Elementi.Studente;
 import Elementi.messaggi.Messaggio;
 import SistemaSupporto.Supporto;
-import SistemaCifratura.SistemaDiCifratura;
 import SistemaSupporto.AnalisiFrequenze;
 import SistemaSupporto.Dizionario;
-import controllers.CommunicationController;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -20,17 +17,10 @@ public class Sessione {
     
     private int idSessione;
     private Studente studente;
-    private Sessione sessione;
     private AlberoIpotesi alberoIpotesi;
     private Ipotesi ipotesiCorrente;
     private Messaggio messaggio;
     private Alfabeto alfabeto;
-    //private int idAlbero;
-    //private int idIpotesiCorrente;
-    //private Messaggio messaggioOriginaleCifrato;
-    //private AlberoIpotesi alberoIpotesi;
-    //private ArrayList<Supporto> strumentoSupporto;
-//    private ArrayList<SistemaDiCifratura> sistemaCifratura;
     
     // Sessione iniziale senza aver ancora deciso cosa decifrare
     public Sessione(Studente studente, int idSes){
@@ -42,9 +32,6 @@ public class Sessione {
     public Sessione(int idSes, Studente studente, int idAlb, int idMessaggioCifrato){
         this.studente = studente;
         this.idSessione = idSes;
-//        this.idAlbero = idAlb;    
-//        this.alberoIpotesi = DBManager.getAlberoIpotesi(idSes);
-//        this.messaggioOriginaleCifrato = CommunicationController.visualizzaMessaggioInviato(idMessaggioCifrato);
     }
     
     // pre: cosa sostituire
@@ -53,24 +40,11 @@ public class Sessione {
         return testo.replace(pre, post);
     }
     
-//    public void setSupporto(){
-//        this.strumentoSupporto = null;
-//    }
-//    
-//    public void setAlberoIpotesi(String testo){
-//        this.alberoIpotesi = new AlberoIpotesi(this.idSessione, messaggioOriginaleCifrato.getTestoCifrato(), testo);
-//    
-//    }
-    
     public static boolean verificaSoluzione(Messaggio messaggio, String soluzioneSpia){
         if(messaggio.getTesto().equals(soluzioneSpia))
             return true;
         return false;
     }
-    
-//    public void setSistemaCifratura(Studente id){
-//        this.sistemaCifratura = DBManager.elencaSistemiCifratura(id);
-//    }
     
     public Studente getStudente(){
         return this.studente;
@@ -123,7 +97,7 @@ public class Sessione {
     }
     
     public static void terminaSessione(Studente studente){
-        esegui("UPDATE sessione SET terminata='true' WHERE idStudente='"+studente.getId()+"' AND terminata='true'", st);
+        esegui("UPDATE sessione SET terminata='true' WHERE idStudente="+studente.getId()+" AND terminata='false'", st);
     }
     
     public static Sessione getOrInsertSessione(Studente studente){
@@ -180,20 +154,6 @@ public class Sessione {
      */
     public void setStudente(Studente studente) {
         this.studente = studente;
-    }
-
-    /**
-     * @return the sessione
-     */
-    public Sessione getSessione() {
-        return sessione;
-    }
-
-    /**
-     * @param sessione the sessione to set
-     */
-    public void setSessione(Sessione sessione) {
-        this.sessione = sessione;
     }
 
     /**

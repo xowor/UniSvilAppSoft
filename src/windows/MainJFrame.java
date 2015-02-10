@@ -4,6 +4,7 @@ import Elementi.Studente;
 import Elementi.messaggi.Messaggio;
 import MainSystem.DBManager;
 import MainSystem.AlberoIpotesi;
+import MainSystem.AlberoIpotesi.NodoIpotesi;
 import MainSystem.Ipotesi;
 import MainSystem.Sessione;
 import MainSystem.Sostituzione;
@@ -79,8 +80,8 @@ public class MainJFrame extends javax.swing.JFrame {
         jScrollPane4 = new javax.swing.JScrollPane();
         ipotesiJTextPane = new javax.swing.JTextPane();
         mostraAlfabetoJButton = new javax.swing.JButton();
-        soluzioneJButton = new javax.swing.JButton();
         soluzioneJLabel = new javax.swing.JLabel();
+        soluzioneJButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("CryptoHelper");
@@ -191,7 +192,7 @@ public class MainJFrame extends javax.swing.JFrame {
         IpotesiJPanelLayout.setVerticalGroup(
             IpotesiJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(IpotesiJPanelLayout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 454, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 493, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
                 .addGroup(IpotesiJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
@@ -235,7 +236,9 @@ public class MainJFrame extends javax.swing.JFrame {
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 213, Short.MAX_VALUE)
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 215, Short.MAX_VALUE)
+                .addGap(31, 31, 31))
         );
 
         jSplitPane2.setRightComponent(jPanel6);
@@ -247,14 +250,14 @@ public class MainJFrame extends javax.swing.JFrame {
             }
         });
 
+        soluzioneJLabel.setText(" ");
+
         soluzioneJButton.setText("Soluzione");
         soluzioneJButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 soluzioneJButtonActionPerformed(evt);
             }
         });
-
-        soluzioneJLabel.setText(" ");
 
         javax.swing.GroupLayout RightJPanelLayout = new javax.swing.GroupLayout(RightJPanel);
         RightJPanel.setLayout(RightJPanelLayout);
@@ -276,8 +279,8 @@ public class MainJFrame extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(RightJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(mostraAlfabetoJButton)
-                    .addComponent(soluzioneJButton)
-                    .addComponent(soluzioneJLabel)))
+                    .addComponent(soluzioneJLabel)
+                    .addComponent(soluzioneJButton)))
         );
 
         contentJSplitPane.setRightComponent(RightJPanel);
@@ -349,8 +352,10 @@ public class MainJFrame extends javax.swing.JFrame {
 
     private void rimuoviIpotesiJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rimuoviIpotesiJButtonActionPerformed
         AlberoIpotesi.NodoIpotesi nodoIpotesi = (AlberoIpotesi.NodoIpotesi) this.ipotesiJTree.getLastSelectedPathComponent();
-        ((AlberoIpotesi.NodoIpotesi) nodoIpotesi.getParent()).eliminaIpotesi(nodoIpotesi);
-        
+        NodoIpotesi parent = ((AlberoIpotesi.NodoIpotesi) nodoIpotesi.getParent());
+        if(parent != null){
+            parent.eliminaIpotesi(nodoIpotesi);
+        }
         DefaultTreeModel model = (DefaultTreeModel)ipotesiJTree.getModel();
         model.reload(); 
     }//GEN-LAST:event_rimuoviIpotesiJButtonActionPerformed
@@ -433,6 +438,7 @@ public class MainJFrame extends javax.swing.JFrame {
     private void soluzioneJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_soluzioneJButtonActionPerformed
         if (this.sessione.getMessaggio().getTesto().equals(this.sessione.getIpotesiCorrente().getTestoParzialmenteDecifrato())){
             this.soluzioneJLabel.setText("Soluzione corretta");
+            this.sessione.terminaSessione(this.sessione.getStudente());
         } else {
             this.soluzioneJLabel.setText("Soluzione errata");
         }
@@ -457,8 +463,8 @@ public class MainJFrame extends javax.swing.JFrame {
     }
     
     public void mostraMessaggio(Messaggio messaggio){
-        this.sessione.setMessaggio( messaggio );
         if (messaggio != null && messaggio.getTesto() != null){
+            this.sessione.setMessaggio( messaggio );
             this.sessione.setAlfabeto( new Alfabeto(this.sessione.getMessaggio().getLocale()) );
             this.testoCifratoJTextPane.setText(messaggio.getTestoCifrato());
             //int idAlberoTmp = DBManager.getIdAlbero(this.sessione.getId());

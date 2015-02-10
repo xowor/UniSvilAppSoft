@@ -70,6 +70,7 @@ public final class AlberoIpotesi extends JTree{
             this.ipotesi = ip;
             idCounter++;
             this.listaFigli = new ArrayList<>();
+            this.nodoPadre = padre;
             ArrayList<Integer> tmp = ip.getFigli();
             int ses = ip.getSessione();
             if(!tmp.isEmpty()){
@@ -96,10 +97,10 @@ public final class AlberoIpotesi extends JTree{
         }
         
         public void eliminaIpotesi(NodoIpotesi nodo){
-            //Ipotesi tmp = DBManager.getIpotesi(this.ipotesi.getParent(), idSessione, idAlbero);
-            //NodoIpotesi temp = new NodoIpotesi(tmp, this);
-            this.listaFigli.remove(nodo);
-            //nodo.ipotesi.rimuoviIpotesi();
+            if(nodo.getPadre() >= 0){
+                DBManager.rimuoviIpotesi(this.ipotesi.getSessione(), nodo.ipotesi.getId());
+                this.listaFigli.remove(nodo);
+            }
         }
         
         public Ipotesi getIpotesi(){
