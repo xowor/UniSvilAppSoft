@@ -27,7 +27,7 @@ public class AggiungiIpotesiJFrame extends javax.swing.JDialog {
     /**
      * Creates new form AggiungiIpotesiJFrame
      */
-    public AggiungiIpotesiJFrame(Sessione sessione, DBManager dbManager) {
+    public AggiungiIpotesiJFrame(Sessione sessione, Sostituzione sostituzione, DBManager dbManager) {
         this.sessione = sessione;
         this.sostituzione = sostituzione;
         this.messaggio = sessione.getMessaggio().getTestoCifrato();

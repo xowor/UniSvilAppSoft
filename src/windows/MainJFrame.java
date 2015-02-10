@@ -336,7 +336,7 @@ public class MainJFrame extends javax.swing.JFrame {
     
     private void aggiungiIpotesiJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aggiungiIpotesiJButtonActionPerformed
         Sostituzione sostituzione = new Sostituzione(this.sessione.getIpotesiCorrente().getTestoParzialmenteDecifrato());
-        windows.AggiungiIpotesiJFrame frame = new windows.AggiungiIpotesiJFrame(this.sessione, this.dbManager);
+        windows.AggiungiIpotesiJFrame frame = new windows.AggiungiIpotesiJFrame(this.sessione, sostituzione, this.dbManager);
         frame.addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosed(WindowEvent e) {
